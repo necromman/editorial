@@ -403,7 +403,7 @@
 
   <footer class="site-footer">
     <div class="visitor-count" id="visitorCount">
-      <span id="visitorNum" style="font-size:1.1rem;font-weight:600;color:var(--fg);letter-spacing:0">0</span>
+      <span id="visitorNum" data-goatcounter-visits="TOTAL" style="font-size:1.1rem;font-weight:600;color:var(--fg);letter-spacing:0">0</span>
     </div>
     <p>Editorial &middot; 2026</p>
   </footer>
@@ -483,20 +483,22 @@ function toggleSeries(header) {
   var numEl = document.getElementById('visitorNum');
   if (!numEl) return;
 
+  // count.js 로드 대기 → visit_count 호출 → 값 채워짐 확인
   var timer = setInterval(function() {
     if (window.goatcounter && window.goatcounter.visit_count) {
       clearInterval(timer);
-      var tmp = document.createElement('span');
-      tmp.setAttribute('data-goatcounter-visits', 'TOTAL');
-      tmp.style.display = 'none';
-      document.body.appendChild(tmp);
-      window.goatcounter.visit_count({
-        append: function() {
-          var count = parseInt(tmp.textContent, 10);
-          if (count > 0) numEl.textContent = count.toLocaleString();
-          tmp.remove();
+      numEl.textContent = '';
+      window.goatcounter.visit_count();
+      // visit_count가 비동기로 값을 채우므로, 값이 들어올 때까지 확인
+      var check = setInterval(function() {
+        if (numEl.textContent && numEl.textContent !== '0') {
+          clearInterval(check);
         }
-      });
+      }, 300);
+      setTimeout(function() {
+        clearInterval(check);
+        if (!numEl.textContent) numEl.textContent = '0';
+      }, 4000);
     }
   }, 200);
 
