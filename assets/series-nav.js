@@ -30,6 +30,27 @@
         { slug: 'developer-survival-playbook', title: '개발자 생존 플레이북' },
         { slug: 'developer-identity-in-ai-era', title: 'AI 시대, 개발자라는 정체성' }
       ]
+    },
+    'vibe-coding-series': {
+      label: 'Series 04',
+      title: '그래서 바이브 코딩은 뭘로 해야 되는데?',
+      articles: [
+        { slug: 'what-is-vibe-coding', title: '코드를 잊어버려라' },
+        { slug: 'vibe-coding-tools-compared', title: '결국 뭘 쓸 것인가' },
+        { slug: 'vibe-coding-survival-guide', title: '바이브 코딩의 함정' },
+        { slug: 'vibe-coding-prompt-playbook', title: '프롬프트가 반이다' },
+        { slug: 'vibe-coding-future', title: '에이전틱 엔지니어링 시대' },
+        { slug: 'claude-code-in-practice', title: '터미널 하나면 된다' }
+      ]
+    },
+    'openclaw-series': {
+      label: 'Series 05',
+      title: 'OpenClaw 해부',
+      articles: [
+        { slug: 'what-is-openclaw', title: '이름 다섯 개, 스타 18만 — OpenClaw은 대체 뭔가' },
+        { slug: 'openclaw-setup-and-reality', title: "'무료' AI 에이전트의 진짜 비용" },
+        { slug: 'openclaw-security-and-alternatives', title: '만능 열쇠를 건네기 전에' }
+      ]
     }
   };
 

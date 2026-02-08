@@ -122,5 +122,93 @@ window.CONTENT_DATA = [
         search: 'AI 시대 개발자라는 정체성 결론 마인드셋 5년 후 시나리오 문제 해결 불안 적응 네트워크'
       }
     ]
+  },
+  {
+    id: 'vibe-coding',
+    seriesNum: 4,
+    title: '그래서 바이브 코딩은 뭘로 해야 되는데?',
+    description: 'Cursor? Copilot? Claude Code? AI 코딩 도구가 넘쳐나는 시대, 뭘 써야 하는지부터 프롬프트 작성법까지. 비개발자도 이해할 수 있는 바이브 코딩 완전 가이드.',
+    articles: [
+      {
+        num: 1,
+        title: '코드를 잊어버려라',
+        role: '바이브 코딩 개념과 시장 현황 입문',
+        tag: '입문',
+        href: 'content/vibe-coding-series/what-is-vibe-coding.html',
+        search: '바이브 코딩 뭔데 입문 개념 Karpathy 카르파티 vibe coding 시장 현황 개발자 비개발자 AI 코딩'
+      },
+      {
+        num: 2,
+        title: '결국 뭘 쓸 것인가',
+        role: 'Cursor, Copilot, Claude Code 등 8개 도구 상세 비교',
+        tag: '비교분석',
+        href: 'content/vibe-coding-series/vibe-coding-tools-compared.html',
+        search: 'AI 코딩 도구 비교 Cursor Copilot Claude Code Windsurf Bolt Lovable Replit v0 가격 기능 추천'
+      },
+      {
+        num: 3,
+        title: '바이브 코딩의 함정',
+        role: '보안 결함, 비용 폭탄, 실제 사고 사례와 체크리스트',
+        tag: '실전',
+        href: 'content/vibe-coding-series/vibe-coding-survival-guide.html',
+        search: '바이브 코딩 생존 가이드 보안 결함 비용 폭탄 사고 사례 취약점 체크리스트 위험 삽질'
+      },
+      {
+        num: 4,
+        title: '프롬프트가 반이다',
+        role: '프롬프트 구조화, Before/After 예시, 규칙 파일 작성법',
+        tag: '실전',
+        href: 'content/vibe-coding-series/vibe-coding-prompt-playbook.html',
+        search: '프롬프트 플레이북 바이브 코딩 프롬프트 엔지니어링 구조화 Before After 규칙 파일 CLAUDE.md cursorrules'
+      },
+      {
+        num: 5,
+        title: '에이전틱 엔지니어링 시대',
+        role: '에이전틱 엔지니어링과 개발자 역할 재정의',
+        tag: '전망',
+        href: 'content/vibe-coding-series/vibe-coding-future.html',
+        search: '바이브 코딩 미래 에이전틱 엔지니어링 Karpathy 카르파티 개발자 역할 오케스트레이터 AI 에이전트'
+      },
+      {
+        num: 6,
+        title: '터미널 하나면 된다',
+        role: 'Claude Code 실전: PRD부터 Docker 배포까지 전 구간 워크플로우',
+        tag: '실전',
+        href: 'content/vibe-coding-series/claude-code-in-practice.html',
+        search: 'Claude Code 클로드코드 실전 PRD 배포 Docker Jenkins CLAUDE.md Skills 프롬프트 레시피 Python Java React TanStack 터미널 VS Code'
+      }
+    ]
+  },
+  {
+    id: 'openclaw',
+    seriesNum: 5,
+    title: 'OpenClaw 해부',
+    description: 'GitHub 역사상 가장 빠르게 성장한 오픈소스 AI 에이전트 OpenClaw. 5번 개명 드라마부터 보안 경고, 비용의 진실, 대안까지 완전 해부한다.',
+    articles: [
+      {
+        num: 1,
+        title: '이름 다섯 개, 스타 18만 — OpenClaw은 대체 뭔가',
+        role: '5번 개명 드라마, Moltbook 사태, 바이럴 해부',
+        tag: '해설',
+        href: 'content/openclaw-series/what-is-openclaw.html',
+        search: 'OpenClaw 오픈클로 Clawdbot Moltbot 개명 이름변경 GitHub 스타 Peter Steinberger Moltbook AI 에이전트 정체'
+      },
+      {
+        num: 2,
+        title: "'무료' AI 에이전트의 진짜 비용",
+        role: '설치 가이드, 활용 시나리오, 월 비용 분석',
+        tag: '가이드',
+        href: 'content/openclaw-series/openclaw-setup-and-reality.html',
+        search: 'OpenClaw 오픈클로 설치 세팅 비용 가격 API 토큰 월 청구서 활용법 WhatsApp Telegram 무료 오픈소스'
+      },
+      {
+        num: 3,
+        title: '만능 열쇠를 건네기 전에',
+        role: 'CVE 분석, 보안 리스크, NanoClaw·n8n 등 대안 비교',
+        tag: '분석',
+        href: 'content/openclaw-series/openclaw-security-and-alternatives.html',
+        search: 'OpenClaw 오픈클로 보안 CVE RCE 프롬프트 인젝션 CrowdStrike Trend Micro NanoClaw n8n Claude Code 대안'
+      }
+    ]
   }
 ];

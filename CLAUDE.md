@@ -126,6 +126,25 @@ editorial/
 | 03 | `developer-survival-playbook.html` | 개발자 생존 플레이북 | 실행 매뉴얼 — 신입/경력별 구체 전략 |
 | 04 | `developer-identity-in-ai-era.html` | AI 시대, 개발자라는 정체성 | 결론 — 마인드셋 전환과 미래 전망 |
 
+### 시리즈 4: 그래서 바이브 코딩은 뭘로 해야 되는데? (vibe-coding-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `what-is-vibe-coding.html` | 코드를 잊어버려라 | 입문 — 바이브 코딩 개념과 시장 현황 |
+| 02 | `vibe-coding-tools-compared.html` | 결국 뭘 쓸 것인가 | 비교분석 — 8개 도구 상세 비교 |
+| 03 | `vibe-coding-survival-guide.html` | 바이브 코딩의 함정 | 실전 — 보안 결함, 비용 폭탄, 사고 사례 |
+| 04 | `vibe-coding-prompt-playbook.html` | 프롬프트가 반이다 | 실전 — 프롬프트 구조화, Before/After 예시 |
+| 05 | `vibe-coding-future.html` | 에이전틱 엔지니어링 시대 | 전망 — 에이전틱 엔지니어링과 역할 재정의 |
+| 06 | `claude-code-in-practice.html` | 터미널 하나면 된다 | 실전 — Claude Code PRD부터 Docker 배포까지 |
+
+### 시리즈 5: OpenClaw 해부 (openclaw-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `what-is-openclaw.html` | 이름 다섯 개, 스타 18만 — OpenClaw은 대체 뭔가 | 해설 — 5번 개명 드라마, Moltbook 사태, 바이럴 해부 |
+| 02 | `openclaw-setup-and-reality.html` | '무료' AI 에이전트의 진짜 비용 | 가이드 — 설치, 활용 시나리오, 월 비용 분석 |
+| 03 | `openclaw-security-and-alternatives.html` | 만능 열쇠를 건네기 전에 | 분석 — CVE, 보안 리스크, 대안 비교 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

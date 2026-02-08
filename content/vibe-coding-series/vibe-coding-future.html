@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>에이전틱 엔지니어링 시대 — Editorial</title>
+<meta name="description" content="카르파티가 선언한 에이전틱 엔지니어링 시대. 개발자의 역할은 코드 작성자에서 오케스트레이터로 바뀐다. 바이브 코딩의 미래를 전망한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-future.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="에이전틱 엔지니어링 시대">
+<meta property="og:description" content="카르파티가 선언한 에이전틱 엔지니어링 시대. 개발자의 역할은 코드 작성자에서 오케스트레이터로 바뀐다. 바이브 코딩의 미래를 전망한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-future.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-08">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="에이전틱 엔지니어링 시대">
+<meta name="twitter:description" content="카르파티가 선언한 에이전틱 엔지니어링 시대. 개발자의 역할은 코드 작성자에서 오케스트레이터로 바뀐다. 바이브 코딩의 미래를 전망한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"에이전틱 엔지니어링 시대","description":"카르파티가 선언한 에이전틱 엔지니어링 시대. 개발자의 역할은 코드 작성자에서 오케스트레이터로 바뀐다. 바이브 코딩의 미래를 전망한다.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-future.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* EVOLUTION TIMELINE */
+  .evo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .evo-item {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+  .evo-item.current {
+    background: var(--card-bg);
+  }
+  .evo-item .e-year {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .evo-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .evo-item p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* ROLE SHIFT */
+  .role-shift {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+    margin: 40px 0;
+    padding: 32px 28px;
+    background: var(--card-bg);
+  }
+  .role-box {
+    text-align: center;
+  }
+  .role-box .r-label {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .role-box h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .role-box p {
+    font-size: 0.82rem;
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+  .role-arrow {
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* APP COLUMNS */
+  .app-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin: 40px 0;
+  }
+  .app-col .col-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+    margin-bottom: 24px;
+  }
+  .app-entry { margin-bottom: 24px; }
+  .app-entry h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .app-entry p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.75;
+  }
+
+
+  @media (max-width: 700px) {
+    .evo-grid { grid-template-columns: 1fr; }
+    .role-shift {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .role-arrow { transform: rotate(90deg); }
+    .app-columns { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Vibe Coding Guide — Article 05</div>
+    <h1><strong>에이전틱</strong><br>엔지니어링 시대</h1>
+    <p class="deck">카르파티가 만든 용어를 카르파티가 졸업시켰다.<br>바이브 코딩 이후의 세계.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>카르파티의 <strong>다음 한마디</strong></h2>
+    </div>
+
+    <p class="prose">
+      2025년 2월에 "바이브 코딩"을 만든 Andrej Karpathy는 1년도 지나지 않아 새로운 선언을 했다. <strong>"바이브 코딩은 끝나가고 있다. 에이전틱 엔지니어링의 시대가 왔다."</strong> 자기가 만든 용어를 자기가 졸업시킨 것이다.
+    </p>
+
+    <p class="prose">
+      바이브 코딩은 "AI에게 말하면 코드가 나온다"는 수동적 접근이었다. 에이전틱 엔지니어링은 다르다. <strong>AI 에이전트에게 목표를 주고, 에이전트가 스스로 계획을 세우고, 실행하고, 검증하고, 수정한다.</strong> 인간은 매 순간 지시를 내리는 것이 아니라, 전략적 판단과 최종 검수만 담당한다.
+    </p>
+
+    <div class="evo-grid">
+      <div class="evo-item">
+        <span class="e-year">2023</span>
+        <h4>코드 자동완성</h4>
+        <p>AI가 다음 줄을 예측해서 제안한다. Tab 키를 눌러 수락한다. 개발자가 모든 것을 통제한다.</p>
+      </div>
+      <div class="evo-item">
+        <span class="e-year">2025</span>
+        <h4>바이브 코딩</h4>
+        <p>AI에게 원하는 것을 말하면 전체 코드를 생성한다. 개발자는 결과만 확인한다. 코드를 "잊어버려도" 된다.</p>
+      </div>
+      <div class="evo-item current">
+        <span class="e-year">2026</span>
+        <h4>에이전틱 엔지니어링</h4>
+        <p>AI 에이전트가 목표를 받아 스스로 계획-실행-검증을 반복한다. 인간은 전략만. 워크플로의 80%가 에이전트 주도.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>바이브 코딩이 "AI에게 시키는 것"이었다면,<br>에이전틱 엔지니어링은 "AI에게 맡기는 것"이다.</p>
+    </div>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2><strong>80%</strong> 에이전트, 20% 인간</h2>
+    </div>
+
+    <p class="prose">
+      카르파티는 자신의 실제 워크플로 변화를 공유했다. 2024년까지는 코딩의 80%를 직접 하고 20%를 AI가 도왔다. 2026년 초에는 이 비율이 <strong>완전히 뒤집혔다.</strong> 80%를 AI 에이전트가 처리하고, 자신은 20%의 전략적 판단만 한다.
+    </p>
+
+    <div class="role-shift">
+      <div class="role-box">
+        <span class="r-label">2024년</span>
+        <h4>80% 수동</h4>
+        <p>개발자가 코드의 대부분을 직접 작성. AI는 자동완성과 제안 역할.</p>
+      </div>
+      <div class="role-arrow">→</div>
+      <div class="role-box">
+        <span class="r-label">2026년</span>
+        <h4>80% 에이전트</h4>
+        <p>AI 에이전트가 대부분을 처리. 개발자는 목표 설정, 리뷰, 전략적 판단.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      그는 AI 에이전트를 <strong>"지식은 풍부하지만 성격 급한 주니어 개발자"</strong>라고 묘사했다. 시키면 빠르게 해내지만, 때때로 독창적(그리고 위험한) 해석을 내놓는다. 그래서 완전한 자율은 아직 불가능하고, 인간의 감독이 필수적이다. 하지만 감독의 비중은 계속 줄어들고 있다.
+    </p>
+
+    <p class="prose">
+      Anthropic의 2026 에이전틱 코딩 트렌드 리포트도 이 방향을 뒷받침한다. Claude Code 같은 에이전틱 도구가 <strong>개발 사이클을 수 배 압축</strong>하고 있으며, 2025년에 코드 작성 방식을 바꾼 에이전틱 AI가 2026년에는 소프트웨어 개발 라이프사이클 전체를 재구성할 것이라고 전망했다.
+    </p>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>개발자의 <strong>역할 재정의</strong></h2>
+    </div>
+
+    <p class="prose">
+      에이전틱 엔지니어링 시대에 개발자의 역할은 근본적으로 달라진다. <strong>코드를 "쓰는" 사람에서 AI를 "지휘하는" 사람으로.</strong> 오케스트라에 비유하면, 개발자는 바이올린을 직접 연주하는 대신 지휘봉을 든다.
+    </p>
+
+    <div class="app-columns">
+      <div class="app-col">
+        <div class="col-title">사라지는 것</div>
+        <div class="app-entry">
+          <h4>반복적 코드 작성</h4>
+          <p>보일러플레이트, CRUD, 테스트 코드 등 패턴이 정해진 작업은 AI가 인간보다 빠르고 정확하게 처리한다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>문법 암기의 가치</h4>
+          <p>"Python의 리스트 컴프리헨션 문법이 뭐였지?"를 외울 필요가 없다. AI에게 의도를 말하면 된다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>단순 버그 수정</h4>
+          <p>에러 메시지를 읽고 원인을 찾는 작업은 AI가 더 빠르다. 스택 트레이스를 복사해서 붙여넣으면 된다.</p>
+        </div>
+      </div>
+      <div class="app-col">
+        <div class="col-title">남는 것</div>
+        <div class="app-entry">
+          <h4>시스템 설계</h4>
+          <p>전체 아키텍처를 결정하고, 기술 스택을 선택하고, 확장성을 설계하는 능력. AI는 부분을 만들지만 전체를 보지 못한다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>비즈니스 맥락 이해</h4>
+          <p>"무엇을 만들어야 하는가"를 결정하는 능력. 기술적으로 가능한 것과 비즈니스적으로 가치 있는 것은 다르다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>AI 품질 관리</h4>
+          <p>AI가 만든 코드를 리뷰하고, 보안 결함을 잡고, 성능을 최적화하는 능력. 45%의 결함률을 관리할 사람이 필요하다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>비개발자에게 <strong>열리는 문</strong></h2>
+    </div>
+
+    <p class="prose">
+      바이브 코딩의 가장 큰 사회적 영향은 <strong>프로그래밍의 진입장벽이 낮아진 것</strong>이다. 예전에는 코딩을 배우려면 최소 6개월의 학습이 필요했다. 지금은 Replit을 열고 "할 일 관리 앱 만들어줘"라고 말하면 10분 만에 작동하는 앱이 나온다.
+    </p>
+
+    <p class="prose">
+      하지만 <strong>"만들 수 있다"와 "제대로 만들 수 있다"는 여전히 다른 문제</strong>다. Lovable로 MVP를 만들어서 고객 피드백을 받는 것까지는 비개발자도 할 수 있다. 하지만 그 MVP가 1만 명의 사용자를 감당하려면, 데이터베이스 설계, 서버 확장, 보안 감사 같은 전문 영역이 필요하다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Level 01</div>
+        <h3>프로토타입</h3>
+        <p>아이디어를 검증하는 단계. Lovable, Bolt.new, Replit으로 <strong>비개발자도 혼자</strong> 가능하다. "30일이면 앱을 출시할 수 있다."</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Level 02</div>
+        <h3>MVP 출시</h3>
+        <p>실제 사용자에게 공개하는 단계. 바이브 코딩 + <strong>기본적인 보안/비용 관리 지식</strong>이 필요하다. 이 시리즈의 3편(생존 가이드)이 여기에 해당한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Level 03</div>
+        <h3>스케일업</h3>
+        <p>수천~수만 사용자를 감당하는 단계. <strong>전문 개발자의 영역</strong>. 시스템 설계, 성능 최적화, 보안 감사가 필수. 바이브 코딩만으로는 불가능.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      Gartner는 2028년까지 엔터프라이즈 소프트웨어 엔지니어의 <strong>75%</strong>가 AI 코드 어시스턴트를 사용할 것으로 예측한다. 2023년 초에는 10% 미만이었다. 이것은 역사상 가장 빠른 엔터프라이즈 기술 채택 곡선이다. 방향은 분명하다. 빠르기만 한 것이 아니라 <strong>되돌릴 수 없는 변화</strong>다.
+    </p>
+  </section>
+
+  <!-- PART 5 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2><strong>지금</strong> 시작해야 하는 이유</h2>
+    </div>
+
+    <p class="prose">
+      이 시리즈를 통해 우리는 바이브 코딩의 개념, 도구, 위험, 프롬프트 기법, 그리고 미래를 살펴봤다. 마지막으로 하고 싶은 말은 이것이다.
+    </p>
+
+    <p class="prose">
+      <strong>도구는 바뀐다.</strong> 2025년의 Cursor가 2027년에도 1등일 보장은 없다. GitHub Copilot이 영원히 가장 많은 사용자를 가질 것이라는 보장도 없다. 새로운 도구가 매달 나오고, 기존 도구는 매주 업데이트된다.
+    </p>
+
+    <p class="prose">
+      <strong>하지만 사고방식은 남는다.</strong> "원하는 것을 정확하게 설명하는 능력", "AI의 결과물을 비판적으로 검토하는 습관", "복잡한 문제를 작은 단위로 쪼개는 기술" — 이것들은 어떤 도구를 쓰든 적용된다. Cursor가 사라져도, Copilot이 바뀌어도, 이 역량은 유효하다.
+    </p>
+
+    <div class="pull-quote">
+      <p>도구를 배우지 마라.<br>도구를 <strong>다루는 방식</strong>을 배워라.</p>
+    </div>
+
+    <p class="prose">
+      카르파티의 말을 다시 빌리자면, AI 에이전트는 "지식은 풍부하지만 성격 급한 주니어 개발자"다. 이 주니어에게 방향을 잡아주고, 실수를 잡아주고, 성장시키는 것은 인간의 역할이다. 그리고 그 역할은 당신이 개발자든, 기획자든, 디자이너든, 아무 경험이 없는 사람이든 상관없이 <strong>지금 시작할 수 있다.</strong>
+    </p>
+  </section>
+
+  <div class="closing">
+    <h2>바이브는 끝났다.<br><strong>엔지니어링은 시작됐다</strong></h2>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Karpathy, A. "Agentic Engineering" (2026)<br>
+      Anthropic, 2026 Agentic Coding Trends Report<br>
+      TeamDay, From Vibe Coding to Agentic Engineering<br>
+      Gartner, Enterprise AI Code Assistant Forecast 2028<br>
+      IT Pro, AI software development 2026<br>
+      The New Stack, 5 Key Trends Shaping Agentic Development
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

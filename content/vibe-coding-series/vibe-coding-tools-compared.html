@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>결국 뭘 쓸 것인가 — Editorial</title>
+<meta name="description" content="Cursor, GitHub Copilot, Claude Code, Windsurf, Bolt, Lovable, Replit, v0. AI 코딩 도구 8종의 가격, 기능, 적합 대상을 데이터 기반으로 비교한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-tools-compared.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="결국 뭘 쓸 것인가">
+<meta property="og:description" content="Cursor, GitHub Copilot, Claude Code, Windsurf, Bolt, Lovable, Replit, v0. AI 코딩 도구 8종의 가격, 기능, 적합 대상을 데이터 기반으로 비교한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-tools-compared.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-08">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="결국 뭘 쓸 것인가">
+<meta name="twitter:description" content="Cursor, GitHub Copilot, Claude Code, Windsurf, Bolt, Lovable, Replit, v0. AI 코딩 도구 8종의 가격, 기능, 적합 대상을 데이터 기반으로 비교한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"결국 뭘 쓸 것인가","description":"Cursor, GitHub Copilot, Claude Code, Windsurf, Bolt, Lovable, Replit, v0. AI 코딩 도구 8종의 가격, 기능, 적합 대상을 데이터 기반으로 비교한다.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/vibe-coding-series/vibe-coding-tools-compared.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 520px; }
+
+  /* TOOL CARD */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  .tool-card {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .tool-card .t-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .tool-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .tool-card .t-price {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .tool-card p {
+    font-size: 0.84rem;
+    color: var(--secondary);
+    line-height: 1.75;
+  }
+  .tool-card .t-best {
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* DECISION TREE */
+  .decision {
+    border: 1px solid var(--fg);
+    padding: 32px 36px;
+    margin: 40px 0;
+  }
+  .decision .d-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .decision-list {
+    list-style: none;
+    padding: 0;
+  }
+  .decision-list li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  .decision-list li:last-child { border-bottom: none; }
+  .decision-list .d-q {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+  }
+  .decision-list .d-a {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* PRICE TABLE */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px 0;
+    font-size: 0.84rem;
+  }
+  .price-table th {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .price-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.6;
+    vertical-align: top;
+  }
+  .price-table .tool-name {
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .price-table .price-highlight {
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.82rem;
+  }
+
+
+  /* 2-column mechanism-row variant */
+  .mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+  @media (max-width: 700px) {
+    .tool-grid { grid-template-columns: 1fr; }
+    .mechanism-2col { grid-template-columns: 1fr; }
+    .decision-list li {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .price-table { font-size: 0.78rem; }
+    .price-table th, .price-table td { padding: 10px 8px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Vibe Coding Guide — Article 02</div>
+    <h1>결국 뭘<br><strong>쓸 것인가</strong></h1>
+    <p class="deck">Cursor, Copilot, Claude Code, Windsurf,<br>Bolt, Lovable, Replit, v0. AI 코딩 도구 8종 해부.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>도구의 <strong>두 세계</strong></h2>
+    </div>
+
+    <p class="prose">
+      AI 코딩 도구를 하나로 묶어서 비교하는 것은 "자동차와 택시 중 뭐가 나아?"라고 묻는 것과 같다. 직접 운전하느냐, 목적지만 말하느냐의 차이다. AI 코딩 도구도 크게 <strong>두 세계</strong>로 나뉜다.
+    </p>
+
+    <div class="mechanism-row mechanism-2col">
+      <div class="mechanism">
+        <div class="m-label">Category A</div>
+        <h3>IDE/에디터형</h3>
+        <p>기존 코드 에디터에 AI를 탑재한 도구. <strong>코드를 읽을 줄 아는 사람</strong>이 대상이다. Cursor, GitHub Copilot, Windsurf, Claude Code가 여기에 속한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Category B</div>
+        <h3>앱 빌더형</h3>
+        <p>코드를 보여주지 않고 <strong>결과물만 보여주는</strong> 도구. 비개발자도 쓸 수 있다. Bolt.new, Lovable, Replit, v0가 여기에 속한다.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      어떤 세계의 도구를 쓸지는 당신이 누구냐에 달려 있다. 코드를 읽을 줄 아는 개발자라면 IDE형 도구가 훨씬 강력하다. 프로그래밍 경험이 없지만 아이디어를 앱으로 만들고 싶은 사람이라면 앱 빌더형이 맞다. 두 세계를 따로 뜯어보자.
+    </p>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2><strong>IDE형</strong> 4종 비교</h2>
+    </div>
+
+    <p class="prose">
+      IDE형 도구는 모두 <strong>VS Code</strong>라는 코드 에디터를 기반으로 한다. 마이크로소프트가 만든 무료 에디터인데, 전 세계 개발자의 73%가 사용한다. 이 에디터에 AI 능력을 얹는 방식이 도구마다 다르다.
+    </p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <span class="t-label">IDE Type</span>
+        <h4>Cursor</h4>
+        <span class="t-price">무료 / $20 / $60 / $200/월</span>
+        <p>VS Code를 통째로 복제(fork)해서 AI를 심층 통합한 에디터. Agent 모드로 여러 파일을 동시에 수정하고, 프로젝트 전체 맥락을 이해한다. 일일 활성 사용자 <strong>100만+</strong>.</p>
+        <div class="t-best">개인 개발자, 소규모 팀. "AI 코딩의 체감 속도"를 원한다면.</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">IDE Type</span>
+        <h4>GitHub Copilot</h4>
+        <span class="t-price">무료 / $10 / $39/월</span>
+        <p>마이크로소프트가 만든 원조 AI 코딩 도구. VS Code, JetBrains, Neovim 등 거의 모든 에디터에서 작동한다. 전체 사용자 <strong>2,000만+</strong>. GPT-5, Claude Opus 4 등 최신 모델 지원.</p>
+        <div class="t-best">범용 개발자, 이미 VS Code를 쓰는 사람. "가장 안전한 선택".</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">IDE Type</span>
+        <h4>Windsurf</h4>
+        <span class="t-price">무료 / $15 / $30/월</span>
+        <p>Codeium에서 만든 AI IDE. Cascade라는 에이전트가 여러 단계의 작업을 계획하고 실행한다. 엔터프라이즈급 보안(Zero-Data Sovereignty)이 강점. 코드가 로컬을 벗어나지 않는 옵션 제공.</p>
+        <div class="t-best">보안이 중요한 기업. "데이터가 밖으로 나가면 안 되는" 환경.</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">CLI Type</span>
+        <h4>Claude Code</h4>
+        <span class="t-price">$20 ~ $200/월 (Max)</span>
+        <p>Anthropic이 만든 터미널 기반 AI 에이전트. GUI 에디터가 아니라 <strong>터미널에서 대화</strong>하며 코딩한다. 벤치마크 정확도 <strong>80.9%</strong>로 최고 수준. 다른 도구 대비 코드 재작업 30% 적음.</p>
+        <div class="t-best">시니어 개발자. "정확도와 깊이 있는 분석"을 원한다면.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>Cursor는 속도, Copilot은 범용성, Windsurf는 보안, Claude Code는 정확도.</p>
+      <div class="attr">Core Trade-offs</div>
+    </div>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2><strong>앱 빌더형</strong> 4종 비교</h2>
+    </div>
+
+    <p class="prose">
+      앱 빌더형 도구는 <strong>코드를 전혀 몰라도</strong> 작동하는 앱을 만들 수 있게 해준다. 채팅으로 원하는 걸 설명하면 AI가 코드를 짜고, 화면을 그리고, 심지어 배포까지 해준다. 다만 각 도구의 철학과 강점이 다르다.
+    </p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <span class="t-label">App Builder</span>
+        <h4>Bolt.new</h4>
+        <span class="t-price">무료 / 오픈소스</span>
+        <p>브라우저 안에서 모든 것이 돌아간다. WebContainer 기술로 밀리초 만에 개발 환경이 부팅된다. React, Vue, Svelte 등 프레임워크 선택의 자유가 가장 넓다. 오픈소스라 커스텀도 가능.</p>
+        <div class="t-best">빠른 프로토타이핑. "5분 안에 뭔가 돌아가는 걸 보고 싶다면".</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">App Builder</span>
+        <h4>Lovable</h4>
+        <span class="t-price">무료 / $25~39/월</span>
+        <p>채팅으로 대화하면 풀스택 앱이 만들어진다. <strong>"시니어 개발자와 대화하는 느낌"</strong>이라는 평가가 많다. Supabase(데이터베이스)와 Stripe(결제) 통합이 매끄러워서 실제 수익을 내는 앱까지 가능.</p>
+        <div class="t-best">비기술 창업자. "아이디어를 몇 시간 만에 MVP로 만들고 싶다면".</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">App Builder</span>
+        <h4>Replit</h4>
+        <span class="t-price">무료 / $25/월</span>
+        <p>클라우드 기반 IDE + AI Agent. 30개 이상의 외부 서비스와 통합되고, 코드 작성부터 배포까지 한 곳에서 끝난다. <strong>3,000만 명</strong>의 커뮤니티. 학습용으로도 최적.</p>
+        <div class="t-best">입문자, 학생. "코딩을 배우면서 동시에 만들고 싶다면".</div>
+      </div>
+      <div class="tool-card">
+        <span class="t-label">App Builder</span>
+        <h4>v0 (Vercel)</h4>
+        <span class="t-price">무료 / $39/월</span>
+        <p>Next.js에 특화된 AI 앱 빌더. UI가 <strong>가장 아름답다</strong>는 평가를 받는다. 빌트인 데이터베이스를 제공하고, 배포까지의 흐름이 가장 매끄럽다. 다만 Next.js 생태계에 묶인다.</p>
+        <div class="t-best">디자인 감각이 있는 개발자. "예쁜 웹앱을 빠르게 만들고 싶다면".</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>"나는 ___인데, <strong>뭘 써야 해?</strong>"</h2>
+    </div>
+
+    <p class="prose">
+      도구의 스펙을 외워도 결국 선택은 <strong>"나는 누구고, 뭘 만들려는가"</strong>에 달려 있다. 아래 의사결정 가이드를 따라가면 된다.
+    </p>
+
+    <div class="decision">
+      <div class="d-title">의사결정 가이드</div>
+      <ul class="decision-list">
+        <li>
+          <span class="d-q">프로그래밍 경험이 전혀 없고, 앱 아이디어를 구현하고 싶다</span>
+          <span class="d-a">Lovable / Replit</span>
+        </li>
+        <li>
+          <span class="d-q">코딩을 배우면서 동시에 프로젝트를 만들고 싶다</span>
+          <span class="d-a">Replit</span>
+        </li>
+        <li>
+          <span class="d-q">5분 안에 프로토타입을 보고 싶고, 돈은 안 쓰고 싶다</span>
+          <span class="d-a">Bolt.new</span>
+        </li>
+        <li>
+          <span class="d-q">Next.js로 예쁜 웹사이트를 빠르게 만들고 싶다</span>
+          <span class="d-a">v0</span>
+        </li>
+        <li>
+          <span class="d-q">주니어~미드 개발자이고, AI로 생산성을 올리고 싶다</span>
+          <span class="d-a">Cursor / Copilot</span>
+        </li>
+        <li>
+          <span class="d-q">이미 VS Code를 쓰고 있고, 가장 무난한 선택을 원한다</span>
+          <span class="d-a">GitHub Copilot</span>
+        </li>
+        <li>
+          <span class="d-q">멀티파일 리팩토링, 복잡한 프로젝트를 AI에게 맡기고 싶다</span>
+          <span class="d-a">Cursor</span>
+        </li>
+        <li>
+          <span class="d-q">시니어 개발자이고, 터미널에서 정확한 코드를 원한다</span>
+          <span class="d-a">Claude Code</span>
+        </li>
+        <li>
+          <span class="d-q">기업 환경이고, 코드가 외부로 나가면 안 된다</span>
+          <span class="d-a">Windsurf</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PART 5 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2>가격의 <strong>진실</strong></h2>
+    </div>
+
+    <p class="prose">
+      "무료"라는 말에 속으면 안 된다. 대부분의 AI 코딩 도구는 무료 티어의 제한이 엄격하다. 실제로 일하려면 유료 구독이 필요하고, 일부 도구는 사용량에 따라 <strong>추가 요금</strong>이 붙는다.
+    </p>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>도구</th>
+          <th>무료</th>
+          <th>유료 시작</th>
+          <th>숨겨진 비용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tool-name">Cursor</td>
+          <td>50회/월 제한</td>
+          <td class="price-highlight">$20/월</td>
+          <td>$60 Pro+ 안 쓰면 Agent 기능 제한</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Copilot</td>
+          <td>월 한도 있음</td>
+          <td class="price-highlight">$10/월</td>
+          <td>$39 Pro+ 안 쓰면 최신 모델 제한</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Windsurf</td>
+          <td>25 크레딧/월</td>
+          <td class="price-highlight">$15/월</td>
+          <td>크레딧 소진 시 추가 구매 필요</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Claude Code</td>
+          <td>없음</td>
+          <td class="price-highlight">$20/월</td>
+          <td>토큰 사용량 기반, 과금 예측 어려움</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Bolt.new</td>
+          <td>있음 (오픈소스)</td>
+          <td class="price-highlight">무료</td>
+          <td>호스팅/배포는 별도</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Lovable</td>
+          <td>있음 (제한적)</td>
+          <td class="price-highlight">$25/월</td>
+          <td>Supabase, Stripe 등 외부 서비스 비용</td>
+        </tr>
+        <tr>
+          <td class="tool-name">Replit</td>
+          <td>있음</td>
+          <td class="price-highlight">$25/월</td>
+          <td>컴퓨팅 크레딧 소진 시 추가 비용</td>
+        </tr>
+        <tr>
+          <td class="tool-name">v0</td>
+          <td>있음 (제한적)</td>
+          <td class="price-highlight">$39/월</td>
+          <td>Vercel 호스팅 비용 별도</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="prose">
+      2025년 6월, Cursor는 가격 체계를 전면 개편했다. 고정 월정액에서 <strong>"기본 크레딧 + 초과 사용 과금"</strong> 모델로 바꿨다. 이 변화는 업계 전체의 방향을 보여준다. AI 모델을 돌리는 비용이 만만치 않기 때문에, "무제한"이라고 쓰고 "제한적"으로 읽어야 하는 시대가 됐다.
+    </p>
+
+    <div class="warning-box">
+      <div class="w-title">비용 관련 주의사항</div>
+      <ol class="warning-list">
+        <li>무료 티어로 충분한지 반드시 먼저 테스트한다. 대부분 2~3일이면 한도에 도달한다.</li>
+        <li>API 기반 도구(Claude Code 등)는 월별 사용량 알림을 설정한다. 프롬프트 한 줄 수정으로 11일 만에 $11,000가 청구된 사례가 있다.</li>
+        <li>"월 $20"은 도구 비용만이다. 배포, 데이터베이스, 도메인 등 인프라 비용은 별도다.</li>
+        <li>연간 결제 시 20% 할인이 일반적이지만, 도구를 바꾸고 싶을 때 묶이는 리스크가 있다.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="closing">
+    <h2>정답은 없다.<br><strong>맥락이 있을 뿐이다</strong></h2>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Builder.io, Cursor vs Windsurf vs GitHub Copilot (2026)<br>
+      Better Stack, GitHub Copilot vs Cursor vs Windsurf Comparison<br>
+      Cursor Official Pricing (cursor.com/pricing)<br>
+      GitHub Copilot Plans (github.com/features/copilot/plans)<br>
+      Windsurf Official Pricing (windsurf.com/pricing)<br>
+      Technically, 2026 Vibe Coding Tool Comparison<br>
+      GetMocha, Best AI App Builder 2026
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

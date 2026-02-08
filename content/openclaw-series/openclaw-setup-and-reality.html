@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>'무료' AI 에이전트의 진짜 비용 — OpenClaw 실전 리포트 — Editorial</title>
+<meta name="description" content="OpenClaw은 무료 오픈소스다. 하지만 월 청구서는 $10에서 $3,600까지 열려 있다. 설치, 활용, 비용, 그리고 안 써도 되는 이유까지 솔직한 실전 리포트.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/openclaw-series/openclaw-setup-and-reality.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="'무료' AI 에이전트의 진짜 비용 — OpenClaw 실전 리포트">
+<meta property="og:description" content="OpenClaw은 무료 오픈소스다. 하지만 월 청구서는 $10에서 $3,600까지 열려 있다. 설치, 활용, 비용, 그리고 안 써도 되는 이유까지.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/openclaw-series/openclaw-setup-and-reality.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-08">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="'무료' AI 에이전트의 진짜 비용 — OpenClaw 실전 리포트">
+<meta name="twitter:description" content="OpenClaw은 무료 오픈소스다. 하지만 월 청구서는 $10에서 $3,600까지 열려 있다. 설치, 활용, 비용, 그리고 안 써도 되는 이유까지.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"'무료' AI 에이전트의 진짜 비용 — OpenClaw 실전 리포트","description":"OpenClaw은 무료 오픈소스다. 하지만 월 청구서는 $10에서 $3,600까지 열려 있다. 설치, 활용, 비용, 그리고 안 써도 되는 이유까지 솔직한 실전 리포트.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/openclaw-series/openclaw-setup-and-reality.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 500px; }
+
+  /* SETUP STEPS */
+  .setup-steps {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .setup-steps li {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    background: var(--bg);
+  }
+  .setup-steps .s-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 20px 12px;
+    text-align: center;
+    background: var(--card-bg);
+  }
+  .setup-steps .s-desc {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 20px 24px;
+  }
+  .setup-steps .s-desc strong { font-weight: 700; color: var(--fg); }
+  .setup-steps .s-desc code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    background: var(--card-bg);
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+  }
+
+  /* COST TIERS */
+  .cost-tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .cost-tier {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .cost-tier.is-warn { background: var(--card-bg); }
+  .cost-tier .tier-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .cost-tier .tier-price {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--fg);
+    line-height: 1.1;
+  }
+  .cost-tier.is-warn .tier-price { color: var(--accent); }
+  .cost-tier .tier-sub {
+    font-size: 0.78rem;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* APP COLUMNS */
+  .app-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin: 40px 0;
+  }
+  .app-col .col-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+    margin-bottom: 24px;
+  }
+  .app-entry { margin-bottom: 24px; }
+  .app-entry h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .app-entry p { font-size: 0.85rem; color: var(--secondary); line-height: 1.75; }
+
+  @media (max-width: 700px) {
+    .cost-tiers { grid-template-columns: 1fr 1fr; }
+    .app-columns { grid-template-columns: 1fr; gap: 32px; }
+    .setup-steps li { grid-template-columns: 44px 1fr; }
+    .setup-steps .s-num { font-size: 0.75rem; padding: 16px 8px; }
+    .setup-steps .s-desc { padding: 16px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">OpenClaw Report — Article 02</div>
+    <h1>'무료' AI 에이전트의<br><strong>진짜 비용</strong></h1>
+    <p class="deck">오픈소스는 무료다. 월 청구서는 아니다.<br>설치부터 비용까지, OpenClaw 실전 리포트.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>설치: <strong>5분이면 된다</strong></h2>
+    </div>
+
+    <p class="prose">
+      OpenClaw의 설치는 놀라울 정도로 간단하다. 원라인 명령어 하나면 끝난다. macOS, Windows, Linux 모두 지원한다. 그 이후가 문제다.
+    </p>
+
+    <ul class="setup-steps">
+      <li>
+        <span class="s-num">01</span>
+        <div class="s-desc"><strong>설치</strong> — <code>curl -fsSL https://openclaw.ai/install.sh | bash</code> 또는 <code>npm i -g openclaw</code>. 1분이면 끝난다.</div>
+      </li>
+      <li>
+        <span class="s-num">02</span>
+        <div class="s-desc"><strong>온보딩</strong> — <code>openclaw onboard --install-daemon</code>. 설정 마법사가 실행된다. AI 모델 선택(Claude, GPT, DeepSeek), API 키 입력.</div>
+      </li>
+      <li>
+        <span class="s-num">03</span>
+        <div class="s-desc"><strong>채널 연결</strong> — WhatsApp, Telegram, Discord, Slack 중 사용할 메신저를 페어링한다. QR 코드 스캔 또는 봇 토큰 입력.</div>
+      </li>
+      <li>
+        <span class="s-num">04</span>
+        <div class="s-desc"><strong>게이트웨이 시작</strong> — 데몬이 백그라운드에서 상주한다. 메신저로 첫 메시지를 보내면 준비 완료.</div>
+      </li>
+    </ul>
+
+    <p class="prose">
+      여기까지가 공식 문서에 나오는 "5분 설치"다. 실제로는 API 키 발급, 모델 선택, 채널 페어링 트러블슈팅까지 합치면 <strong>30분에서 1시간</strong>이 현실적이다. 봇이 답을 안 하거나 연결이 불안정할 때는 "게이트웨이 → 채널 → 페어링 → 인증" 순서로 확인해야 한다. 바이럴 TikTok 영상이 말하지 않는 부분이다.
+    </p>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>활용: <strong>진짜 되는 것</strong>과 이론상 되는 것</h2>
+    </div>
+
+    <p class="prose">
+      OpenClaw의 데모 영상은 마법처럼 보인다. "이메일 정리해줘" 하면 받은편지함이 분류되고, "내일 비행기 체크인해줘" 하면 탑승권이 도착한다. 이론적으로 맞는 말이다. 문제는 <strong>"이론적으로"</strong>라는 단서다.
+    </p>
+
+    <div class="app-columns">
+      <div class="app-col">
+        <div class="col-title">잘 되는 것</div>
+
+        <div class="app-entry">
+          <h4>파일 정리 &amp; 분류</h4>
+          <p>다운로드 폴더 정리, 확장자별 분류, PDF 요약. 로컬 파일 시스템 작업은 가장 안정적인 영역이다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>텍스트 기반 작업</h4>
+          <p>이메일 초안 작성, 그룹 채팅 요약, 번역, 노트 정리. AI 모델의 본업이라 신뢰도가 높다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>리서치 &amp; 데이터 수집</h4>
+          <p>웹 검색 후 요약, 가격 모니터링, RSS 구독 관리. 정보 수집과 정리에 강하다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>크론 작업 &amp; 알림</h4>
+          <p>"매일 아침 8시에 뉴스 브리핑" 같은 반복 작업. 한 번 설정하면 자동 동작한다.</p>
+        </div>
+      </div>
+
+      <div class="app-col">
+        <div class="col-title">기대보다 아쉬운 것</div>
+
+        <div class="app-entry">
+          <h4>웹 자동화 (폼 입력)</h4>
+          <p>로그인, CAPTCHA, 2FA가 걸리면 멈춘다. "항공편 체크인"은 항공사 사이트 구조에 따라 성공률이 달라진다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>복잡한 멀티스텝 작업</h4>
+          <p>"이메일 읽고 → 일정 잡고 → 참석자에게 알림" 같은 3단계 이상 체인은 중간에 실패 확률이 높다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>정밀한 스프레드시트 작업</h4>
+          <p>Google Sheets 수식 입력, 피벗 테이블 생성 등. 단순 데이터 입력은 되지만 복잡한 조작은 불안정하다.</p>
+        </div>
+        <div class="app-entry">
+          <h4>"알아서 해줘" 류의 모호한 요청</h4>
+          <p>명확한 지시에 강하고, 모호한 요청에 약하다. AI 에이전트지만 여전히 프롬프트 품질에 의존한다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>데모 영상에서는 마법이다.<br>실전에서는 <strong>"될 때도 있고 안 될 때도 있다"</strong>다.</p>
+      <div class="attr">The Demo Gap</div>
+    </div>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>비용의 <strong>진실</strong></h2>
+    </div>
+
+    <p class="prose">
+      OpenClaw은 <strong>무료 오픈소스</strong>다. 이 문장은 사실이다. 그리고 이 문장 때문에 많은 사람이 착각한다. OpenClaw 자체는 무료지만, OpenClaw이 사용하는 <strong>AI 모델의 API 비용</strong>은 전적으로 사용자 부담이다. 그리고 이 비용이 상당하다.
+    </p>
+
+    <div class="cost-tiers">
+      <div class="cost-tier">
+        <span class="tier-label">가벼운 사용</span>
+        <div class="tier-price">$10~30</div>
+        <div class="tier-sub">하루 몇 개 명령<br>단순 질문, 알림</div>
+      </div>
+      <div class="cost-tier">
+        <span class="tier-label">보통 사용</span>
+        <div class="tier-price">$30~70</div>
+        <div class="tier-sub">파일 관리, 리서치<br>일상 업무 보조</div>
+      </div>
+      <div class="cost-tier">
+        <span class="tier-label">헤비 사용</span>
+        <div class="tier-price">$70~150</div>
+        <div class="tier-sub">상시 자동화<br>자동화 파이프라인</div>
+      </div>
+      <div class="cost-tier is-warn">
+        <span class="tier-label">극단적 사용</span>
+        <div class="tier-price">$3,600</div>
+        <div class="tier-sub">Federico Viticci<br>첫 달 1.8억 토큰</div>
+      </div>
+    </div>
+
+    <p class="prose">
+      비용이 폭증하는 구조적 이유가 있다. 첫째, <strong>컨텍스트 누적</strong>이다. OpenClaw은 이전 대화를 기억한다. 대화가 길어질수록 매 요청마다 전송되는 토큰 수가 기하급수적으로 증가한다. 이것이 가장 큰 비용 원인이다. 둘째, <strong>도구 출력 저장</strong>이다. 파일을 읽거나 웹 페이지를 가져올 때마다 그 결과가 컨텍스트에 추가된다. 셋째, <strong>시스템 프롬프트 재전송</strong>이다. 매 API 호출마다 OpenClaw의 동작 규칙이 포함된 긴 시스템 프롬프트가 다시 전송된다. 넷째, <strong>멀티턴 추론</strong>이다. 하나의 작업을 수행하기 위해 여러 번의 API 호출이 필요한 경우가 많다.
+    </p>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">01</span>
+        <h3>비용 절감 전략: 모델 라우팅</h3>
+      </div>
+      <div class="t-sub">단순 작업은 저렴한 모델, 복잡한 작업만 고급 모델에 할당</div>
+      <div class="t-body">
+        모든 요청을 Claude Opus에 보내면 비용이 치솟는다. 단순 분류 작업은 Haiku($1/M 입력), 일반 작업은 Sonnet($3/M 입력), 복잡한 추론만 Opus($15/M 입력)에 할당한다. 한 파워유저는 이 방법으로 월 비용을 <strong>$150에서 $35</strong>로 줄였다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">02</span>
+        <h3>비용 절감 전략: 구독 연동</h3>
+      </div>
+      <div class="t-sub">이미 Claude Pro/Max를 구독 중이라면 추가 비용 없이 연결 가능</div>
+      <div class="t-body">
+        Claude Pro($20/월), Claude Max($100/월), ChatGPT Plus($20/월) 구독자는 해당 구독을 OpenClaw에 연결할 수 있다. 별도의 API 비용 없이 구독 내 사용량으로 처리된다. 다만 구독의 사용량 제한이 OpenClaw의 토큰 소비 속도를 감당하지 못할 수 있다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">03</span>
+        <h3>비용 절감 전략: 프롬프트 캐싱</h3>
+      </div>
+      <div class="t-sub">반복되는 컨텍스트를 캐싱하면 90% 절약</div>
+      <div class="t-body">
+        Anthropic의 프롬프트 캐싱을 활용하면 반복되는 시스템 프롬프트와 컨텍스트에 대해 캐시 읽기 비용만 발생한다. 기본 가격의 10%만 지불하면 된다. 2회 이상 재사용되면 손익분기를 넘긴다.
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>이걸 <strong>왜 쓰는 건데</strong></h2>
+    </div>
+
+    <p class="prose">
+      정당한 질문이다. ChatGPT 앱도 있고, Claude 앱도 있다. 둘 다 대화형 AI로 충분히 유능하다. 월 $20이면 쓸 수 있다. <strong>왜 굳이 복잡한 세팅을 하고, 불투명한 API 비용을 감수하면서 OpenClaw을 쓰는가?</strong>
+    </p>
+
+    <p class="prose">
+      핵심 차이는 <strong>"대화"와 "실행"의 경계</strong>다. ChatGPT에게 "내 이메일 정리해줘"라고 하면 "이런 방법으로 정리하세요"라고 답한다. OpenClaw에게 같은 말을 하면 <strong>실제로 Gmail에 접속해서 이메일을 분류한다</strong>. ChatGPT는 조언자다. OpenClaw은 실행자다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Paradigm 01</div>
+        <h3>대화형 AI</h3>
+        <p>ChatGPT, Claude 앱. 질문하면 답한다. 실행은 사용자 몫. 텍스트 인터페이스 안에서만 동작한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Paradigm 02</div>
+        <h3>AI 에이전트</h3>
+        <p>OpenClaw. 지시하면 실행한다. 파일 시스템, 브라우저, 외부 API에 직접 접근. 텍스트 밖에서 행동한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Paradigm 03</div>
+        <h3>워크플로우 자동화</h3>
+        <p>Zapier, n8n, IFTTT. 트리거 → 액션 규칙 기반. 자연어가 아닌 시각적 플로우. 정해진 범위만 처리한다.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      OpenClaw이 노리는 것은 세 번째 패러다임과 두 번째 패러다임의 결합이다. 자연어로 명령하되, 실제로 실행까지 하는 AI. "AI 비서"가 비유가 아니라 문자 그대로 되는 세계. 이것이 사람들이 흥분하는 이유이고, 동시에 보안 전문가들이 공포에 떠는 이유다.
+    </p>
+  </section>
+
+  <!-- PART 5 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2>안 써도 <strong>되는 이유</strong></h2>
+    </div>
+
+    <p class="prose">
+      여기까지 읽고 "나도 설치해봐야겠다"고 생각했다면, 잠깐 멈추자. OpenClaw을 쓰지 않아도 되는 이유가 충분히 있다. 그리고 그 이유가 상당히 합리적이다.
+    </p>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">01</span>
+        <h3>기존 도구로 충분하다</h3>
+      </div>
+      <div class="t-sub">대부분의 사람에게 ChatGPT/Claude 앱이면 된다</div>
+      <div class="t-body">
+        솔직히, 대부분의 AI 사용 시나리오는 "질문 → 답변" 패턴이다. 이메일 초안, 번역, 요약, 코드 리뷰. 이 정도면 ChatGPT Plus나 Claude Pro 구독으로 충분하다. 월 $20. 세팅 시간 0분. "AI에게 진짜 일을 시키겠다"는 욕구가 없다면, OpenClaw은 불필요한 복잡성이다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">02</span>
+        <h3>30단계 세팅 후 얻는 것</h3>
+      </div>
+      <div class="t-sub">"결국 챗봇이 하던 일과 비슷한 것"이라는 비판</div>
+      <div class="t-body">
+        Medium의 한 개발자는 이렇게 썼다. "30단계의 기술적 세팅을 거치고 나면, 얻는 것은 챗봇이 이미 하던 일과 놀라울 정도로 비슷하다." 파일 정리? Hazel이 한다. 이메일 분류? Gmail 필터가 한다. 일정 관리? Google Calendar가 한다. 각각의 전용 도구가 이미 있고, 더 안정적이다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">03</span>
+        <h3>보안 리스크 대비 편의 수준</h3>
+      </div>
+      <div class="t-sub">내 컴퓨터에 "상시 고권한 백도어"를 여는 셈</div>
+      <div class="t-body">
+        OpenClaw은 이메일, 캘린더, 메신저, 파일 시스템, 쉘에 대한 광범위한 접근 권한을 요구한다. 이것은 편의를 위한 대가로 컴퓨터에 상시 고권한 접근 경로를 열어두는 것이다. 다음 편에서 상세히 다루겠지만, 이미 원클릭 원격 코드 실행(RCE) 취약점이 발견됐다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">04</span>
+        <h3>바이럴이 만든 거품</h3>
+      </div>
+      <div class="t-sub">"TikTok이 말하지 않는 것"</div>
+      <div class="t-body">
+        XDA Developers는 직설적으로 말했다. "Please stop using OpenClaw." Bloomberg는 "보안은 진행 중인 작업(work in progress)"이라고 표현했다. OpenClaw 자체보다 OpenClaw을 둘러싼 바이럴이 만든 기대감이 더 큰 문제다. 기술 자체는 의미 있지만, 2026년 2월 현재 일반 사용자에게 권장하기에는 이르다.
+      </div>
+    </div>
+
+  </section>
+
+  <div class="closing">
+    <h2>무료의 대가는<br><strong>청구서로 돌아온다</strong></h2>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: OpenClaw Docs (docs.openclaw.ai) / DEV Community / Eesel / Molted Blog / DataCamp / TILNOTE / XDA Developers / Bloomberg / Medium</p>
+    <p>Editorial — OpenClaw Report Series, 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

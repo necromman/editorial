@@ -333,7 +333,8 @@ body {
   text-align: center;
 }
 
-.closing .big {
+.closing .big,
+.closing h2 {
   font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.3;
@@ -341,17 +342,10 @@ body {
   margin-bottom: 16px;
 }
 
-.closing .big strong {
+.closing .big strong,
+.closing h2 strong {
   font-weight: 900;
   color: var(--accent);
-}
-
-.closing .sub {
-  font-size: 0.95rem;
-  color: var(--muted);
-  max-width: 480px;
-  margin: 0 auto;
-  line-height: 1.8;
 }
 
 .footer {
@@ -376,7 +370,8 @@ body {
   .mechanism-row { grid-template-columns: 1fr; }
   .section-head h2 { font-size: 1.5rem; }
   .pull-quote p { font-size: 1.2rem; }
-  .closing .big { font-size: 1.6rem; }
+  .closing .big,
+  .closing h2 { font-size: 1.6rem; }
 }
 
 @media print {

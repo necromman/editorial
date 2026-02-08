@@ -125,7 +125,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
   |
 [Warning Box]     — 1px solid border, 넘버링 리스트
   |
-[Closing]         — 핵심 메시지 + 부연
+[Closing]         — `<h2>` 하나만. 전반부 일반체 + 후반부 `<strong>` accent color. 부연(sub) 없음. 직전 pull-quote 금지
   |
 [Footer]          — 출처/크레딧 (모노, 작게)
 ```
@@ -318,8 +318,77 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
-## 반응형 처리
+#### Closing (마무리 한 줄)
 
+임팩트 있는 한 문장만 남긴다. 전반부는 일반체(font-weight 400), 후반부는 `<strong>`으로 감싸 accent color를 적용한다. `<br>`로 줄을 나누면 시각적 위계가 더 명확해진다.
+
+**HTML 마크업:**
+```html
+<div class="closing">
+  <h2>전반부 일반체 문장<br><strong>후반부 강조 문장</strong></h2>
+</div>
+```
+
+**CSS 패턴 (editorial-base.css에 포함):**
+```css
+.closing h2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.closing h2 strong {
+  font-weight: 900;
+  color: var(--accent);
+}
+```
+
+**금지 패턴:**
+- `<p class="sub">` 부연 텍스트 — 임팩트를 희석시킨다. 한 문장이면 충분하다
+- `.closing` 직전에 pull-quote 배치 — 둘 다 결론처럼 보여 시각적으로 겹친다
+- `<h2>` 전체를 `<strong>`으로 감싸기 — 전반부 일반체 + 후반부 accent의 대비가 핵심이다
+
+## 반응형 처리 (필수)
+
+**반응형은 선택이 아니라 필수다.** 모든 멀티 컬럼 레이아웃은 모바일(max-width: 700px)에서 1-column으로 전환되어야 한다.
+
+### 핵심 원칙: 인라인 style로 grid-template-columns를 절대 지정하지 않는다
+
+**금지 패턴:**
+```html
+<!-- 절대 금지 — 인라인 style은 미디어쿼리보다 우선순위가 높아서 모바일 반응형이 깨진다 -->
+<div class="mechanism-row" style="grid-template-columns:1fr 1fr 1fr">
+<div class="mechanism-row" style="grid-template-columns:1fr 1fr">
+```
+
+**올바른 패턴:**
+```html
+<!-- 3-column: mechanism-row의 기본값(editorial-base.css)이 3-column이므로 추가 지정 불필요 -->
+<div class="mechanism-row">
+
+<!-- 2-column: CSS 클래스로 처리 -->
+<div class="mechanism-row mechanism-2col">
+```
+
+```css
+/* 페이지 <style>에 2-column 변형 정의 */
+.mechanism-2col { grid-template-columns: 1fr 1fr; }
+
+@media (max-width: 700px) {
+  .mechanism-2col { grid-template-columns: 1fr; }
+}
+```
+
+**왜 이렇게 하는가:**
+- 인라인 `style` 속성은 CSS 우선순위(specificity)에서 가장 높다
+- `@media` 쿼리 안의 어떤 CSS 선택자도 인라인 `style`을 이길 수 없다 (`!important` 없이는)
+- 따라서 인라인 `style`로 `grid-template-columns`를 지정하면 **모바일 반응형이 완전히 무시된다**
+- CSS 클래스를 사용하면 미디어쿼리가 정상적으로 오버라이드한다
+
+### 기본 반응형 규칙
+
+`editorial-base.css`에 이미 포함된 기본 반응형:
 ```css
 @media (max-width: 700px) {
   .mechanism-row { grid-template-columns: 1fr; }
@@ -328,7 +397,24 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
-3-column과 2-column은 모바일에서 1-column으로 전환한다. 나머지 요소는 max-width: 780px 컨테이너가 자연스럽게 처리한다.
+### 페이지 고유 그리드의 반응형 처리
+
+**모든 멀티 컬럼 그리드 컴포넌트**는 반드시 페이지 `<style>`의 `@media (max-width: 700px)` 블록에 1-column 전환 규칙을 포함해야 한다.
+
+```css
+/* 페이지 고유 그리드 — 반드시 모바일 오버라이드 포함 */
+.my-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+@media (max-width: 700px) {
+  .my-grid { grid-template-columns: 1fr; }
+}
+```
 
 ## 콘텐츠 작성 규칙
 
@@ -361,7 +447,9 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] accent color가 1가지만 사용되었는가
 - [ ] 그라디언트가 없는가
 - [ ] Pull quote의 attribution 텍스트가 충분히 큰가 (0.7rem 이상)
-- [ ] 모바일 반응형이 작동하는가
+- [ ] **모바일 반응형이 작동하는가 (모든 멀티 컬럼 그리드가 1-column으로 전환)**
+- [ ] **인라인 `style`로 `grid-template-columns`를 지정하지 않았는가 (CSS 클래스 사용 필수)**
+- [ ] **페이지 고유 그리드에 `@media (max-width: 700px)` 오버라이드가 있는가**
 - [ ] font-variant-numeric이 적용되어 있는가
 - [ ] 본문 line-height가 1.85 이상인가
 - [ ] **모든 색상이 CSS 변수로 정의되어 있는가 (하드코딩 없음)**
@@ -369,6 +457,9 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] **폰트 preload 태그가 `<head>`에 있는가 (source-serif-4 woff2)**
 - [ ] **Google Fonts `@import`나 외부 `<link>`를 사용하지 않는가 (셀프호스팅 필수)**
 - [ ] **한글 font-weight가 라틴 대비 적절한가 (너무 무겁지 않은가)**
+- [ ] **`.closing`에 `<h2>` 하나만 있는가 (부연 `<p class="sub">` 금지)**
+- [ ] **`.closing h2`에 `<strong>` accent color가 적용되어 있는가 (전반부 일반체 + 후반부 accent)**
+- [ ] **`.closing` 직전에 pull-quote가 없는가 (둘 다 결론처럼 보여 시각적으로 겹침)**
 
 ## 이 스킬이 만들어진 배경
 
