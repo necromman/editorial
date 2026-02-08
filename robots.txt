@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://necromman.github.io/editorial/sitemap.xml
