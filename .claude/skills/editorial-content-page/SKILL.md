@@ -125,7 +125,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
   |
 [Warning Box]     — 1px solid border, 넘버링 리스트
   |
-[Closing]         — `<h2>` 하나만. 전반부 일반체 + 후반부 `<strong>` accent color. 부연(sub) 없음. 직전 pull-quote 금지
+[Closing]         — `<h2>` accent color 강조 + `<p class="sub">` 부연. 직전 pull-quote 금지
   |
 [Footer]          — 출처/크레딧 (모노, 작게)
 ```
@@ -318,14 +318,15 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
-#### Closing (마무리 한 줄)
+#### Closing (마무리)
 
-임팩트 있는 한 문장만 남긴다. 전반부는 일반체(font-weight 400), 후반부는 `<strong>`으로 감싸 accent color를 적용한다. `<br>`로 줄을 나누면 시각적 위계가 더 명확해진다.
+`<h2>`로 임팩트 있는 핵심 메시지를 전달하고, `<p class="sub">`로 부연 설명을 추가한다. `<h2>`의 전반부는 일반체(font-weight 400), 후반부는 `<strong>`으로 감싸 accent color를 적용한다. `<br>`로 줄을 나누면 시각적 위계가 더 명확해진다.
 
 **HTML 마크업:**
 ```html
 <div class="closing">
   <h2>전반부 일반체 문장<br><strong>후반부 강조 문장</strong></h2>
+  <p class="sub">핵심 메시지를 보충하는 1~2문장 부연 설명. 회색(muted) 컬러, 가운데 정렬.</p>
 </div>
 ```
 
@@ -342,10 +343,17 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
   font-weight: 900;
   color: var(--accent);
 }
+
+.closing .sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
 ```
 
 **금지 패턴:**
-- `<p class="sub">` 부연 텍스트 — 임팩트를 희석시킨다. 한 문장이면 충분하다
 - `.closing` 직전에 pull-quote 배치 — 둘 다 결론처럼 보여 시각적으로 겹친다
 - `<h2>` 전체를 `<strong>`으로 감싸기 — 전반부 일반체 + 후반부 accent의 대비가 핵심이다
 
@@ -457,7 +465,7 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 - [ ] **폰트 preload 태그가 `<head>`에 있는가 (source-serif-4 woff2)**
 - [ ] **Google Fonts `@import`나 외부 `<link>`를 사용하지 않는가 (셀프호스팅 필수)**
 - [ ] **한글 font-weight가 라틴 대비 적절한가 (너무 무겁지 않은가)**
-- [ ] **`.closing`에 `<h2>` 하나만 있는가 (부연 `<p class="sub">` 금지)**
+- [ ] **`.closing`에 `<h2>` + `<p class="sub">` 구조인가**
 - [ ] **`.closing h2`에 `<strong>` accent color가 적용되어 있는가 (전반부 일반체 + 후반부 accent)**
 - [ ] **`.closing` 직전에 pull-quote가 없는가 (둘 다 결론처럼 보여 시각적으로 겹침)**
 

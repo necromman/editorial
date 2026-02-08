@@ -348,6 +348,14 @@ body {
   color: var(--accent);
 }
 
+.closing .sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
 .footer {
   margin-top: 64px;
   padding-top: 20px;

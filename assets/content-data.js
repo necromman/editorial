@@ -210,5 +210,45 @@ window.CONTENT_DATA = [
         search: 'OpenClaw 오픈클로 보안 CVE RCE 프롬프트 인젝션 CrowdStrike Trend Micro NanoClaw n8n Claude Code 대안'
       }
     ]
+  },
+  {
+    id: 'lineage-classic',
+    seriesNum: 6,
+    title: '린저씨의 귀환',
+    description: '1998년에 PC방을 점령했던 10대가 2026년에 40대가 되어 돌아왔다. 리니지 클래식 연대기 — 역사, BJ 체력 이슈, 9조 원 경제, 그리고 29,700원의 마지막 승부.',
+    articles: [
+      {
+        num: 1,
+        title: '1998년, 아덴의 탄생',
+        role: 'PC방의 왕에서 9조 원 경제까지 28년의 역사',
+        tag: '역사',
+        href: 'content/lineage-classic-series/lineage-classic-history.html',
+        search: '리니지 역사 1998 PC방 아덴 린저씨 바츠 해방전쟁 집행검 혈맹 공성전 동접 22만 엔씨소프트'
+      },
+      {
+        num: 2,
+        title: '린저씨, 다시 아덴으로',
+        role: '엔씨 첫 적자와 월정액 29,700원의 승부수',
+        tag: '분석',
+        href: 'content/lineage-classic-series/lineage-classic-return-of-linjerssi.html',
+        search: '리니지 클래식 엔씨소프트 적자 월정액 29700원 시즌패스 철회 서버 증설 복귀 린저씨'
+      },
+      {
+        num: 3,
+        title: '올나잇은 20대의 특권이었다',
+        role: '40대 BJ들의 체력 이슈와 데포로쥬 3파전',
+        tag: '유머',
+        href: 'content/lineage-classic-series/lineage-classic-bj-stamina.html',
+        search: '리니지 BJ 불도그 만만 꽃태자 올나잇 체력 40대 수액 한의원 데포로쥬 PC방 밈'
+      },
+      {
+        num: 4,
+        title: '리니지는 끝나지 않는다',
+        role: '트럭시위부터 0.0001% 확률까지 28년 유산과 전망',
+        tag: '결론',
+        href: 'content/lineage-classic-series/lineage-never-ends.html',
+        search: '리니지 문화 트럭시위 택진이형 사행성 0.0001 확률 린저씨 미래 전망 28년'
+      }
+    ]
   }
 ];

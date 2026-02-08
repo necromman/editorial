@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>린저씨, 다시 아덴으로 — Editorial</title>
+<meta name="description" content="엔씨소프트 상장 26년 만의 첫 적자. 800명 구조조정. 그리고 꺼낸 카드는 월정액 29,700원의 리니지 클래식이었다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-return-of-linjerssi.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="린저씨, 다시 아덴으로">
+<meta property="og:description" content="엔씨소프트 상장 26년 만의 첫 적자. 800명 구조조정. 그리고 꺼낸 카드는 월정액 29,700원의 리니지 클래식이었다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-return-of-linjerssi.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-08">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="린저씨, 다시 아덴으로">
+<meta name="twitter:description" content="엔씨소프트 상장 26년 만의 첫 적자. 800명 구조조정. 그리고 꺼낸 카드는 월정액 29,700원의 리니지 클래식이었다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"린저씨, 다시 아덴으로","description":"엔씨소프트 상장 26년 만의 첫 적자. 800명 구조조정. 그리고 꺼낸 카드는 월정액 29,700원의 리니지 클래식이었다.","datePublished":"2026-02-08","dateModified":"2026-02-08","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/lineage-classic-series/lineage-classic-return-of-linjerssi.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead h1 {
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -2px;
+  }
+  .masthead .deck { max-width: 520px; }
+
+  /* STAT CARD */
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .stat-card {
+    background: var(--bg);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .stat-card .stat-label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    margin: 40px 0 48px;
+    list-style: none;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    background: var(--bg);
+  }
+  .timeline .t-time {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 20px 12px;
+    text-align: right;
+    background: var(--card-bg);
+  }
+  .timeline .t-desc {
+    font-size: 0.92rem;
+    color: var(--prose);
+    line-height: 1.7;
+    padding: 20px 24px;
+  }
+  .timeline .t-desc strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* DATA TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0 40px;
+    font-size: 0.9rem;
+  }
+  .data-table th {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--prose);
+    line-height: 1.5;
+  }
+  .data-table .accent {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* SPEC BOX */
+  .spec-box {
+    border: 1px solid var(--fg);
+    padding: 32px 36px;
+    margin: 40px 0 48px;
+  }
+  .spec-box .s-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .spec-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .spec-list li {
+    font-size: 0.9rem;
+    color: var(--prose);
+    line-height: 1.6;
+  }
+  .spec-list .s-key {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 700px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .spec-list { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 72px 1fr; }
+    .timeline .t-time { padding: 16px 8px; font-size: 0.75rem; }
+    .timeline .t-desc { padding: 16px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <div class="issue">Series 06 &mdash; 린저씨의 귀환</div>
+  <h1>린저씨,<br><strong>다시 아덴으로</strong></h1>
+  <p class="deck">엔씨소프트 첫 적자, 800명 구조조정 &mdash; 그리고 29,700원의 마지막 승부</p>
+</header>
+
+<main>
+
+<!-- ─── PART I ─── -->
+<section>
+  <div class="section-head">
+    <span class="num">Part I</span>
+    <h2>26년 만의 적자</h2>
+  </div>
+
+  <p class="prose">
+    2024년, 엔씨소프트에 전례 없는 일이 벌어졌다. 2000년 기업공개 이후 <strong>26년 만에 처음으로 연간 영업적자</strong>를 기록한 것이다. 매출 1조 5,781억 원에 영업손실 1,092억 원. 전년 대비 매출은 11.3% 감소했고, 영업이익은 플러스에서 마이너스로 뒤집혔다.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">-1,092억</div>
+      <div class="stat-label">2024년 영업손실<br>상장 후 첫 적자</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">-34%</div>
+      <div class="stat-label">리니지M 매출<br>전년 대비 급감</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">800명+</div>
+      <div class="stat-label">구조조정 규모<br>희망퇴직 포함</div>
+    </div>
+  </div>
+
+  <p class="prose">
+    직접적인 원인은 <strong>리니지M 매출의 34% 급감</strong>이었다. 엔씨소프트의 매출 구조는 수년간 리니지 IP에 절대적으로 의존해왔다. 리니지M, 리니지2M, 리니지W. 이 세 게임이 회사 매출의 대부분을 차지했는데, 그 기둥이 흔들린 것이다.
+  </p>
+
+  <p class="prose">
+    800명 이상이 회사를 떠났다. 주로 지원 조직 대상의 희망퇴직이었으나, 개발 인력도 일부 포함되었다. 4분기에 집중된 퇴직위로금이 약 1,300억 원의 분기 적자로 이어졌다. 한때 시가총액 10조 원을 넘겼던 "리니지의 회사"는, 135,800원이라는 역대 최저 주가를 기록하며 존립 자체를 걱정해야 하는 처지가 되었다.
+  </p>
+
+  <aside class="pull-quote">
+    <p>리니지가 만든 회사가<br>리니지 때문에 무너지고 있었다.</p>
+  </aside>
+</section>
+
+<!-- ─── PART II ─── -->
+<section>
+  <div class="section-head">
+    <span class="num">Part II</span>
+    <h2>1998년을 꺼내다</h2>
+  </div>
+
+  <p class="prose">
+    엔씨소프트가 이 위기에 꺼낸 카드는 의외로 <strong>과거</strong>였다. 2026년 2월, 리니지의 2000년대 초반 버전을 그대로 복원한 <strong>리니지 클래식</strong>을 출시한 것이다. 핵심은 단순했다. "그때 그 시절의 리니지를 돌려주겠다."
+  </p>
+
+  <div class="spec-box">
+    <div class="s-title">리니지 클래식 스펙 시트</div>
+    <ul class="spec-list">
+      <li>
+        <span class="s-key">LAUNCH</span>
+        프리오픈 2026.02.07 / 정식 2026.02.11
+      </li>
+      <li>
+        <span class="s-key">PRICE</span>
+        월정액 29,700원. 추가 과금 없음
+      </li>
+      <li>
+        <span class="s-key">PLATFORM</span>
+        PC 전용 (모바일 없음)
+      </li>
+      <li>
+        <span class="s-key">CONTENT</span>
+        말하는 섬, 용의 계곡, 기란 등 초기 지역
+      </li>
+      <li>
+        <span class="s-key">CLASS</span>
+        군주, 기사, 요정, 마법사 (4종)
+      </li>
+      <li>
+        <span class="s-key">BM</span>
+        시즌패스 없음. 자동사냥 없음. P2W 없음
+      </li>
+    </ul>
+  </div>
+
+  <p class="prose">
+    "추가 과금 없음"이 핵심이다. 리니지M, 리니지W에서 유저들을 분노하게 만들었던 것은 바로 이 과금이었다. 0.0001% 확률의 가챠, 수천만 원짜리 강화 시스템, 돈을 써야만 경쟁력이 생기는 P2W(Pay to Win) 구조. 리니지 클래식은 이 모든 것을 포기한다고 선언했다.
+  </p>
+
+  <p class="prose">
+    <strong>월 29,700원만 내면 모든 유저가 동일한 출발선에 선다.</strong> 성장은 오직 시간과 노력으로만. 2000년대 초반, PC방에서 라면을 먹으며 밤을 새우던 그 시절의 규칙이 돌아온 것이다.
+  </p>
+</section>
+
+<!-- ─── PART III ─── -->
+<section>
+  <div class="section-head">
+    <span class="num">Part III</span>
+    <h2>16시간의 드라마</h2>
+  </div>
+
+  <p class="prose">
+    그런데 오픈 전에 위기가 있었다. 2026년 1월 20일, 엔씨소프트 운영진이 <strong>유료 시즌패스</strong> 판매와 <strong>다중 클라이언트 허용</strong> 방침을 발표한 것이다. "추가 과금 없음"을 약속해놓고, 오픈도 하기 전에 과금 상품을 예고하다니. 커뮤니티는 즉각 폭발했다.
+  </p>
+
+  <p class="prose">
+    "이게 무슨 클래식이냐." "그때도 돈 먹을 궁리부터 하네." "역시 엔씨." 디시인사이드, 에펨코리아, 인벤 게시판이 불타올랐다. 린저씨들의 분노는 트럭시위로 단련된 실전 경험이 있었다. 이번에도 그 경로를 밟을 분위기였다.
+  </p>
+
+  <p class="prose">
+    그런데 놀라운 일이 벌어졌다. 발표 <strong>16시간 만</strong>인 1월 21일, 엔씨소프트는 유료 시즌패스를 전면 철회한다는 공지를 올렸다. 유료 보상 부분을 전부 삭제하고, 월정액 외에는 어떤 과금 요소도 넣지 않겠다고. 역대급의 빠른 손절이었다.
+  </p>
+
+  <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:16px">시즌패스 논란 타임라인</div>
+
+  <ul class="timeline">
+    <li>
+      <span class="t-time">01.20</span>
+      <div class="t-desc">엔씨소프트, <strong>유료 시즌패스 + 다중 클라이언트</strong> 허용 방침 발표.</div>
+    </li>
+    <li>
+      <span class="t-time">01.20</span>
+      <div class="t-desc">커뮤니티 즉각 폭발. "추가 과금 없다며?" <strong>민심 이탈</strong> 시작.</div>
+    </li>
+    <li>
+      <span class="t-time">01.21</span>
+      <div class="t-desc"><strong>16시간 만에 전면 철회.</strong> "유료 보상 부분 삭제, 월정액만 유지."</div>
+    </li>
+    <li>
+      <span class="t-time">02.07</span>
+      <div class="t-desc">프리오픈. <strong>"정말 추가 과금 없네"</strong>라는 반응. 민심 회복.</div>
+    </li>
+  </ul>
+
+  <aside class="pull-quote">
+    <p>유료 시즌패스를 발표하고 16시간 만에 철회.<br>린저씨의 반응 속도는 게임보다 빠르다.</p>
+  </aside>
+</section>
+
+<!-- ─── PART IV ─── -->
+<section>
+  <div class="section-head">
+    <span class="num">Part IV</span>
+    <h2>서버가 터지다</h2>
+  </div>
+
+  <p class="prose">
+    2026년 1월 14일, 사전 캐릭터 생성이 시작되었다. 최초 10개 서버는 <strong>7분 만에 마감</strong>되었다. 추가 5개 서버를 열었으나 그것도 즉시 마감. 엔씨소프트는 서버를 20개로 증설하고, 전체 서버의 수용 인원까지 늘렸다. 그래도 부족했다.
+  </p>
+
+  <p class="prose">
+    2월 7일 오후 8시, 프리오픈. 주요 서버는 <strong>1분 만에 대기열 수천 명</strong>이 쌓였다. 캐릭터를 생성하기까지 1시간 반을 기다려야 했다. 새벽에도 3천 명 이상의 접속 대기가 이어졌다. 에펨코리아에는 "오픈 12시간만에 망한 리니지 클래식"이라는 글이 포텐(인기글)에 올라왔다. 물론 "망했다"는 서버가 터질 정도로 사람이 몰렸다는 자조적 의미였다.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">오픈 서버 수<br>(3차례 증설)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">7분</div>
+      <div class="stat-label">1차 사전생성<br>서버 마감 시간</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1.5시간</div>
+      <div class="stat-label">오픈 당일<br>캐릭터 생성 대기</div>
+    </div>
+  </div>
+
+  <p class="prose">
+    40대 아저씨들이 이렇게까지 몰린 이유는 단순하다. <strong>"그때 그 시절"에 대한 갈증</strong>이다. P2W가 없는 리니지. 돈이 아니라 시간으로 승부하는 리니지. 혈맹원들과 새벽까지 사냥을 돌리던 1998년의 리니지. 28년 만에 그 규칙이 돌아왔다고 하니, 가지 않을 수 없었다.
+  </p>
+
+  <p class="prose">
+    문제는 체력이다. 1998년에는 3일을 새워도 라면 한 그릇이면 됐다. 2026년에는 올나잇 한 번에 수액이 필요하다. 이 이야기는 다음 편에서 더 자세히.
+  </p>
+</section>
+
+<!-- ─── PART V ─── -->
+<section>
+  <div class="section-head">
+    <span class="num">Part V</span>
+    <h2>될 수 있을까</h2>
+  </div>
+
+  <p class="prose">
+    월정액 29,700원만으로 엔씨소프트가 살아남을 수 있을까? 숫자를 보자. 리니지M은 전성기에 분기당 2,000억 원 이상의 매출을 올렸다. 월정액 모델로는 유저 100만 명이 꾸준히 결제해도 월 297억 원, 연 3,500억 원 수준이다. 리니지M의 전성기 매출에 비하면 절반도 안 된다.
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>항목</th>
+        <th>수치</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026.01 주가</td>
+        <td class="accent">216,500원</td>
+        <td>최저 대비 80% 상승</td>
+      </tr>
+      <tr>
+        <td>시가총액</td>
+        <td>4.57조 원</td>
+        <td>주간 +3.71%</td>
+      </tr>
+      <tr>
+        <td>컨센서스 목표주가</td>
+        <td class="accent">28~31만 원</td>
+        <td>현재 대비 +30%</td>
+      </tr>
+      <tr>
+        <td>2026년 매출 목표</td>
+        <td>2조 원+</td>
+        <td>아이온2 + 리니지 클래식</td>
+      </tr>
+      <tr>
+        <td>1분기 영업이익률 전망</td>
+        <td class="accent">25%</td>
+        <td>적자에서 흑자 전환 기대</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="prose">
+    하지만 시장은 기대하고 있다. 리니지 클래식은 단기 매출보다 <strong>신뢰 회복</strong>이 목적이다. "엔씨소프트는 더 이상 유저를 착취하지 않겠다"는 메시지. 이 신뢰가 회복되면 후속 콘텐츠, 시즌 업데이트, 그리고 아이온2와의 시너지로 지속 가능한 수익 구조를 만들 수 있다는 계산이다.
+  </p>
+
+  <p class="prose">
+    무엇보다, 리니지 클래식은 <strong>리니지 IP가 아직 살아있다는 것을 증명</strong>했다. 서버 20개가 터질 정도로 몰려든 40대 린저씨들. 그들은 게임이 아니라 20대의 자기 자신을 찾으러 온 것인지도 모른다.
+  </p>
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>29,700원.<br><strong>26년짜리 IP의 마지막 승부수.</strong></h2>
+  <p class="sub">1998년 PC방 한 시간 값과 비슷한 이 가격에, 엔씨소프트의 미래가 걸려 있다.</p>
+</div>
+
+<footer class="footer">
+  <p>Sources: ZDNet, 한국일보, 인벤, 게임플, 게임톡, 게임뷰, 한국투자증권, 나무위키, 에펨코리아</p>
+  <p>Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>

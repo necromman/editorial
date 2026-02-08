@@ -145,6 +145,15 @@ editorial/
 | 02 | `openclaw-setup-and-reality.html` | '무료' AI 에이전트의 진짜 비용 | 가이드 — 설치, 활용 시나리오, 월 비용 분석 |
 | 03 | `openclaw-security-and-alternatives.html` | 만능 열쇠를 건네기 전에 | 분석 — CVE, 보안 리스크, 대안 비교 |
 
+### 시리즈 6: 린저씨의 귀환 (lineage-classic-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `lineage-classic-history.html` | 1998년, 아덴의 탄생 | 역사 — PC방의 왕에서 9조 원 경제까지 28년의 역사 |
+| 02 | `lineage-classic-return-of-linjerssi.html` | 린저씨, 다시 아덴으로 | 분석 — 엔씨 첫 적자와 월정액 29,700원의 승부수 |
+| 03 | `lineage-classic-bj-stamina.html` | 올나잇은 20대의 특권이었다 | 유머 — 40대 BJ들의 체력 이슈와 데포로쥬 3파전 |
+| 04 | `lineage-never-ends.html` | 리니지는 끝나지 않는다 | 결론 — 트럭시위부터 0.0001% 확률까지 28년 유산과 전망 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

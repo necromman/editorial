@@ -51,6 +51,16 @@
         { slug: 'openclaw-setup-and-reality', title: "'무료' AI 에이전트의 진짜 비용" },
         { slug: 'openclaw-security-and-alternatives', title: '만능 열쇠를 건네기 전에' }
       ]
+    },
+    'lineage-classic-series': {
+      label: 'Series 06',
+      title: '린저씨의 귀환',
+      articles: [
+        { slug: 'lineage-classic-history', title: '1998년, 아덴의 탄생' },
+        { slug: 'lineage-classic-return-of-linjerssi', title: '린저씨, 다시 아덴으로' },
+        { slug: 'lineage-classic-bj-stamina', title: '올나잇은 20대의 특권이었다' },
+        { slug: 'lineage-never-ends', title: '리니지는 끝나지 않는다' }
+      ]
     }
   };
 
