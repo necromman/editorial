@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이 문서는 어떻게 만들어졌는가</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Source+Serif+4:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #faf8f4;
+    --fg: #1a1a18;
+    --muted: #8a8680;
+    --accent: #c43e2a;
+    --rule: #d5d0c8;
+    --card-bg: #f2efe9;
+    --prose: #3a3a36;
+    --secondary: #6a6862;
+    --serif: 'Source Serif 4', 'Pretendard', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 100px;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    text-align: center;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--fg);
+    margin-bottom: 64px;
+  }
+
+  .masthead .issue {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .masthead h1 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    color: var(--fg);
+    margin-bottom: 16px;
+  }
+
+  .masthead h1 strong {
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .masthead .deck {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* SECTION HEADERS */
+  .section-head {
+    margin-top: 72px;
+    margin-bottom: 40px;
+  }
+
+  .section-head .num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .section-head h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+  }
+
+  .section-head h2 strong {
+    color: var(--accent);
+  }
+
+  /* PROSE */
+  .prose {
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--prose);
+    margin-bottom: 28px;
+  }
+
+  .prose strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 48px 0;
+    padding: 44px 0;
+    border-top: 1px solid var(--fg);
+    border-bottom: 1px solid var(--fg);
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--fg);
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .pull-quote .attr {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  /* FLOW DIAGRAM */
+  .flow-chain {
+    margin: 40px 0 48px;
+  }
+
+  .flow-node {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .flow-node + .flow-arrow {
+    text-align: center;
+    padding: 8px 0;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .flow-node .f-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .flow-node .f-tool {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: inline-block;
+    border: 1px solid var(--accent);
+    padding: 2px 8px;
+    margin-bottom: 10px;
+  }
+
+  .flow-node h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .flow-node p {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  .flow-node p strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* SERIES MAP */
+  .series-map {
+    margin: 40px 0 48px;
+  }
+
+  .series-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .series-item:first-child { border-top: 1px solid var(--rule); }
+
+  .series-item .s-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .series-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .series-item .s-role {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .series-item p {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  .series-item p strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* INSIGHT BOX */
+  .insight-box {
+    margin: 48px 0;
+    border: 1px solid var(--fg);
+    padding: 32px 36px;
+  }
+
+  .insight-box .i-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .insight-list {
+    list-style: none;
+    counter-reset: insight;
+  }
+
+  .insight-list li {
+    font-size: 0.92rem;
+    color: var(--prose);
+    padding: 12px 0 12px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    counter-increment: insight;
+    line-height: 1.75;
+  }
+
+  .insight-list li:last-child { border-bottom: none; }
+
+  .insight-list li::before {
+    content: counter(insight, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 14px;
+  }
+
+  .insight-list li strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* SOURCE CARD */
+  .source-card {
+    background: var(--card-bg);
+    padding: 24px 28px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--prose);
+  }
+
+  .source-card .sc-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .source-card a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .source-card p {
+    margin-bottom: 8px;
+  }
+
+  .source-card p:last-child { margin-bottom: 0; }
+
+  /* CLOSING */
+  .closing {
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--fg);
+    text-align: center;
+  }
+
+  .closing .big {
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  .closing .big strong {
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .closing .sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .footer p {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 48px 24px 60px; }
+    .masthead h1 { font-size: 2rem; }
+    .section-head h2 { font-size: 1.5rem; }
+    .pull-quote p { font-size: 1.2rem; }
+    .closing .big { font-size: 1.6rem; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Behind the Scenes — Process Documentation</div>
+    <h1>이 문서는<br><strong>어떻게 만들어졌는가</strong></h1>
+    <p class="deck">유튜브 하나를 끝까지 보기 귀찮았을 뿐이다.<br>그런데 문서가 5개가 됐다.</p>
+  </header>
+
+  <!-- 시작 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Origin</span>
+      <h2>시작은 <strong>귀찮음</strong>이었다</h2>
+    </div>
+
+    <p class="prose">
+      유튜브를 생각 없이 스크롤하고 있었다. 알고리즘이 하나를 추천했다. <strong>"99%가 인생을 낭비하는 이유."</strong> 제목이 자극적이어서 눌렀다. 근데 9분짜리였다. 영상은 끝까지 보고 싶은데, 보기는 싫었다. 결론만 알고 싶었다.
+    </p>
+
+    <p class="prose">
+      그래서 Gemini에 유튜브 링크를 던졌다. "스크립트 전체를 정리해줘." 30초 만에 영상의 전체 구조가 텍스트로 나왔다. 뉴코크 이야기, 단순 노출 효과, 손실 회피, ABC 공식. 9분짜리 영상의 핵심이 한 페이지에 담겼다.
+    </p>
+
+    <div class="source-card">
+      <div class="sc-label">Original Source</div>
+      <p><a href="https://youtu.be/_XJy5FqDrTs?si=-V5b7VrC8O92Taht">99%가 인생을 낭비하는 이유</a> — YouTube</p>
+      <p>Gemini로 스크립트 추출. 뉴코크의 실패, 단순 노출 효과, 손실 회피, 소유 효과, 제로베이스 사고법, 20초 마찰력, ABC 공식(Tiny Habits). 요약하면 "뇌의 기본 설정을 우회하면 변할 수 있다"는 메시지.</p>
+    </div>
+
+    <p class="prose">
+      여기서 끝날 수 있었다. 스크립트를 읽었고, 영상의 결론도 알았다. 그런데 한 가지가 걸렸다. <strong>이 텍스트 덩어리를, 보기 좋게 만들 수 있지 않을까?</strong>
+    </p>
+  </section>
+
+  <!-- 과정 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Process</span>
+      <h2>텍스트가 <strong>문서</strong>가 되기까지</h2>
+    </div>
+
+    <p class="prose">
+      Gemini가 뽑아준 스크립트를 Claude에 넘겼다. "에디토리얼 스타일로 HTML 한 페이지로 만들어줘." 첫 결과물이 나왔다. 나쁘지 않았지만 한글이 촌스러웠다. 세리프 폰트가 한국어에서는 무겁고 올드했다. 색상도 여기저기 하드코딩되어 있었다.
+    </p>
+
+    <p class="prose">
+      피드백을 주고받으며 폰트를 바꾸고(Noto Serif KR에서 Pretendard로), 색상을 CSS 변수로 공통화하고, 한글이 포함된 라벨의 스타일을 조정했다. 그 과정에서 나온 디자인 규칙들을 스킬 파일로 정리했다. <strong>반복하지 않기 위해서.</strong>
+    </p>
+
+    <p class="prose">
+      그러다 문서를 다시 읽었다. "뇌의 기본 설정을 우회하라." 맞는 말 같기도 하고, 너무 단순한 것 같기도 했다. <strong>"이거 반박할 수 있지 않나?"</strong> 그래서 반박 문서를 만들었다. 생존자 편향, 구조적 장벽, 습관 연구의 한계. 팩트를 찾아보니 반박할 근거가 넘쳤다.
+    </p>
+
+    <p class="prose">
+      반박 문서를 만들고 나니 이번엔 반대쪽이 너무 강했다. "그러면 아무것도 하지 말라는 거냐?" 그래서 종합 문서를 만들었다. 양쪽의 맹점을 짚고, "맥락에 따라 다르다"는 결론. 그런데 이건 또 너무 중립적이어서 와닿지 않았다. <strong>"그래서 뭘 어떡하라고?"</strong>
+    </p>
+
+    <p class="prose">
+      그래서 마지막으로 실행 매뉴얼을 만들었다. 이론 없이, 진단하고, 이번 주에 할 일을 정하고, 90일 실험을 돌리는 프로토콜.
+    </p>
+
+    <div class="pull-quote">
+      <p>유튜브 하나를 끝까지 보기 귀찮아서 시작한 일이 문서 5개가 됐다.</p>
+      <div class="attr">사실 이것도 하나의 실험이다</div>
+    </div>
+  </section>
+
+  <!-- 시리즈 맵 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Series</span>
+      <h2>5개 문서의 <strong>전체 구조</strong></h2>
+    </div>
+
+    <div class="series-map">
+      <div class="series-item">
+        <div class="s-num">01</div>
+        <div>
+          <h3>99퍼센트_인생낭비_적용가이드</h3>
+          <div class="s-role">원본 정리 — "뇌를 우회하라"</div>
+          <p>유튜브 스크립트를 에디토리얼 스타일로 재구성. 뉴코크 사례, 세 가지 인지 편향, 세 가지 해킹 기술. 원본 영상의 주장을 <strong>가장 설득력 있는 형태</strong>로 정리한 문서.</p>
+        </div>
+      </div>
+      <div class="series-item">
+        <div class="s-num">02</div>
+        <div>
+          <h3>자기계발이_말하지_않는_것</h3>
+          <div class="s-role">팩트 기반 반박 — "시스템을 봐라"</div>
+          <p>생존자 편향(Wald), 습관 형성의 진짜 기간(Lally, 66일), 가난과 인지력(Mullainathan), 후성유전학적 트라우마(Yehuda), 한국의 구조적 현실(OECD 노동시간, 수저론). <strong>같은 주제를 정반대에서 공격</strong>한 문서.</p>
+        </div>
+      </div>
+      <div class="series-item">
+        <div class="s-num">03</div>
+        <div>
+          <h3>변화의_조건</h3>
+          <div class="s-role">종합 분석 — "둘 다 절반만 맞다"</div>
+          <p>두 문서의 맹점을 교차 검증. 같은 연구(Mullainathan, Wood, Kahneman)가 양쪽에서 어떻게 다르게 인용되는지 분석. <strong>개인 vs 시스템의 이분법을 스펙트럼으로 재구성</strong>한 문서.</p>
+        </div>
+      </div>
+      <div class="series-item">
+        <div class="s-num">04</div>
+        <div>
+          <h3>그래서_어떡하라고</h3>
+          <div class="s-role">실행 매뉴얼 — "닥치고 하나만"</div>
+          <p>이론 제로. 분기형 자가 진단(수면/재정/방향/타겟)으로 시작해 오늘 할 액션 하나를 지정. 90일 실험 프로토콜, 큰 결정의 10-10-10 테스트. <strong>"읽는 건 행동이 아니다"</strong>로 끝나는 문서.</p>
+        </div>
+      </div>
+      <div class="series-item">
+        <div class="s-num">05</div>
+        <div>
+          <h3>이_문서는_어떻게_만들어졌는가</h3>
+          <div class="s-role">메타 문서 — 과정과 의도</div>
+          <p>지금 읽고 있는 이것. 유튜브 → Gemini 스크립트 → Claude 편집 → 반박 → 종합 → 실행까지의 전체 과정. 그리고 이것이 왜 콘텐츠가 될 수 있는지.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 워크플로우 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Workflow</span>
+      <h2>AI <strong>3개</strong>를 쓴 과정</h2>
+    </div>
+
+    <div class="flow-chain">
+      <div class="flow-node">
+        <div class="f-label">Step 1 — 소스 확보</div>
+        <div class="f-tool">YouTube + Gemini</div>
+        <h3>영상 → 텍스트</h3>
+        <p>유튜브 링크를 Gemini에 넘겨 전체 스크립트를 추출했다. 9분 영상이 구조화된 텍스트로 변환되는 데 <strong>30초</strong>. 영상의 논리 구조(도입-메커니즘-해법-결론)가 드러났다.</p>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node">
+        <div class="f-label">Step 2 — 1차 편집</div>
+        <div class="f-tool">Claude</div>
+        <h3>텍스트 → 에디토리얼 HTML</h3>
+        <p>스크립트를 Claude에 넘기며 "에디토리얼 스타일 단일 페이지 HTML"을 요청. 첫 결과물에서 <strong>한글 폰트와 색상 하드코딩 문제</strong>를 발견하고 피드백을 반복해 디자인 규칙(Pretendard, CSS 변수 공통화, 한글 라벨 규칙)을 확립했다.</p>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node">
+        <div class="f-label">Step 3 — 확장</div>
+        <div class="f-tool">Claude + Web Research</div>
+        <h3>하나의 주장 → 다각적 시리즈</h3>
+        <p>"이거 반박할 수 있지 않나?"라는 질문 하나로 시리즈가 확장되었다. Claude가 학술 논문(Science, World Psychiatry, PNAS, Econometrica)과 OECD 데이터를 조사해 팩트 기반 반박을 구성. 이후 종합, 실행 매뉴얼까지 <strong>하나의 영상에서 5개 문서</strong>가 나왔다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 왜 이게 콘텐츠가 되는가 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Insight</span>
+      <h2>이것이 <strong>콘텐츠</strong>가 되는 이유</h2>
+    </div>
+
+    <p class="prose">
+      이 시리즈의 출발점은 대단한 기획이 아니었다. <strong>영상 보기 귀찮았다.</strong> 그게 전부다. 그런데 그 귀찮음이 Gemini로 스크립트를 뽑는 행동으로 이어졌고, 뽑힌 텍스트를 "이왕이면 보기 좋게"로 정리하다 보니 여기까지 왔다.
+    </p>
+
+    <div class="insight-box">
+      <div class="i-title">이 과정이 보여주는 것</div>
+      <ul class="insight-list">
+        <li><strong>소비를 생산으로 전환하는 데 필요한 건 의지가 아니라 도구다.</strong> 유튜브를 보는 것은 소비다. 같은 영상의 스크립트를 뽑고, 정리하고, 반박하고, 종합하는 것은 생산이다. 이 전환에 걸린 추가 시간은 각 문서당 수십 분이었다.</li>
+        <li><strong>하나의 콘텐츠에서 최소 4개의 관점이 나온다.</strong> 원본 정리(찬성) → 팩트 반박(반대) → 종합 분석(중립) → 실행 매뉴얼(실용). 어떤 주제든 이 4단계를 거치면 시리즈가 된다.</li>
+        <li><strong>AI는 초고를 만들고, 사람은 방향을 정한다.</strong> Gemini는 스크립트를 뽑았다. Claude는 레이아웃을 잡고, 리서치를 하고, 코드를 썼다. 그러나 "반박 문서를 만들자", "이건 너무 중립적이다", "그래서 뭘 하라는 건데"라는 판단은 사람이 했다. AI는 실행 속도를 100배 빠르게 만들었지만, 방향 설정은 여전히 인간의 영역이다.</li>
+        <li><strong>피드백 루프가 품질을 만든다.</strong> 첫 결과물은 항상 부족하다. 한글 폰트가 촌스러웠고, 색상이 하드코딩되어 있었고, 모노스페이스 라벨이 한글에 안 맞았다. 이 피드백들이 쌓여 디자인 스킬 파일이 되었고, 이후 문서들은 처음부터 높은 품질로 나왔다.</li>
+        <li><strong>과정 자체가 콘텐츠다.</strong> 최종 산출물 5개도 콘텐츠지만, "유튜브 하나 보기 귀찮아서 어쩌다 5개 문서를 만든 이야기" 자체가 또 하나의 콘텐츠다. 지금 읽고 있는 이 문서가 그 증거다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 재현 가능 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Reproduce</span>
+      <h2>당신도 <strong>똑같이</strong> 할 수 있다</h2>
+    </div>
+
+    <p class="prose">
+      이 과정은 특별한 기술이 필요 없다. 유튜브를 보고, AI에게 질문할 수 있으면 된다. 구체적 단계:
+    </p>
+
+    <p class="prose">
+      <strong>1단계.</strong> 유튜브에서 관심 가는 영상을 하나 고른다. 10분 이상이면 좋다. 내용이 길수록 정리할 것이 많다.
+    </p>
+
+    <p class="prose">
+      <strong>2단계.</strong> Gemini에 링크를 넘기고 "스크립트 전체를 정리해줘"라고 한다. 핵심 구조가 텍스트로 나온다.
+    </p>
+
+    <p class="prose">
+      <strong>3단계.</strong> 그 텍스트를 Claude에 넘기고 "보기 좋게 HTML로 만들어줘"라고 한다. 여기까지가 기본.
+    </p>
+
+    <p class="prose">
+      <strong>4단계.</strong> 여기서 멈추지 않고 질문한다. <strong>"이거 반박할 수 있어?"</strong> 이 한마디가 시리즈의 시작이다. AI는 학술 논문과 데이터를 찾아 반대 논거를 구성한다. 그러면 찬성(원본) + 반대(반박) + 중립(종합) + 실용(실행) 4개가 자연스럽게 나온다.
+    </p>
+
+    <p class="prose">
+      <strong>5단계.</strong> 과정을 기록하면 5번째 문서(메타 문서)가 된다. "어떻게 만들었는가"는 그 자체로 콘텐츠다.
+    </p>
+
+    <div class="pull-quote">
+      <p>소비에서 생산까지의 거리는 "이거 반박할 수 있어?"라는 질문 하나다.</p>
+      <div class="attr">이 시리즈의 진짜 교훈</div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <p class="big">귀찮음도 <strong>방향</strong>이 된다</p>
+    <p class="sub">영상을 끝까지 보기 귀찮았다. 그래서 AI로 스크립트를 뽑았다. 뽑은 김에 정리했다. 정리한 김에 반박했다. 반박한 김에 종합했다. 종합한 김에 실행 매뉴얼을 만들었다. 그리고 이 과정을 기록했다. 귀찮음이 시작이어도, 방향만 있으면 콘텐츠가 된다.</p>
+  </div>
+
+  <div class="footer">
+    <p>YouTube &rarr; Gemini &rarr; Claude &rarr; 5 Documents &rarr; Content Series</p>
+  </div>
+
+</div>
+</body>
+</html>

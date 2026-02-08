@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>변화의 조건</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Source+Serif+4:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #faf8f4;
+    --fg: #1a1a18;
+    --muted: #8a8680;
+    --accent: #c43e2a;
+    --rule: #d5d0c8;
+    --card-bg: #f2efe9;
+    --prose: #3a3a36;
+    --secondary: #6a6862;
+    --serif: 'Source Serif 4', 'Pretendard', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 100px;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    text-align: center;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--fg);
+    margin-bottom: 64px;
+  }
+
+  .masthead .issue {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .masthead h1 {
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    color: var(--fg);
+    margin-bottom: 16px;
+  }
+
+  .masthead h1 strong {
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .masthead .deck {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* SECTION HEADERS */
+  .section-head {
+    margin-top: 72px;
+    margin-bottom: 40px;
+  }
+
+  .section-head .num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .section-head h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+  }
+
+  .section-head h2 strong {
+    color: var(--accent);
+  }
+
+  /* PROSE */
+  .prose {
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--prose);
+    margin-bottom: 28px;
+  }
+
+  .prose strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  /* VERSUS ROW */
+  .versus-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin: 40px 0 48px;
+    border: 1px solid var(--rule);
+  }
+
+  .versus-col {
+    padding: 32px 24px;
+    background: var(--bg);
+  }
+
+  .versus-col .v-label {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .versus-col p {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .versus-col p strong {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  .versus-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--rule);
+    width: 1px;
+    position: relative;
+  }
+
+  .versus-divider span {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--rule);
+    padding: 8px 4px;
+    letter-spacing: 2px;
+  }
+
+  /* THREE COLUMN */
+  .mechanism-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+
+  .mechanism {
+    background: var(--bg);
+    padding: 32px 24px;
+  }
+
+  .mechanism .m-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .mechanism h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .mechanism p {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.7;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 48px 0;
+    padding: 44px 0;
+    border-top: 1px solid var(--fg);
+    border-bottom: 1px solid var(--fg);
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--fg);
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .pull-quote .attr {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  /* TECHNIQUE BLOCKS */
+  .technique {
+    margin: 48px 0;
+    padding: 0 0 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .technique:last-of-type { border-bottom: none; }
+
+  .technique-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .technique-header .t-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .technique-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .technique .t-sub {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 18px;
+    padding-left: 52px;
+  }
+
+  .technique .t-body {
+    background: var(--card-bg);
+    padding: 24px 28px;
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+
+  .technique .t-body .formula {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+    margin: 10px 0 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* SPECTRUM BAR */
+  .spectrum {
+    margin: 40px 0 48px;
+    padding: 28px 32px;
+    border: 1px solid var(--rule);
+  }
+
+  .spectrum-bar {
+    height: 6px;
+    background: linear-gradient(to right, var(--accent), var(--rule) 50%, var(--fg));
+    border-radius: 3px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .spectrum-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .spectrum-items {
+    list-style: none;
+  }
+
+  .spectrum-items li {
+    font-size: 0.88rem;
+    color: var(--prose);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .spectrum-items li:last-child { border-bottom: none; }
+
+  .spectrum-items .s-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    width: 56px;
+    text-align: center;
+    padding: 2px 0;
+    border: 1px solid var(--rule);
+    color: var(--secondary);
+  }
+
+  .spectrum-items .s-tag.individual { color: var(--accent); border-color: var(--accent); }
+  .spectrum-items .s-tag.both { color: var(--muted); }
+  .spectrum-items .s-tag.system { color: var(--fg); border-color: var(--fg); }
+
+  /* DECISION MATRIX */
+  .matrix {
+    margin: 40px 0 48px;
+  }
+
+  .matrix-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .matrix-row:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .matrix-cell {
+    background: var(--bg);
+    padding: 24px 24px;
+  }
+
+  .matrix-cell.header {
+    background: var(--card-bg);
+    padding: 16px 24px;
+  }
+
+  .matrix-cell .cell-label {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .matrix-cell h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .matrix-cell p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.75;
+  }
+
+  /* WARNING BOX */
+  .warning-box {
+    margin: 56px 0;
+    border: 1px solid var(--fg);
+    padding: 32px 36px;
+  }
+
+  .warning-box .w-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .warning-list {
+    list-style: none;
+    counter-reset: warn;
+  }
+
+  .warning-list li {
+    font-size: 0.9rem;
+    color: var(--prose);
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    counter-increment: warn;
+  }
+
+  .warning-list li:last-child { border-bottom: none; }
+
+  .warning-list li::before {
+    content: counter(warn, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 10px;
+  }
+
+  /* CLOSING */
+  .closing {
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--fg);
+    text-align: center;
+  }
+
+  .closing .big {
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  .closing .big strong {
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .closing .sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .footer p {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 48px 24px 60px; }
+    .masthead h1 { font-size: 2.2rem; }
+    .mechanism-row { grid-template-columns: 1fr; }
+    .versus-row { grid-template-columns: 1fr; }
+    .versus-divider { width: 100%; height: 1px; }
+    .versus-divider span { padding: 4px 8px; }
+    .matrix-row { grid-template-columns: 1fr; }
+    .section-head h2 { font-size: 1.5rem; }
+    .pull-quote p { font-size: 1.2rem; }
+    .closing .big { font-size: 1.6rem; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">Synthesis — Behavioral Science meets Structural Analysis</div>
+    <h1><strong>변화의 조건</strong></h1>
+    <p class="deck">개인의 노력은 의미 없는가, 시스템의 제약은 핑계인가.<br>둘 다 절반만 맞다. 변화는 조건의 함수다.</p>
+  </header>
+
+  <!-- PART 1 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>두 문서가 <strong>각각 틀린</strong> 지점</h2>
+    </div>
+
+    <p class="prose">
+      "99%가 인생을 낭비한다"는 문서는 변화하지 못하는 원인을 뇌의 편향에서 찾고, 개인의 환경 설계와 작은 습관으로 해결할 수 있다고 말한다. 반박 문서는 그 조언이 생존자 편향 위에 서 있으며, 구조적 장벽 앞에서 개인 최적화는 무의미하다고 말한다. 두 주장 모두 강력한 근거를 가지고 있다. 그리고 두 주장 모두 <strong>같은 오류</strong>를 범한다. 복잡한 현실을 하나의 프레임으로 환원하는 것.
+    </p>
+
+    <div class="versus-row">
+      <div class="versus-col">
+        <div class="v-label">문서 A의 맹점</div>
+        <p><strong>"뇌의 기본 설정을 우회하라"</strong></p>
+        <p>손실 회피를 결함으로 취급한다. 그러나 Kahneman &amp; Tversky 본인들도 이것을 "버그"라 부르지 않았다. 진화적으로 적응적인 반응이다.</p>
+        <p>구조적 제약을 무시한다. 주 52시간 일하는 사람에게 "운동복을 미리 꺼둬라"는 조언은 맥락을 결여한다.</p>
+        <p>"작은 습관"의 전제 조건 — 안정적 환경, 충분한 인지적 여유 — 을 명시하지 않는다.</p>
+      </div>
+      <div class="versus-divider"><span>vs</span></div>
+      <div class="versus-col">
+        <div class="v-label">문서 B의 맹점</div>
+        <p><strong>"시스템이 고장났는데 개인을 탓하지 마라"</strong></p>
+        <p>구조적 제약을 강조하면서 <strong>같은 구조 안에서 다른 결과를 내는 개인 차이</strong>를 설명하지 못한다. 같은 동네, 같은 소득 수준에서도 결과는 갈린다.</p>
+        <p>Mullainathan의 연구를 인용하면서 정작 그의 결론 — "환경을 바꾸면 인지 능력이 회복된다" — 은 생략한다. 이것은 환경 설계 조언과 정확히 같은 방향이다.</p>
+        <p>모든 개인 노력을 "시스템 문제의 가리개"로 치부하면 실제로 행동할 수 있는 사람의 동기까지 무력화한다.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>진짜 질문은 "개인이냐 시스템이냐"가 아니다. "지금 이 사람의 조건에서 무엇이 변수인가"다.</p>
+      <div class="attr">핵심 전제</div>
+    </div>
+  </section>
+
+  <!-- PART 2 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>뇌는 버그도 기능도 아니다. <strong>맥락</strong>이 결정한다</h2>
+    </div>
+
+    <p class="prose">
+      손실 회피, 현상 유지 편향, 단순 노출 효과. 이것들은 모든 상황에서 나쁜 것도, 모든 상황에서 좋은 것도 아니다. 같은 인지 메커니즘이 맥락에 따라 합리적 판단이 되기도 하고 자기 파괴가 되기도 한다.
+    </p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">Context 01</div>
+        <h3>손실 회피가 합리적일 때</h3>
+        <p>안정적 직장을 떠나 창업하는 것. 5년 생존율 50.6%인 도박에서, 잃을 것이 많은 사람이 신중한 것은 합리적이다. 부양 가족이 있다면 더욱 그렇다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Context 02</div>
+        <h3>손실 회피가 해로울 때</h3>
+        <p>명백히 맞지 않는 관계나 직장에 매몰 비용 때문에 머무는 것. 잃는 것이 아니라 이미 잃고 있는 것을 인식하지 못할 때, 편향은 해롭다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">Context 03</div>
+        <h3>구별의 기준</h3>
+        <p><strong>"현재에서 얻는 것이 떠오르는가, 잃는 것이 떠오르는가."</strong> 전자라면 합리적 판단, 후자라면 편향이 작동 중이다. 원래 문서의 이 질문은 유효하다.</p>
+      </div>
+    </div>
+
+    <p class="prose">
+      Samuelson &amp; Zeckhauser(1988)가 현상 유지 편향에 "합리적 설명이 존재한다"고 한 것은 항상 합리적이라는 뜻이 아니다. 합리적일 <strong>수도</strong> 있다는 뜻이다. Prospect Theory가 손실 회피를 발견한 것은 이것을 "극복하라"는 처방이 아니라 <strong>"인식하라"</strong>는 진단이다.
+    </p>
+
+    <p class="prose">
+      두 문서 모두 같은 연구를 반대 방향으로 읽는다. 연구 자체는 판단을 내리지 않는다. <strong>맥락을 분석한 뒤 판단하는 것은 당신의 몫이다.</strong>
+    </p>
+  </section>
+
+  <!-- PART 3 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>습관은 작동한다. <strong>조건부로</strong></h2>
+    </div>
+
+    <p class="prose">
+      Phillippa Lally의 연구가 "21일 신화"를 깨뜨린 것은 사실이다. 평균 66일, 최대 254일. 그러나 같은 연구가 말하는 또 다른 사실이 있다. <strong>하루를 빠뜨려도 장기적 습관 형성에 유의미한 영향이 없었다.</strong> 완벽함이 아니라 방향의 문제라는 것이다. 반박 문서는 이 부분을 언급하지 않았다.
+    </p>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">01</span>
+        <h3>습관이 작동하는 조건</h3>
+      </div>
+      <div class="t-sub">Wendy Wood의 연구가 실제로 말하는 것</div>
+      <div class="t-body">
+        반박 문서는 "스트레스가 습관을 파괴한다"고 요약했다. 절반만 맞다. Wood의 원문을 정확히 읽으면:
+        <br><br>
+        <span class="formula">스트레스는 '새로운 습관'의 형성을 방해한다</span>
+        인지 부하가 높으면 의식적 행동 제어가 약해진다. 새로운 행동을 의식적으로 반복해야 하는 초기 단계에서, 스트레스는 치명적이다.
+        <span class="formula">스트레스는 '기존 습관'을 강화한다</span>
+        이미 자동화된 행동은 오히려 스트레스 하에서 더 강하게 발현된다. 이것이 나쁜 습관이 스트레스 상황에서 폭발하는 이유이기도 하지만, <strong>좋은 습관이 이미 자리 잡았다면 스트레스가 그것을 파괴하지 못한다</strong>는 뜻이기도 하다.
+        <br><br>
+        결론: 습관의 타이밍이 중요하다. <strong>안정적인 시기에 습관을 만들고, 불안정한 시기에 그 습관이 당신을 지탱한다.</strong> 위기 한가운데서 새 습관을 시작하라는 조언은 비현실적이다. 그러나 여유가 있을 때 습관을 만들어두라는 조언은 신경과학적으로 타당하다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">02</span>
+        <h3>환경 설계의 유효 범위</h3>
+      </div>
+      <div class="t-sub">Mullainathan의 연구가 양쪽 모두에게 말하는 것</div>
+      <div class="t-body">
+        반박 문서는 Mullainathan의 "가난은 인지력을 떨어뜨린다" 연구를 구조적 장벽의 증거로 인용했다. 맞다. 그러나 같은 연구의 다른 절반:
+        <br><br>
+        <strong>타밀나두 농부들은 수확 후(돈이 생긴 후) 인지 능력이 회복되었다.</strong>
+        <br><br>
+        이것은 인지적 대역폭이 <strong>고정된 특성이 아니라 조건에 따라 변하는 상태</strong>라는 뜻이다. 조건이 바뀌면 능력도 바뀐다. 원래 문서의 "환경 설계" 조언과 반박 문서의 "구조적 제약" 진단은 같은 연구의 양면이다.
+        <br><br>
+        <span class="formula">개인이 바꿀 수 있는 환경이 있다면 — 바꿔라</span>
+        스마트폰 위치, 알림 설정, 운동복 배치. 이것은 인지적 대역폭을 소모하지 않는 일회성 결정이다.
+        <span class="formula">개인이 바꿀 수 없는 환경이라면 — 그것은 개인의 실패가 아니다</span>
+        근본적 소득 부족, 과도한 노동시간, 돌봄 책임. 이 영역에서 "의지력" 프레임은 가해다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">03</span>
+        <h3>생존자 편향과 학습의 차이</h3>
+      </div>
+      <div class="t-sub">조언을 듣되, 인과관계로 받아들이지 않는 법</div>
+      <div class="t-body">
+        "성공한 사람의 조언은 쓸모없다"도 과잉 일반화다. 생존자 편향의 핵심은 <strong>"그 조언이 성공의 원인인지 알 수 없다"</strong>는 것이지, "그 조언이 반드시 틀렸다"는 것이 아니다.
+        <br><br>
+        같은 시간에 일어나고 실패한 사람이 있다고 해서, 일찍 일어나는 것이 해롭다는 뜻은 아니다. 단지 <strong>그것만으로 충분하지 않다</strong>는 뜻이다.
+        <br><br>
+        실용적 원칙: 성공 조언은 <strong>가설</strong>로 취급한다. "이것을 하면 성공한다"가 아니라 "이것이 나에게 작동하는지 검증한다"로 전환한다. N=1이라도 자기 데이터가 남의 N=10,000보다 유효한 영역이 있다. 자기 몸, 자기 일정, 자기 에너지 패턴.
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>변수의 <strong>스펙트럼</strong></h2>
+    </div>
+
+    <p class="prose">
+      "개인의 노력 vs 시스템의 제약"은 이분법이 아니라 스펙트럼이다. 모든 변수는 개인 통제 가능성의 정도에 따라 어딘가에 위치한다. 이 위치를 정확히 인식하는 것이 양쪽 문서보다 유용하다.
+    </p>
+
+    <div class="spectrum">
+      <div class="spectrum-bar"></div>
+      <div class="spectrum-labels">
+        <span>개인이 바꿀 수 있다</span>
+        <span>부분적으로 영향</span>
+        <span>시스템 영역</span>
+      </div>
+      <ul class="spectrum-items">
+        <li><span class="s-tag individual">개인</span> 스마트폰 위치, 알림 설정, 수면 환경, 독서 습관, 운동 루틴</li>
+        <li><span class="s-tag individual">개인</span> 소비 패턴, 미디어 노출, 일일 우선순위 설정</li>
+        <li><span class="s-tag both">부분</span> 직장 내 업무 방식, 회의 빈도, 집중 시간 확보</li>
+        <li><span class="s-tag both">부분</span> 인간관계 범위, 커뮤니티 선택, 노출 환경</li>
+        <li><span class="s-tag both">부분</span> 기술 스택 전환, 커리어 방향 조정</li>
+        <li><span class="s-tag system">시스템</span> 총 노동시간, 임금 수준, 주거 비용</li>
+        <li><span class="s-tag system">시스템</span> 교육 비용, 사교육 구조, 입시 제도</li>
+        <li><span class="s-tag system">시스템</span> 출생 환경, 세대 간 자산, 후성유전적 영향</li>
+      </ul>
+    </div>
+
+    <p class="prose">
+      원래 문서의 조언은 스펙트럼 상단(개인 영역)에서 유효하다. 반박 문서의 비판은 스펙트럼 하단(시스템 영역)에서 정당하다. 오류는 자신의 영역을 전체로 확대하는 순간 발생한다.
+    </p>
+  </section>
+
+  <!-- PART 5 -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2>실용적 <strong>판단 프레임</strong></h2>
+    </div>
+
+    <p class="prose">
+      이론은 충분하다. 문제는 "그래서 나는 지금 어떻게 해야 하는가"다. 다음 네 가지 질문은 양쪽 문서의 통찰을 통합한 자기 진단 도구다.
+    </p>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">Q1</span>
+        <h3>지금 내 인지적 대역폭은 어디에 있는가?</h3>
+      </div>
+      <div class="t-sub">Mullainathan의 연구에서 도출</div>
+      <div class="t-body">
+        재정적 압박, 건강 문제, 관계 위기, 과로 상태에 있다면 새로운 습관을 시작할 때가 아니다. <strong>먼저 대역폭을 회복하라.</strong> 이것은 게으름이 아니라 전략이다.
+        <br><br>
+        대역폭이 있는 상태라면 — 그때가 환경을 재설계하고 작은 습관을 실험할 적기다. "언제 시작하느냐"가 "무엇을 시작하느냐"보다 중요하다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">Q2</span>
+        <h3>이것은 내가 바꿀 수 있는 변수인가?</h3>
+      </div>
+      <div class="t-sub">스펙트럼 위치 판단</div>
+      <div class="t-body">
+        <span class="formula">바꿀 수 있다면 — 원래 문서의 도구를 쓴다</span>
+        제로베이스 질문, 20초 마찰력, ABC 공식. 개인 영역의 변수에 이 도구들은 실제로 작동한다. 단, "21일이면 된다"는 기대를 버리고 66일 이상의 타임라인으로 계획한다.
+        <span class="formula">바꿀 수 없다면 — 자책 대신 경로를 바꾼다</span>
+        바꿀 수 없는 변수를 의지력으로 극복하려는 시도는 에너지 낭비다. 제약 조건으로 받아들이고, 그 안에서 가능한 다른 경로를 찾는다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">Q3</span>
+        <h3>현상 유지는 합리적 판단인가, 두려움인가?</h3>
+      </div>
+      <div class="t-sub">원래 문서의 유효한 질문 + 보정</div>
+      <div class="t-body">
+        원래 문서의 "만족 vs 두려움 구분"은 좋은 자가 진단이다. 현재에서 <strong>얻는 것</strong>이 떠오르면 합리적 판단, <strong>잃는 것</strong>만 떠오르면 편향이 작동 중이다.
+        <br><br>
+        단, 보정이 필요하다. Gilovich &amp; Medvec(1994)가 보여준 것처럼:
+        <br><br>
+        <span class="formula">단기적으로 — 잘못된 행동의 후회가 더 크다</span>
+        <span class="formula">장기적으로 — 행동하지 않은 후회가 더 크다</span>
+        시간축을 의식적으로 고려한다. "1년 뒤에도 이 결정에 만족할 것인가?" 단기 감정과 장기 판단은 다른 답을 내린다.
+      </div>
+    </div>
+
+    <div class="technique">
+      <div class="technique-header">
+        <span class="t-num">Q4</span>
+        <h3>이 조언은 가설인가, 처방인가?</h3>
+      </div>
+      <div class="t-sub">생존자 편향을 인식한 상태에서의 학습법</div>
+      <div class="t-body">
+        성공한 사람의 조언, 자기계발서의 프레임워크, 이 문서 자체를 포함해서 — 모든 조언을 <strong>검증 가능한 가설</strong>로 취급한다.
+        <br><br>
+        "이 습관이 나에게 작동하는가?" → 2주 실험해 본다.
+        <br>
+        "이 환경 변경이 실제로 행동을 바꾸는가?" → 측정한다.
+        <br>
+        "이 자기 진단이 나의 현실과 부합하는가?" → 정직하게 답한다.
+        <br><br>
+        작동하면 계속한다. 작동하지 않으면 자신을 탓하는 대신 가설을 수정한다.
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTIC -->
+  <section>
+    <div class="warning-box">
+      <div class="w-title">자가 진단 — 지금 어느 문서가 더 필요한가</div>
+      <ul class="warning-list">
+        <li>인지적 여유가 있고, 방향은 아는데 실행이 안 된다 → <strong>원래 문서의 도구(환경 설계, 마찰력, ABC)를 시도하라</strong></li>
+        <li>만성적 과로, 재정적 압박, 건강 문제에 시달리고 있다 → <strong>반박 문서가 맞다. 지금은 시스템을 바꾸거나, 최소한 자책을 멈춰라</strong></li>
+        <li>편안하지만 정체된 느낌이 든다 → <strong>제로베이스 질문을 던져 봐라. 편향이 작동 중일 수 있다</strong></li>
+        <li>변화를 시도했지만 반복적으로 실패한다 → <strong>의지력이 아니라 조건을 점검하라. 타이밍, 대역폭, 환경 중 무엇이 부족한가</strong></li>
+        <li>성공 조언에 동기부여를 받지만 며칠 뒤 원래로 돌아온다 → <strong>조언을 처방이 아닌 가설로 전환하라. 작동하지 않으면 가설을 바꿔라</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="closing">
+    <p class="big">개인도 시스템도 아닌<br><strong>조건을 읽는 눈</strong></p>
+    <p class="sub">뇌를 해킹하라는 말도, 시스템을 탓하라는 말도 충분히 들었다. 지금 필요한 것은 자신의 조건을 정확히 읽고, 바꿀 수 있는 것과 없는 것을 구별하는 능력이다. 그것이 진짜 변화의 시작점이다.</p>
+  </div>
+
+  <div class="footer">
+    <p>Synthesis of behavioral psychology, structural analysis, and neuroscience research</p>
+  </div>
+
+</div>
+</body>
+</html>
