@@ -102,6 +102,16 @@
         { slug: 'gitlab-migration-the-right-way', title: 'GitLab 서버 이사 — 정석은 이렇다' },
         { slug: 'gitlab-migration-developer-survival', title: '월요일 아침, git push가 안 될 때' }
       ]
+    },
+    'server-infra-guide-series': {
+      label: 'Series 11',
+      title: '192.168.0.x의 규칙',
+      articles: [
+        { slug: 'server-infra-overview', title: '같은 네트워크, 제각각의 역할' },
+        { slug: 'traefik-the-gatekeeper', title: '모든 트래픽은 여기를 지난다' },
+        { slug: 'developer-server-survival-guide', title: '내 서버인데 왜 마음대로 못 쓰냐고요' },
+        { slug: 'traefik-routing-guide', title: '저장하면 끝이다' }
+      ]
     }
   };
 

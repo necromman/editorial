@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>내 서버인데 왜 마음대로 못 쓰냐고요 — Editorial</title>
+<meta name="description" content="개발자 전용 서버에서 해도 되는 것과 하면 안 되는 것. Traefik 이중 설치가 왜 문제인지, 올바르게 서비스를 노출하는 방법은 무엇인지. 실전 가이드와 체크리스트.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/server-infra-guide-series/developer-server-survival-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="내 서버인데 왜 마음대로 못 쓰냐고요">
+<meta property="og:description" content="개발자 전용 서버에서 해도 되는 것과 하면 안 되는 것. Traefik 이중 설치가 왜 문제인지, 올바르게 서비스를 노출하는 방법은 무엇인지.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/server-infra-guide-series/developer-server-survival-guide.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="내 서버인데 왜 마음대로 못 쓰냐고요">
+<meta name="twitter:description" content="개발자 전용 서버에서 해도 되는 것과 하면 안 되는 것. Traefik 이중 설치가 왜 문제인지, 올바르게 서비스를 노출하는 방법은 무엇인지.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"내 서버인데 왜 마음대로 못 쓰냐고요","description":"개발자 전용 서버에서 해도 되는 것과 하면 안 되는 것. Traefik 이중 설치가 왜 문제인지, 올바르게 서비스를 노출하는 방법은 무엇인지. 실전 가이드와 체크리스트.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/server-infra-guide-series/developer-server-survival-guide.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+
+  /* SCENARIO BOX */
+  .scenario-box {
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .scenario-box .s-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .scenario-box p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .scenario-box p + p {
+    margin-top: 12px;
+  }
+  .scenario-box p strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  /* COMPARE COLUMNS */
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .col-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .compare-col .col-item {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col .col-item:last-child {
+    border-bottom: none;
+  }
+  .compare-col .col-item strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  /* INCIDENT BOX */
+  .incident-box {
+    border: 2px solid var(--accent);
+    padding: 32px 28px;
+    margin: 40px 0;
+  }
+  .incident-box .ib-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .incident-box .ib-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+  .incident-box p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .incident-box p + p {
+    margin-top: 10px;
+  }
+  .incident-box p strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    margin: 32px 0;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    display: grid;
+    gap: 1px;
+  }
+  .checklist li {
+    background: var(--bg);
+    padding: 16px 24px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--prose);
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    align-items: start;
+  }
+  .checklist li .ck-icon {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+  .checklist li strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  @media (max-width: 700px) {
+    .compare-cols { grid-template-columns: 1fr; }
+    .scenario-box { padding: 20px 20px; }
+    .incident-box { padding: 24px 20px; }
+    .code-block { padding: 16px 18px; font-size: 0.7rem; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">server infra guide series — article 03</div>
+    <h1>내 서버인데 왜<br><strong>마음대로 못 쓰냐고요</strong></h1>
+    <p class="deck">개발자 전용 서버(192.168.0.202~204)가 있다고 뭘 해도 되는 건 아니다. 해도 되는 것과 하면 안 되는 것. 그 경계선을 명확히 긋는다.</p>
+  </header>
+
+  <!-- PART I -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>개발자 서버의 역할과 범위</h2>
+    </div>
+
+    <p class="prose">각 개발자에게 할당된 서버는 Proxmox(192.168.0.104) 위의 가상 머신(VM)이다. <strong>Chris(202), Lucy(203), Evan(204)</strong>. 이 서버들의 목적은 단 하나 — <strong>개인 개발과 테스트</strong>다.</p>
+
+    <p class="prose">운영 서비스를 올리는 공간이 아니다. 인프라를 실험하는 공간도 아니다. Docker 컨테이너를 띄우고, API를 테스트하고, 코드를 빌드하는 곳이다. 그 이상은 인프라 서버의 영역이다.</p>
+
+    <div class="mechanism-row">
+      <div class="mechanism">
+        <div class="m-label">01</div>
+        <h3>개발 환경</h3>
+        <p>Docker 컨테이너 실행, 로컬 DB 구동, 개발 서버 기동. <strong>모든 개발 작업의 기본.</strong></p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">02</div>
+        <h3>테스트 환경</h3>
+        <p>단위 테스트, 통합 테스트, API 호출 검증. 운영 데이터가 아닌 <strong>테스트 데이터로만</strong> 작업한다.</p>
+      </div>
+      <div class="mechanism">
+        <div class="m-label">03</div>
+        <h3>빌드 환경</h3>
+        <p>프로젝트 빌드, 패키지 생성, CI/CD 전 로컬 검증. GitLab CI가 처리하기 전 <strong>사전 확인용</strong>이다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART II -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>해도 되는 것 vs 하면 안 되는 것</h2>
+    </div>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <div class="col-label">해도 되는 것</div>
+        <div class="col-item"><strong>Docker 컨테이너</strong> 실행 (개발/테스트용)</div>
+        <div class="col-item"><strong>로컬 DB</strong> 구동 (PostgreSQL, MySQL, Redis 등)</div>
+        <div class="col-item"><strong>개발 서버</strong> 기동 (npm run dev, python manage.py runserver 등)</div>
+        <div class="col-item"><strong>테스트 스크립트</strong> 실행</div>
+        <div class="col-item"><strong>빌드 및 패키징</strong> 작업</div>
+        <div class="col-item">팀원에게 <strong>IP:포트</strong>로 임시 공유 (사내 네트워크 한정)</div>
+      </div>
+      <div class="compare-col">
+        <div class="col-label">하면 안 되는 것</div>
+        <div class="col-item"><strong>Traefik/Nginx/HAProxy</strong> 등 리버스 프록시 설치</div>
+        <div class="col-item"><strong>SSL 인증서</strong> 개별 발급 (Let's Encrypt 직접 호출)</div>
+        <div class="col-item"><strong>Consul에 서비스</strong> 수동 등록</div>
+        <div class="col-item"><strong>운영 서비스</strong> 배포 (고객 대상 서비스 금지)</div>
+        <div class="col-item"><strong>인프라 서버</strong>(230~236) 설정 변경</div>
+        <div class="col-item"><strong>도메인을 직접 연결</strong>하여 외부 공개</div>
+      </div>
+    </div>
+
+    <p class="prose">핵심은 <strong>인프라 계층을 건드리지 않는 것</strong>이다. 리버스 프록시, SSL, 서비스 디스커버리는 인프라 서버의 역할이다. 개발자 서버에서 이 영역을 침범하면 전체 인프라에 영향을 줄 수 있다.</p>
+  </section>
+
+  <!-- PART III -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>실제 문제 사례 — Traefik 이중 설치</h2>
+    </div>
+
+    <div class="incident-box">
+      <span class="ib-label">사고 시나리오</span>
+      <div class="ib-title">Evan(204) 서버 8080 포트에 Traefik을 설치한 경우</div>
+      <p>개발 중인 서비스를 외부에 노출하기 위해 자체 Traefik을 설치했다. 도메인도 붙이고 SSL도 직접 발급했다. 처음에는 작동하는 것처럼 보인다.</p>
+      <p><strong>그러나 다음 문제가 발생한다.</strong></p>
+    </div>
+
+    <div class="technique">
+      <div class="t-num">01</div>
+      <h3>역할 충돌</h3>
+      <p class="t-sub">이중 라우팅 경로가 생성된다</p>
+      <p>중앙 Traefik(230)과 Evan의 Traefik(204)이 동시에 동일 도메인의 요청을 처리하려 할 수 있다. DNS 설정에 따라 트래픽이 어디로 흐를지 예측할 수 없다. 디버깅이 극도로 어려워진다.</p>
+    </div>
+
+    <div class="technique">
+      <div class="t-num">02</div>
+      <h3>Consul 연동 충돌</h3>
+      <p class="t-sub">서비스 디스커버리가 꼬인다</p>
+      <p>두 Traefik이 동일한 Consul 클러스터(233~235)를 바라보면, 각각 다른 라우팅 규칙을 적용할 수 있다. 서비스 A는 중앙 Traefik을 타고, 서비스 B는 Evan의 Traefik을 타는 상황이 발생한다. <strong>예측 불가능한 동작</strong>이다.</p>
+    </div>
+
+    <div class="technique">
+      <div class="t-num">03</div>
+      <h3>SSL 인증서 꼬임</h3>
+      <p class="t-sub">Let's Encrypt Rate Limit 초과 위험</p>
+      <p>중앙 Traefik이 이미 해당 도메인의 인증서를 관리하고 있는데, Evan의 Traefik도 같은 도메인의 인증서를 요청한다. Let's Encrypt는 <strong>동일 도메인에 대해 주당 50개</strong>의 인증서 발급 제한이 있다. 갱신 주기가 꼬이면 인증서 만료로 서비스가 중단될 수 있다.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"내 서버니까 괜찮겠지"가<br><strong>인프라 장애의 시작이다.</strong></p>
+    </div>
+  </section>
+
+  <!-- PART IV -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>올바른 방법</h2>
+    </div>
+
+    <p class="prose">개발 중인 서비스를 외부에 노출하려면, 개발자 서버에 프록시를 설치하는 것이 아니라 <strong>중앙 Traefik(230)에 라우팅 규칙을 추가</strong>해야 한다.</p>
+
+    <div class="scenario-box">
+      <span class="s-label">올바른 절차</span>
+      <p><strong>1단계.</strong> 개발자 서버에서 서비스를 원하는 포트로 실행한다. 예: 192.168.0.204:8080</p>
+      <p><strong>2단계.</strong> 인프라 관리자에게 Traefik 라우팅 추가를 요청한다. 원하는 도메인과 포트를 전달한다.</p>
+      <p><strong>3단계.</strong> 중앙 Traefik이 <code>evan-app.yourdomain.com → 192.168.0.204:8080</code> 라우팅을 설정한다.</p>
+      <p><strong>4단계.</strong> SSL 인증서가 자동 발급되고, 접근 제어 정책이 일괄 적용된다.</p>
+    </div>
+
+    <p class="prose">이 방식의 장점은 명확하다. SSL 인증서 관리가 한 곳에서 이루어지고, 접근 제어 정책이 일관되며, 트래픽 흐름이 예측 가능하다. 개발자는 서비스 개발에만 집중하면 된다.</p>
+
+    <div class="code-block"><span class="code-label">팀원에게 임시 공유할 때</span>
+<span class="code-comment"># 사내 네트워크에서 IP:포트로 직접 접근 (Traefik 불필요)</span>
+
+http://192.168.0.204:8080
+
+<span class="code-comment"># 팀원이 같은 네트워크에 있으면 이것으로 충분하다</span>
+<span class="code-comment"># 외부 공개가 필요할 때만 Traefik 라우팅을 요청한다</span></div>
+  </section>
+
+  <!-- PART V -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part V</span>
+      <h2>개발자 서버 사용 체크리스트</h2>
+    </div>
+
+    <p class="prose">새 서버를 할당받았거나, 기존 서버에서 작업을 시작할 때 아래 체크리스트를 확인한다.</p>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin:32px 0 16px">서버 초기 세팅</div>
+
+    <ul class="checklist">
+      <li><span class="ck-icon">01</span><span>SSH 키 등록 — GitLab(232)에 접근하기 위한 SSH 키를 설정한다</span></li>
+      <li><span class="ck-icon">02</span><span>Docker 설치 확인 — 개발 환경의 기본 도구. 없으면 설치 요청한다</span></li>
+      <li><span class="ck-icon">03</span><span>Git 설정 — <code>git remote</code>가 사내 GitLab을 가리키는지 확인한다</span></li>
+      <li><span class="ck-icon">04</span><span>방화벽 확인 — 사내 네트워크에서 필요한 포트가 열려있는지 확인한다</span></li>
+    </ul>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin:32px 0 16px">일상 작업 규칙</div>
+
+    <ul class="checklist">
+      <li><span class="ck-icon">01</span><span><strong>리버스 프록시를 설치하지 않는다</strong> — Traefik, Nginx, Caddy 등 모두 해당</span></li>
+      <li><span class="ck-icon">02</span><span><strong>SSL 인증서를 직접 발급하지 않는다</strong> — certbot, acme.sh 등 실행 금지</span></li>
+      <li><span class="ck-icon">03</span><span><strong>80/443 포트를 점유하지 않는다</strong> — 이 포트는 Traefik의 영역이다</span></li>
+      <li><span class="ck-icon">04</span><span>개발 서비스는 <strong>3000~9000 대역 포트</strong>를 사용한다</span></li>
+      <li><span class="ck-icon">05</span><span>사내 공유는 <strong>IP:포트</strong>로, 외부 공개는 <strong>Traefik 라우팅 요청</strong>으로 한다</span></li>
+      <li><span class="ck-icon">06</span><span>운영 데이터를 개발 서버에 복사하지 않는다 — 테스트 데이터를 사용한다</span></li>
+    </ul>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin:32px 0 16px">예외 허용 — 학습/테스트 목적</div>
+
+    <ul class="checklist">
+      <li><span class="ck-icon">01</span><span>Traefik을 <strong>학습 목적</strong>으로 설치하는 것은 허용된다</span></li>
+      <li><span class="ck-icon">02</span><span>단, <strong>Consul 및 중앙 Traefik과 완전히 격리</strong>된 상태여야 한다</span></li>
+      <li><span class="ck-icon">03</span><span><strong>운영 트래픽이 흘러가지 않아야</strong> 한다 (도메인 연결 금지)</span></li>
+      <li><span class="ck-icon">04</span><span>학습이 끝나면 <strong>반드시 제거</strong>한다</span></li>
+    </ul>
+  </section>
+
+  <!-- WARNING -->
+  <div class="warning-box">
+    <div class="w-title">이것만은 기억하라</div>
+    <ol class="warning-list">
+      <li>개발자 서버는 개인 개발/테스트 전용이다 — 운영 서비스를 올리지 않는다</li>
+      <li>인프라 계층(프록시, SSL, 서비스 디스커버리)을 건드리지 않는다</li>
+      <li>외부 노출이 필요하면 중앙 Traefik에 라우팅 추가를 요청한다</li>
+      <li>"내 서버니까"라는 생각이 인프라 장애의 시작이다</li>
+      <li>의심이 들면 먼저 물어본다 — 사고 후 복구가 사전 질문보다 훨씬 비싸다</li>
+    </ol>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>내 서버의 경계를 아는 것이<br><strong>팀 인프라를 지키는 것이다</strong></h2>
+    <p class="sub">할 수 있는 것은 최대한 자유롭게, 하면 안 되는 것은 명확하게. 그 경계가 인프라의 안정성을 만든다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: Traefik Proxy Documentation &middot; Let's Encrypt Rate Limits &middot; HashiCorp Consul Architecture &middot; Docker Official Docs</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

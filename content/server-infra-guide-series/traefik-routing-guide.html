@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>저장하면 끝이다 — Editorial</title>
+<meta name="description" content="Traefik 리버스 프록시에 서비스를 연결하는 5단계. DNS 서브도메인 추가부터 routes.yml 작성, 실전 예시 3가지, 트러블슈팅까지. 재시작 없이 저장만 하면 즉시 반영된다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-routing-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="저장하면 끝이다 — Traefik 라우팅 추가 가이드">
+<meta property="og:description" content="Traefik 리버스 프록시에 서비스를 연결하는 5단계. DNS 서브도메인 추가부터 routes.yml 작성, 실전 예시 3가지, 트러블슈팅까지.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-routing-guide.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-09">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="저장하면 끝이다 — Traefik 라우팅 추가 가이드">
+<meta name="twitter:description" content="Traefik 리버스 프록시에 서비스를 연결하는 5단계. DNS 서브도메인 추가부터 routes.yml 작성, 실전 예시 3가지, 트러블슈팅까지.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"저장하면 끝이다 — Traefik 라우팅 추가 가이드","description":"Traefik 리버스 프록시에 서비스를 연결하는 5단계. DNS 서브도메인 추가부터 routes.yml 작성, 실전 예시 3가지, 트러블슈팅까지. 재시작 없이 저장만 하면 즉시 반영된다.","datePublished":"2026-02-09","dateModified":"2026-02-09","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/server-infra-guide-series/traefik-routing-guide.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead .deck { max-width: 560px; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 24px 0;
+    color: var(--prose);
+    border-radius: 0;
+  }
+  .code-block .code-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .code-block .code-comment {
+    color: var(--muted);
+  }
+  .code-block .code-key {
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .code-block .code-val {
+    color: var(--accent);
+  }
+
+  /* STEP CARD */
+  .step-card {
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+    padding: 28px 28px;
+    margin: 32px 0;
+  }
+  .step-card .st-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .step-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+  .step-card p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--prose);
+  }
+  .step-card p + p {
+    margin-top: 10px;
+  }
+  .step-card p strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .step-card p code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: var(--bg);
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+  }
+
+  /* FILE TREE */
+  .file-tree {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 2;
+    color: var(--prose);
+    margin: 24px 0;
+  }
+  .file-tree .ft-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .file-tree .ft-highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .file-tree .ft-comment {
+    color: var(--muted);
+  }
+
+  /* COMPARE COLUMNS */
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 40px 0 48px;
+  }
+  .compare-col {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .compare-col .col-label {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .compare-col .col-item {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col .col-item:last-child {
+    border-bottom: none;
+  }
+  .compare-col .col-item strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  /* TROUBLESHOOT */
+  .ts-card {
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .ts-card .ts-symptom {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .ts-card .ts-cause {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+  .ts-card .ts-fix {
+    font-size: 0.88rem;
+    color: var(--prose);
+    line-height: 1.75;
+  }
+  .ts-card .ts-fix strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .ts-card .ts-fix code {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: var(--card-bg);
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+  }
+
+  @media (max-width: 700px) {
+    .compare-cols { grid-template-columns: 1fr; }
+    .step-card { padding: 20px 20px; }
+    .code-block { padding: 16px 18px; font-size: 0.7rem; }
+    .file-tree { padding: 20px 20px; font-size: 0.7rem; }
+    .ts-card { padding: 20px 20px; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="issue">server infra guide series — article 04</div>
+    <h1>저장하면<br><strong>끝이다</strong></h1>
+    <p class="deck">Traefik에 서비스를 연결하는 데 5단계면 충분하다. DNS 서브도메인을 추가하고, YAML 파일 하나를 저장하면 재시작 없이 즉시 반영된다. 실전 예시 3가지와 트러블슈팅까지.</p>
+  </header>
+
+  <!-- PART I -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part I</span>
+      <h2>서버 환경 파악</h2>
+    </div>
+
+    <p class="prose">Traefik(192.168.0.230)은 <strong>systemd 서비스</strong>로 설치되어 있다. Docker 컨테이너가 아니라 바이너리가 직접 실행되는 구조다. 설정 파일을 이해하면 라우팅 추가는 어렵지 않다.</p>
+
+    <div class="file-tree">
+<span class="ft-label">Traefik 설정 파일 구조</span>
+/etc/traefik/
+├── <span class="ft-highlight">traefik.yml</span>          <span class="ft-comment">← 메인 설정 (정적 설정)</span>
+├── acme/                  <span class="ft-comment">← SSL 인증서 저장 폴더</span>
+└── dynamic/               <span class="ft-comment">← 라우팅 규칙 폴더 (동적 설정)</span>
+    └── <span class="ft-highlight">routes.yml</span>       <span class="ft-comment">← 현재 라우팅 설정 파일</span></div>
+
+    <p class="prose">핵심은 두 파일의 차이다. <code>traefik.yml</code>은 <strong>정적 설정</strong>이다. 엔트리포인트, 인증서 리졸버, 프로바이더 같은 인프라 수준의 설정이 들어간다. 수정하면 <strong>재시작이 필요</strong>하다. <code>dynamic/</code> 폴더 안의 파일은 <strong>동적 설정</strong>이다. 라우팅 규칙, 서비스 연결 정보가 들어간다. 저장하면 <strong>재시작 없이 즉시 반영</strong>된다.</p>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <div class="col-label">traefik.yml (정적 설정)</div>
+        <div class="col-item"><strong>엔트리포인트</strong> — 80(HTTP), 443(HTTPS)</div>
+        <div class="col-item"><strong>인증서 리졸버</strong> — Let's Encrypt 연동</div>
+        <div class="col-item"><strong>프로바이더</strong> — 파일/Consul/Docker 감지</div>
+        <div class="col-item">수정 시 <strong>재시작 필요</strong></div>
+      </div>
+      <div class="compare-col">
+        <div class="col-label">dynamic/*.yml (동적 설정)</div>
+        <div class="col-item"><strong>라우터</strong> — 도메인/경로 매칭 규칙</div>
+        <div class="col-item"><strong>서비스</strong> — 백엔드 서버 URL</div>
+        <div class="col-item"><strong>미들웨어</strong> — 인증, 헤더, Rate Limit</div>
+        <div class="col-item">저장 시 <strong>즉시 반영 (재시작 불필요)</strong></div>
+      </div>
+    </div>
+
+    <p class="prose">개발자가 건드리는 것은 <strong>dynamic/ 폴더뿐</strong>이다. <code>traefik.yml</code>은 인프라 관리자의 영역이다.</p>
+  </section>
+
+  <!-- PART II -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part II</span>
+      <h2>리버스 프록시 추가 — 5단계</h2>
+    </div>
+
+    <p class="prose">작업은 <strong>두 곳</strong>에서 진행한다. DNS 설정(도메인 관리 업체)과 Traefik 서버(192.168.0.230). 순서를 지키면 5분이면 끝난다.</p>
+
+    <div class="step-card">
+      <span class="st-num">Step 01</span>
+      <h3>DNS 서브도메인 추가</h3>
+      <p>도메인 관리 업체(가비아, Cloudflare 등)에서 서브도메인의 A 레코드를 <strong>Traefik 서버 IP(192.168.0.230)</strong>로 연결한다. 백엔드 서버 IP가 아니다.</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">DNS A 레코드 설정</span>
+<span class="code-comment"># 개별 등록 방식</span>
+chris-app.yourdomain.com  →  A  →  <span class="code-val">192.168.0.230</span>
+lucy-app.yourdomain.com   →  A  →  <span class="code-val">192.168.0.230</span>
+
+<span class="code-comment"># 와일드카드 방식 (권장)</span>
+<span class="code-key">*.yourdomain.com</span>          →  A  →  <span class="code-val">192.168.0.230</span>
+
+<span class="code-comment"># 와일드카드를 설정하면 이후 서브도메인 추가 시</span>
+<span class="code-comment"># DNS 작업 없이 Traefik 설정만 추가하면 된다</span></div>
+
+    <div class="step-card">
+      <span class="st-num">Step 02</span>
+      <h3>Traefik 서버 접속</h3>
+      <p>SSH로 Traefik 서버에 접속한다.</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">SSH</span>
+$ ssh traefik@192.168.0.230</div>
+
+    <div class="step-card">
+      <span class="st-num">Step 03</span>
+      <h3>라우팅 파일 편집</h3>
+      <p><code>/etc/traefik/dynamic/</code> 폴더 안의 <code>.yml</code> 파일은 모두 자동 감지된다. 기존 <code>routes.yml</code>에 추가하거나, 서비스별로 새 파일을 만들 수 있다.</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">파일 편집</span>
+<span class="code-comment"># 방법 A: 기존 파일에 추가</span>
+$ sudo vim /etc/traefik/dynamic/routes.yml
+
+<span class="code-comment"># 방법 B: 새 파일 생성 (서비스별 분리 관리 시 권장)</span>
+$ sudo vim /etc/traefik/dynamic/chris-app.yml</div>
+
+    <div class="step-card">
+      <span class="st-num">Step 04</span>
+      <h3>라우팅 규칙 작성</h3>
+      <p>YAML 파일에 <strong>라우터</strong>(어떤 도메인으로 들어오면)와 <strong>서비스</strong>(어떤 서버로 보낼지)를 정의한다. 아래 템플릿에서 <strong>[서비스명], [서브도메인], [대상IP], [포트]</strong>를 변경한다.</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">라우팅 규칙 템플릿</span>
+<span class="code-key">http:</span>
+  <span class="code-key">routers:</span>
+    <span class="code-val">[서비스명]</span>:
+      rule: "Host(`<span class="code-val">[서브도메인]</span>.yourdomain.com`)"
+      entryPoints:
+        - websecure
+      service: <span class="code-val">[서비스명]</span>
+      tls:
+        certResolver: letsencrypt
+
+  <span class="code-key">services:</span>
+    <span class="code-val">[서비스명]</span>:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">[대상IP]</span>:<span class="code-val">[포트]</span>"</div>
+
+    <div class="step-card">
+      <span class="st-num">Step 05</span>
+      <h3>파일 저장</h3>
+      <p>vim에서 <code>:wq</code>로 저장하면 Traefik이 파일 변경을 자동 감지하여 <strong>즉시 적용</strong>한다. 서비스 재시작이 필요 없다. SSL 인증서도 Let's Encrypt에서 자동 발급된다.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>dynamic/ 폴더의 YAML을 저장하면<br><strong>재시작 없이 즉시 반영된다.</strong></p>
+    </div>
+  </section>
+
+  <!-- PART III -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part III</span>
+      <h2>실전 예시 3가지</h2>
+    </div>
+
+    <div class="technique">
+      <div class="t-num">01</div>
+      <h3>개발자 서버 1대 연결</h3>
+      <p class="t-sub">Chris의 개발 서비스를 서브도메인으로 노출</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">/etc/traefik/dynamic/chris-app.yml</span>
+<span class="code-key">http:</span>
+  <span class="code-key">routers:</span>
+    chris-app:
+      rule: "Host(`<span class="code-val">chris-app.yourdomain.com</span>`)"
+      entryPoints:
+        - websecure
+      service: chris-app
+      tls:
+        certResolver: letsencrypt
+
+  <span class="code-key">services:</span>
+    chris-app:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">192.168.0.202:8080</span>"</div>
+
+    <div class="technique">
+      <div class="t-num">02</div>
+      <h3>개발자 3명 한 파일에 등록</h3>
+      <p class="t-sub">하나의 YAML 파일에서 여러 서비스를 관리</p>
+    </div>
+
+    <div class="code-block"><span class="code-label">/etc/traefik/dynamic/dev-servers.yml</span>
+<span class="code-key">http:</span>
+  <span class="code-key">routers:</span>
+    chris-app:
+      rule: "Host(`<span class="code-val">chris.yourdomain.com</span>`)"
+      entryPoints:
+        - websecure
+      service: chris-app
+      tls:
+        certResolver: letsencrypt
+
+    lucy-app:
+      rule: "Host(`<span class="code-val">lucy.yourdomain.com</span>`)"
+      entryPoints:
+        - websecure
+      service: lucy-app
+      tls:
+        certResolver: letsencrypt
+
+    evan-app:
+      rule: "Host(`<span class="code-val">evan.yourdomain.com</span>`)"
+      entryPoints:
+        - websecure
+      service: evan-app
+      tls:
+        certResolver: letsencrypt
+
+  <span class="code-key">services:</span>
+    chris-app:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">192.168.0.202:8080</span>"
+
+    lucy-app:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">192.168.0.203:8080</span>"
+
+    evan-app:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">192.168.0.204:8080</span>"</div>
+
+    <div class="technique">
+      <div class="t-num">03</div>
+      <h3>경로(Path) 기반 라우팅</h3>
+      <p class="t-sub">하나의 도메인에서 경로로 서비스를 분기</p>
+    </div>
+
+    <p class="prose">도메인 하나에 여러 서비스를 연결하려면 <strong>PathPrefix</strong> 조건을 추가한다. <code>app.yourdomain.com/api</code>는 API 서버로, <code>app.yourdomain.com</code>은 프론트엔드로 보내는 식이다.</p>
+
+    <div class="code-block"><span class="code-label">경로 기반 라우팅</span>
+<span class="code-key">http:</span>
+  <span class="code-key">routers:</span>
+    api-service:
+      rule: "Host(`<span class="code-val">app.yourdomain.com</span>`) && PathPrefix(`<span class="code-val">/api</span>`)"
+      entryPoints:
+        - websecure
+      service: api-service
+      tls:
+        certResolver: letsencrypt
+
+  <span class="code-key">services:</span>
+    api-service:
+      loadBalancer:
+        servers:
+          - url: "http://<span class="code-val">192.168.0.202:3000</span>"</div>
+  </section>
+
+  <!-- PART IV -->
+  <section>
+    <div class="section-head">
+      <span class="num">Part IV</span>
+      <h2>트러블슈팅</h2>
+    </div>
+
+    <p class="prose">설정을 저장했는데 서비스에 접근이 안 되는 경우. 대부분 아래 3가지 중 하나다.</p>
+
+    <div class="ts-card">
+      <span class="ts-symptom">502 Bad Gateway</span>
+      <div class="ts-cause">Traefik이 요청을 받았지만, 백엔드 서버가 응답하지 않는다.</div>
+      <div class="ts-fix"><strong>대상 서버에서 해당 포트가 열려있는지 확인한다.</strong> 서비스가 실행 중인지, 방화벽이 차단하고 있지 않은지 점검한다. <code>sudo firewall-cmd --list-all</code>로 방화벽 상태를 확인한다.</div>
+    </div>
+
+    <div class="ts-card">
+      <span class="ts-symptom">404 Not Found</span>
+      <div class="ts-cause">Traefik이 해당 도메인에 대한 라우팅 규칙을 찾지 못했다.</div>
+      <div class="ts-fix"><strong>Host 규칙의 도메인명에 오타가 없는지 확인한다.</strong> DNS가 Traefik(230)을 가리키는지도 확인한다. <code>nslookup chris-app.yourdomain.com</code>으로 DNS 해석 결과를 확인한다.</div>
+    </div>
+
+    <div class="ts-card">
+      <span class="ts-symptom">SSL 인증서 오류</span>
+      <div class="ts-cause">Let's Encrypt 인증서 발급에 실패했다.</div>
+      <div class="ts-fix"><strong>/etc/traefik/acme/ 폴더의 권한을 확인한다.</strong> Let's Encrypt는 Rate Limit이 있다. 같은 도메인에 반복 요청하면 차단될 수 있다. 1시간 대기 후 재시도한다.</div>
+    </div>
+
+    <div style="font-family:var(--serif);font-size:0.8rem;letter-spacing:2px;color:var(--muted);font-weight:700;margin:40px 0 16px">디버깅 명령어</div>
+
+    <div class="code-block"><span class="code-label">확인 및 디버깅</span>
+<span class="code-comment"># Traefik 실시간 로그 확인</span>
+$ sudo journalctl -u traefik -f
+
+<span class="code-comment"># Traefik 대시보드 확인 (설정되어 있는 경우)</span>
+<span class="code-comment"># 브라우저에서 접속</span>
+http://192.168.0.230:8080/dashboard/
+
+<span class="code-comment"># 라우팅 테스트 (Host 헤더로 직접 요청)</span>
+$ curl -H "Host: chris-app.yourdomain.com" http://192.168.0.230
+
+<span class="code-comment"># 설정 문법 오류 확인 (DEBUG 모드)</span>
+$ sudo traefik --configFile=/etc/traefik/traefik.yml --log.level=DEBUG</div>
+  </section>
+
+  <!-- WARNING -->
+  <div class="warning-box">
+    <div class="w-title">주의사항</div>
+    <ol class="warning-list">
+      <li><code>/etc/traefik/dynamic/</code> 폴더 안의 파일만 자동 감지된다 — 하위 폴더는 감지되지 않을 수 있으니 폴더 안에 직접 .yml 파일을 둔다</li>
+      <li><code>traefik.yml</code>(메인 설정)을 수정하면 <code>sudo systemctl restart traefik</code>으로 재시작이 필요하다</li>
+      <li><code>dynamic/</code> 폴더의 파일은 저장 즉시 반영, 재시작 불필요</li>
+      <li>파일 편집 시 root 권한이 필요하다 — <code>sudo vim</code>을 사용한다</li>
+      <li>개발자 개인 서버에 별도 Traefik을 설치하지 않는다 — 중앙 Traefik(230)에서 통합 관리한다</li>
+    </ol>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>YAML 한 줄이<br><strong>서비스를 연결한다</strong></h2>
+    <p class="sub">DNS를 잡고, YAML을 저장하면 끝이다. 인프라를 두려워할 필요 없다. 규칙만 지키면 5분이면 된다.</p>
+  </div>
+
+  <footer class="footer">
+    <p>Sources: Traefik File Provider Documentation &middot; Let's Encrypt Rate Limits &middot; Traefik Routers Configuration</p>
+    <p>Research assisted by Claude &middot; 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

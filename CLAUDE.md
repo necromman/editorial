@@ -191,6 +191,15 @@ editorial/
 | 02 | `gitlab-migration-the-right-way.html` | GitLab 서버 이사 — 정석은 이렇다 | 가이드 — NAS → 전용 서버 마이그레이션 정석 + 도메인 전략 |
 | 03 | `gitlab-migration-developer-survival.html` | 월요일 아침, git push가 안 될 때 | 실전 — 개발자 생존 스크립트, 체크리스트, CTO 제안법 |
 
+### 시리즈 11: 192.168.0.x의 규칙 (server-infra-guide-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `server-infra-overview.html` | 같은 네트워크, 제각각의 역할 | 해설 — 인프라 서비스와 개발자 VM 전체 구성도 |
+| 02 | `traefik-the-gatekeeper.html` | 모든 트래픽은 여기를 지난다 | 가이드 — Traefik 리버스 프록시의 5가지 핵심 기능 |
+| 03 | `developer-server-survival-guide.html` | 내 서버인데 왜 마음대로 못 쓰냐고요 | 실전 — 개발자 서버 사용 가이드와 금지 사항 |
+| 04 | `traefik-routing-guide.html` | 저장하면 끝이다 | 가이드 — Traefik 라우팅 추가 5단계, 실전 예시, 트러블슈팅 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

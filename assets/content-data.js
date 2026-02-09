@@ -418,5 +418,45 @@ window.CONTENT_DATA = [
         search: 'git remote set-url 스크립트 자동화 SSH 키 gitmodules 서브모듈 체크리스트 개발자 마이그레이션 생존'
       }
     ]
+  },
+  {
+    id: 'server-infra-guide',
+    seriesNum: 11,
+    title: '192.168.0.x의 규칙',
+    description: 'Proxmox 위의 VM들은 각자 하나의 역할만 맡는다. Traefik 관문의 구조, 라우팅 추가 절차, 개발자 서버 사용 가이드와 금지 사항까지. 인프라를 공유하는 개발자를 위한 필독 가이드.',
+    articles: [
+      {
+        num: 1,
+        title: '같은 네트워크, 제각각의 역할',
+        role: '인프라 서비스와 개발자 VM — 전체 구성도 해부',
+        tag: '해설',
+        href: 'content/server-infra-guide-series/server-infra-overview.html',
+        search: '서버 인프라 Proxmox Traefik GitLab Consul ClickHouse 구성도 192.168 VM 가상화 리버스 프록시'
+      },
+      {
+        num: 2,
+        title: '모든 트래픽은 여기를 지난다',
+        role: 'Traefik 리버스 프록시의 5가지 핵심 기능 해부',
+        tag: '가이드',
+        href: 'content/server-infra-guide-series/traefik-the-gatekeeper.html',
+        search: 'Traefik 리버스 프록시 SSL Let\'s Encrypt Consul 서비스 디스커버리 로드 밸런싱 미들웨어 라우팅'
+      },
+      {
+        num: 3,
+        title: '내 서버인데 왜 마음대로 못 쓰냐고요',
+        role: '개발자 서버 사용 가이드와 금지 사항 체크리스트',
+        tag: '실전',
+        href: 'content/server-infra-guide-series/developer-server-survival-guide.html',
+        search: '개발자 서버 Traefik 이중 설치 SSL 인증서 충돌 Consul 연동 체크리스트 가이드 주의사항'
+      },
+      {
+        num: 4,
+        title: '저장하면 끝이다',
+        role: 'Traefik 라우팅 추가 5단계 — DNS, YAML, 실전 예시, 트러블슈팅',
+        tag: '가이드',
+        href: 'content/server-infra-guide-series/traefik-routing-guide.html',
+        search: 'Traefik 라우팅 추가 routes.yml dynamic DNS 서브도메인 A레코드 와일드카드 502 404 SSL 트러블슈팅'
+      }
+    ]
   }
 ];
