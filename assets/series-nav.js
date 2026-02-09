@@ -112,6 +112,13 @@
         { slug: 'developer-server-survival-guide', title: '내 서버인데 왜 마음대로 못 쓰냐고요' },
         { slug: 'traefik-routing-guide', title: '저장하면 끝이다' }
       ]
+    },
+    'innobiz-guide-series': {
+      label: 'Series 12',
+      title: '이노비즈 인증, 서류가 기술을 이긴다',
+      articles: [
+        { slug: 'innobiz-certification-guide', title: '서류가 기술을 증명한다' }
+      ]
     }
   };
 

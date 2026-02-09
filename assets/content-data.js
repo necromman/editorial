@@ -458,5 +458,21 @@ window.CONTENT_DATA = [
         search: 'Traefik 라우팅 추가 routes.yml dynamic DNS 서브도메인 A레코드 와일드카드 502 404 SSL 트러블슈팅'
       }
     ]
+  },
+  {
+    id: 'innobiz-guide',
+    seriesNum: 12,
+    title: '이노비즈 인증, 서류가 기술을 이긴다',
+    description: '이노비즈(INNOBIZ) 인증 완전 가이드. 자격요건, 평가체계, 15개 현장평가 준비서류의 문서형·시스템형 구분, 통과·탈락 패턴, SW기업 맞춤 전략까지 한 권으로.',
+    articles: [
+      {
+        num: 1,
+        title: '서류가 기술을 증명한다',
+        role: '자격요건, 평가체계, 15개 준비서류 문서형/시스템형 구분, 통과·탈락 패턴',
+        tag: '종합 가이드',
+        href: 'content/innobiz-guide-series/innobiz-certification-guide.html',
+        search: '이노비즈 INNOBIZ 인증 기술혁신형 중소기업 기술보증기금 현장평가 700점 서류 준비 자격요건 혜택 특허 연구노트 메인비즈'
+      }
+    ]
   }
 ];

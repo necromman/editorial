@@ -162,6 +162,36 @@ Source Serif 4와 JetBrains Mono는 `assets/fonts/`에 셀프호스팅되며, `e
 }
 ```
 
+#### Section Head (섹션 헤더)
+
+각 Part의 도입부. `<div class="section-head">`로 감싸고, 그 안에 `<span class="num">`(모노스페이스 라벨)과 `<h2>`(섹션 제목)를 배치한다. `<h2>` 안에서 핵심 단어를 `<strong>`으로 감싸면 accent color가 적용된다. 스타일은 `editorial-base.css`에 정의되어 있으므로 페이지 인라인 CSS에 추가할 필요 없다.
+
+**HTML 마크업:**
+```html
+<div class="section-head">
+  <span class="num">Part I — The Overview</span>
+  <h2>이노비즈 <strong>인증이란</strong></h2>
+</div>
+```
+
+**규칙:**
+- `<div class="section-head">`가 부모 래퍼다. `<h2 class="section-head">`처럼 `<h2>`에 직접 붙이지 않는다
+- `<span class="num">` 안에 영문 서브타이틀을 추가할 수 있다 (예: `Part II — The Method`)
+- `<h2>` 안에서 accent 강조할 부분을 `<strong>`으로 감싼다. 전체를 감싸지 않고, 후반부 핵심 단어만 감싼다
+- `.section-head .num`은 모노스페이스, 소문자, letter-spacing 5px, accent color
+- `.section-head h2`는 2rem, bold, letter-spacing -0.5px
+- `.section-head h2 strong`은 accent color
+
+**금지 패턴:**
+```html
+<!-- 절대 금지 — section-head는 래퍼 div에 사용한다 -->
+<span class="num">Part I</span>
+<h2 class="section-head">섹션 제목</h2>
+
+<!-- 절대 금지 — h2 전체를 strong으로 감싸지 않는다 -->
+<h2><strong>섹션 제목 전체</strong></h2>
+```
+
 #### 3-Column Mechanism Grid
 
 카드가 아니라 1px gap으로 구분되는 그리드. 배경색 차이 없이 선으로만 나눈다.

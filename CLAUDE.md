@@ -200,6 +200,12 @@ editorial/
 | 03 | `developer-server-survival-guide.html` | 내 서버인데 왜 마음대로 못 쓰냐고요 | 실전 — 개발자 서버 사용 가이드와 금지 사항 |
 | 04 | `traefik-routing-guide.html` | 저장하면 끝이다 | 가이드 — Traefik 라우팅 추가 5단계, 실전 예시, 트러블슈팅 |
 
+### 시리즈 12: 이노비즈 인증, 서류가 기술을 이긴다 (innobiz-guide-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `innobiz-certification-guide.html` | 서류가 기술을 증명한다 | 종합 가이드 — 자격요건, 평가체계, 15개 준비서류 문서형/시스템형 구분, 통과·탈락 패턴 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)
