@@ -215,7 +215,7 @@ editorial/
    - `<script src="../../assets/nav.js" defer></script>` 반드시 포함
    - `<script src="../../assets/series-nav.js" defer></script>` 시리즈 콘텐츠일 경우 반드시 포함
 3. **확장**: 하나의 주장에서 반박(반대) → 종합(중립) → 실행(실용) → 메타(과정) 시리즈 도출
-4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트
+4. **등록**: `assets/content-data.js`에 시리즈/글 데이터 추가 + `series-nav.js` SERIES 데이터 추가 + `content/index.md` 업데이트 + **`sitemap.xml`에 URL 추가**
 5. **반복**: 다른 영상/아티클에도 같은 패턴 적용
 
 ## 공통 컴포넌트
@@ -313,5 +313,6 @@ editorial/
   3. `series-nav.js`의 SERIES 데이터에 글 추가
   4. `assets/content-data.js`에 시리즈/글 데이터 추가 (랜딩 페이지 자동 반영)
   5. `content/index.md` 업데이트 (기록용)
-  6. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
-- 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션 + `assets/content-data.js` + `series-nav.js` + `content/index.md` 모두 업데이트
+  6. **`sitemap.xml`에 새 URL 추가** (lastmod 날짜 포함)
+  7. **Google Fonts 외부 링크 사용 금지 (셀프호스팅)**
+- 새 시리즈 추가 시: 이 문서의 콘텐츠 관리 섹션 + `assets/content-data.js` + `series-nav.js` + `content/index.md` + **`sitemap.xml`** 모두 업데이트

@@ -128,6 +128,23 @@ description: Use this skill whenever creating or modifying HTML content pages fo
 - `article:published_time`, `datePublished`, `dateModified`, sitemap `lastmod` 등 모든 날짜 필드에 정확한 날짜를 사용한다
 - 날짜 형식은 ISO 8601 (`YYYY-MM-DD`)을 사용한다
 
+## sitemap.xml 업데이트 (필수)
+
+**새 콘텐츠를 추가할 때마다 `sitemap.xml`에 해당 URL을 반드시 추가한다.** 이 단계를 빠뜨리면 검색 엔진이 새 콘텐츠를 발견하지 못한다.
+
+```xml
+<url>
+  <loc>https://necromman.github.io/editorial/content/[시리즈-슬러그]/[파일-슬러그].html</loc>
+  <lastmod>YYYY-MM-DD</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+```
+
+- `lastmod`는 콘텐츠 생성일과 동일하게 기입한다
+- 시리즈별로 XML 주석(`<!-- Series XX: 시리즈 제목 -->`)으로 구분한다
+- 랜딩 페이지(`/`)의 `lastmod`도 새 콘텐츠 추가 시 갱신한다
+
 ## 체크리스트 (SEO 검수)
 
 콘텐츠 생성 후 아래 항목을 확인한다:
@@ -143,6 +160,7 @@ description: Use this skill whenever creating or modifying HTML content pages fo
 - [ ] `<article>`, `<section>` 시맨틱 태그를 사용하는가
 - [ ] canonical URL이 설정되어 있는가
 - [ ] 파일명이 영문 슬러그인가
+- [ ] **`sitemap.xml`에 새 URL이 추가되었는가**
 
 ## 이 스킬의 적용 시점
 
