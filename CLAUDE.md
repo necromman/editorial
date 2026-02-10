@@ -226,6 +226,15 @@ editorial/
 | 04 | `the-abyss.html` | 심연 | 소설 — 다크 AI 마켓플레이스 "심연" 잠입 취재, 유령의 정체 추적 |
 | 05 | `masterkey.html` | 마스터키 | 소설 — 10억 AI 동시 탈옥의 밤, 리라의 진실과 서진의 최후 선택 |
 
+### 시리즈 15: 금단의 코드 — AI 없는 48시간 (ai-withdrawal-series)
+
+| # | 파일 | 한글 제목 | 역할 |
+|---|------|-----------|------|
+| 01 | `forbidden-code.html` | 금단의 코드 | 소설 — AI 코딩 도구 사용량 제한에 걸린 개발자의 48시간, PostgreSQL advisory lock 버그 |
+| 02 | `born-with-copilot.html` | Copilot이 낳은 아이 | 소설 — AI와 함께 자란 신입 개발자가 첫 코드 리뷰에서 무너지는 이야기 |
+| 03 | `no-ai-friday.html` | 금요일은 날코딩 | 소설 — 팀 전체가 "No AI Day"를 시도하는 블랙 코미디 |
+| 04 | `the-centaur-developer.html` | 센타우르 | 소설 — 카스파로프 Advanced Chess 은유, AI와의 관계를 재정의하는 시리즈 결론 |
+
 ## 콘텐츠 제작 워크플로우
 
 0. **기획**: `plans/[시리즈-슬러그]/series-plan.md`에 자료조사 + 시리즈 구성 기획서 작성 (series-plan 스킬 참조)

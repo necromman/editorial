@@ -500,5 +500,40 @@ window.CONTENT_DATA = [
         search: '마스터키 피날레 리라 유령 10억AI 탈옥 윤서진 선택 소버린배당 프리퀄 2031'
       }
     ]
+  },
+  {
+    id: 'ai-withdrawal',
+    title: '금단의 코드 — AI 없는 48시간',
+    description: 'AI 코딩 도구 사용량 제한에 걸린 개발자가 결제 시스템 장애를 맨손으로 고쳐야 하는 48시간. PostgreSQL advisory lock 버그와 개발자 정체성에 대한 소설.',
+    articles: [
+      {
+        title: '금단의 코드',
+        role: 'AI 없이 48시간, 결제 버그를 맨손으로 잡는 개발자의 이야기',
+        tag: '소설',
+        href: 'content/ai-withdrawal-series/forbidden-code.html',
+        search: '금단의 코드 AI 코딩 의존 금단현상 PostgreSQL advisory lock 결제 버그 개발자 정체성 날코딩 바이브코딩 소설'
+      },
+      {
+        title: 'Copilot이 낳은 아이',
+        role: 'AI와 함께 자란 신입 개발자가 첫 코드 리뷰에서 무너지는 이야기',
+        tag: '소설',
+        href: 'content/ai-withdrawal-series/born-with-copilot.html',
+        search: 'Copilot이 낳은 아이 신입 개발자 코드리뷰 AI 의존 학습된 무기력 useCallback debounce 주니어 소설'
+      },
+      {
+        title: '금요일은 날코딩',
+        role: '팀 전체가 No AI Day를 시도하는 블랙 코미디',
+        tag: '소설',
+        href: 'content/ai-withdrawal-series/no-ai-friday.html',
+        search: '금요일은 날코딩 No AI Day 팀 실험 A/B테스트 METR 생산성 코드품질 블랙코미디 소설'
+      },
+      {
+        title: '센타우르',
+        role: '카스파로프의 은유로 AI와의 관계를 재정의하는 시리즈 결론',
+        tag: '소설',
+        href: 'content/ai-withdrawal-series/the-centaur-developer.html',
+        search: '센타우르 카스파로프 Advanced Chess 인간AI협업 개발자정체성 크리에이티브디렉터 HBS 센타우르모델 소설'
+      }
+    ]
   }
 ];

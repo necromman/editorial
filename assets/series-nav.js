@@ -127,6 +127,15 @@
         { slug: 'the-abyss', title: '심연' },
         { slug: 'masterkey', title: '마스터키' }
       ]
+    },
+    'ai-withdrawal-series': {
+      title: '금단의 코드 — AI 없는 48시간',
+      articles: [
+        { slug: 'forbidden-code', title: '금단의 코드' },
+        { slug: 'born-with-copilot', title: 'Copilot이 낳은 아이' },
+        { slug: 'no-ai-friday', title: '금요일은 날코딩' },
+        { slug: 'the-centaur-developer', title: '센타우르' }
+      ]
     }
   };
 
