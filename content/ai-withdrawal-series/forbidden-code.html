@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>금단의 코드 — Editorial</title>
+<meta name="description" content="2026년 2월, AI 코딩 도구의 주간 사용량 제한에 걸린 개발자 박진우. 투자 PT 전날 결제 시스템 버그를 발견한다. 29시간 동안 AI 없이, 자기가 이해하지 못하는 코드에서 버그를 찾아야 한다.">
+<link rel="canonical" href="https://necromman.github.io/editorial/content/ai-withdrawal-series/forbidden-code.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="금단의 코드">
+<meta property="og:description" content="2026년 2월, AI 코딩 도구의 주간 사용량 제한에 걸린 개발자 박진우. 29시간 동안 AI 없이 결제 시스템 버그를 고쳐야 한다.">
+<meta property="og:url" content="https://necromman.github.io/editorial/content/ai-withdrawal-series/forbidden-code.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Editorial">
+<meta property="article:published_time" content="2026-02-10">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="금단의 코드">
+<meta name="twitter:description" content="2026년 2월, AI 코딩 도구의 주간 사용량 제한에 걸린 개발자 박진우. 29시간 동안 AI 없이 결제 시스템 버그를 고쳐야 한다.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"금단의 코드","description":"2026년 2월, AI 코딩 도구의 주간 사용량 제한에 걸린 개발자 박진우. 투자 PT 전날 결제 시스템 버그를 발견한다. 29시간 동안 AI 없이, 자기가 이해하지 못하는 코드에서 버그를 찾아야 한다.","datePublished":"2026-02-10","dateModified":"2026-02-10","publisher":{"@type":"Organization","name":"Editorial"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://necromman.github.io/editorial/content/ai-withdrawal-series/forbidden-code.html"}}
+</script>
+<link rel="preload" href="../../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/editorial-base.css">
+<style>
+  .masthead { border-bottom: none; margin-bottom: 32px; padding-bottom: 32px; }
+  .masthead .issue { margin-bottom: 24px; }
+  .masthead h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+  .masthead h1 strong { font-weight: 900; color: var(--accent); }
+  .masthead .deck { max-width: 500px; margin: 24px auto 0; font-size: 1rem; color: var(--muted); line-height: 1.8; }
+
+  /* NOVEL PROSE */
+  .novel { font-size: 1.05rem; line-height: 2.05; color: var(--prose); margin-bottom: 28px; text-indent: 1em; }
+  .novel-first { text-indent: 0; }
+
+  /* SCENE BREAK */
+  .scene-break { text-align: center; padding: 40px 0; color: var(--muted); font-size: 1.2rem; letter-spacing: 12px; }
+
+  /* DIALOGUE */
+  .dialogue { font-size: 1.05rem; line-height: 2.05; color: var(--fg); margin-bottom: 20px; padding-left: 1em; text-indent: -1em; }
+
+  /* INTERNAL MONOLOGUE */
+  .internal { font-size: 1.02rem; line-height: 2.05; color: var(--muted); margin-bottom: 28px; text-indent: 1em; }
+
+  /* AI VOICE */
+  .ai-voice {
+    font-size: 1.02rem;
+    line-height: 2.0;
+    color: var(--prose);
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    background: var(--card-bg);
+  }
+  .ai-voice .ai-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: #2a2a28;
+    color: #e8e4dc;
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--fg);
+  }
+  .terminal .t-prompt { color: #6db36d; }
+  .terminal .t-comment { color: #8a8680; }
+  .terminal .t-error { color: #c43e2a; }
+  .terminal .t-warn { color: #d4a843; }
+  .terminal .t-key { color: #7cafc2; }
+  .terminal .t-str { color: #c9b97a; }
+
+  /* CHARACTER INTRO */
+  .char-intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 20px;
+    align-items: baseline;
+    margin: 40px 0 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .char-intro .c-name { font-size: 1.4rem; font-weight: 700; color: var(--fg); }
+  .char-intro .c-info { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); }
+
+  /* SECTION DIVIDER */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .part-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+  .section-divider {
+    margin-top: 64px;
+    margin-bottom: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* SLACK MESSAGE */
+  .slack-msg {
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: var(--card-bg);
+  }
+  .slack-msg .s-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .slack-msg .s-name { font-size: 0.9rem; font-weight: 700; color: var(--fg); }
+  .slack-msg .s-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .slack-msg .s-body { font-size: 0.95rem; line-height: 1.8; color: var(--prose); }
+  .slack-msg .s-channel { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+
+  /* CODE BLOCK (inline source code, lighter than terminal) */
+  .source-code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: var(--card-bg);
+    color: var(--prose);
+    padding: 24px 28px;
+    margin: 32px 0;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .source-code .sc-comment { color: var(--muted); }
+  .source-code .sc-key { color: #5a7a9a; }
+  .source-code .sc-str { color: #8a6a4a; }
+  .source-code .sc-fn { color: var(--fg); font-weight: 600; }
+  .source-code .sc-accent { color: var(--accent); font-weight: 600; }
+
+  /* USAGE LIMIT BOX */
+  .usage-limit {
+    border: 2px solid var(--accent);
+    padding: 32px 36px;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .usage-limit .ul-icon { font-family: var(--mono); font-size: 1.4rem; color: var(--accent); margin-bottom: 12px; }
+  .usage-limit .ul-msg { font-family: var(--mono); font-size: 0.85rem; line-height: 1.8; color: var(--fg); }
+  .usage-limit .ul-sub { font-size: 0.82rem; color: var(--muted); margin-top: 12px; line-height: 1.7; }
+
+  /* DOC EXCERPT */
+  .doc-excerpt {
+    border-left: 3px solid var(--rule);
+    background: var(--card-bg);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--secondary);
+  }
+  .doc-excerpt .doc-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 2.2rem; }
+    .char-intro { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="../../assets/nav.js" defer></script>
+<script src="../../assets/series-nav.js" defer></script>
+</head>
+<body>
+<article>
+<div class="page">
+
+<header class="masthead">
+  <p class="issue">forbidden code — fiction 01</p>
+  <h1>금단의 <strong>코드</strong></h1>
+  <p class="deck">AI 코딩 도구의 주간 사용량 제한에 걸린 개발자.<br>29시간 동안, 자기가 짰지만 자기가 모르는 코드와 싸운다.</p>
+</header>
+
+<main>
+
+<!-- ───────── PART I ───────── -->
+
+<section>
+<div class="section-divider" style="border-top:none;margin-top:0;padding-top:0">
+  <p class="part-label">Part I</p>
+  <p class="part-title">"사용량 제한에 도달했습니다"</p>
+</div>
+
+<div class="char-intro">
+  <span class="c-name">박진우</span>
+  <span class="c-info">31 · backend developer · startup · seoul</span>
+</div>
+
+<p class="novel novel-first">2026년 2월 10일 화요일 오전 9시 47분. 서울 성수동.</p>
+
+<p class="novel">진우는 아메리카노를 책상에 올려놓고 터미널을 열었다. 모니터 하나, 맥북 하나, 기계식 키보드 하나. 4년차 백엔드 개발자의 아침은 항상 같은 명령어로 시작한다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> claude<br>
+<br>
+<span class="t-str">Welcome to Claude Code v2.1.37</span><br>
+<span class="t-comment"># Model: claude-opus-4-6</span><br>
+<span class="t-comment"># Working directory: ~/paybridge/backend</span><br>
+<br>
+<span class="t-prompt">></span> 결제 API에서 race condition 처리 로직 리팩터링해줘
+</div>
+
+<p class="novel">진우의 손가락이 엔터를 눌렀다. 그리고 화면이 바뀌었다.</p>
+
+<div class="usage-limit">
+  <div class="ul-icon">!</div>
+  <div class="ul-msg">You've reached your weekly usage limit for Claude Code.<br>Your limit resets tomorrow at 3:00 PM KST.</div>
+  <div class="ul-sub">Estimated wait: 29 hours 13 minutes</div>
+</div>
+
+<p class="novel">진우는 메시지를 두 번 읽었다. 세 번째 읽었을 때 커피를 한 모금 마셨다. 네 번째 읽었을 때 터미널을 닫고 다시 열었다. 같은 메시지.</p>
+
+<p class="novel">claude.ai에 접속했다. 브라우저에도 같은 메시지. 모바일 앱. 같은 메시지. GitHub Copilot은 한 달 전에 해지했다. Cursor는 무료 티어를 이미 소진했다. 진우의 AI 코딩 도구는 Claude Code 하나였고, 그 하나가 지금 막혔다.</p>
+
+<p class="internal">29시간. 내일 오후 3시. 괜찮다. 하루 쉬면 되지.</p>
+
+<p class="novel">슬랙 알림이 울렸다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#general</div>
+  <div class="s-header">
+    <span class="s-name">김대표</span>
+    <span class="s-time">09:52</span>
+  </div>
+  <div class="s-body">@channel 결제 시스템에서 특정 조건으로 중복 결제되는 버그 발견. QA팀 리포트 첨부. 내일 오전 투자 PT 전까지 반드시 수정 부탁. 진우 님 확인해주세요.</div>
+</div>
+
+<p class="novel">진우의 손이 멈췄다. 내일 오전. 투자 PT. 결제 시스템 버그.</p>
+
+<p class="novel">결제 시스템은 6개월 전에 만들었다. 진우가 만들었다. 정확히는 진우가 요구사항을 설명하고, Claude Code가 코드를 짰고, 진우가 "좋아 보인다"고 승인했다. 함수 이름은 깔끔했고, 테스트는 통과했고, 배포 후 5개월 동안 문제가 없었다.</p>
+
+<p class="internal">5개월 동안 결제 코드를 한 번도 열어보지 않았다. 열어볼 이유가 없었다. AI가 잘 만들었으니까.</p>
+
+<p class="novel">진우는 슬랙에 답장을 쳤다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박진우</span>
+    <span class="s-time">09:55</span>
+  </div>
+  <div class="s-body">확인했습니다. 오늘 안에 수정하겠습니다.</div>
+</div>
+
+<p class="novel">"오늘 안에 수정하겠습니다." 아홉 글자를 타이핑하는 데 3분이 걸렸다. 그 3분 동안 진우의 머릿속에서는 하나의 문장이 반복되고 있었다.</p>
+
+<p class="internal">AI 없이 결제 시스템 버그를 고칠 수 있나?</p>
+
+</section>
+
+<!-- ───────── PART II ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part II</p>
+  <p class="part-title">내가 짠 코드를 내가 모른다</p>
+</div>
+
+<p class="novel novel-first">오전 10시 12분. 진우는 결제 서비스 코드를 열었다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># payment/service.py</span><br>
+<span class="sc-key">class</span> <span class="sc-fn">PaymentService</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">def</span> <span class="sc-fn">__init__</span>(<span class="sc-key">self</span>, gateway: PaymentGateway, repo: PaymentRepository):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">self</span>._gateway = gateway<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">self</span>._repo = repo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">self</span>._idempotency_store = IdempotencyStore(ttl=<span class="sc-str">3600</span>)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">async def</span> <span class="sc-fn">process_payment</span>(<span class="sc-key">self</span>, request: PaymentRequest) -> PaymentResult:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idempotency_key = <span class="sc-key">self</span>._generate_idempotency_key(request)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">if</span> cached := <span class="sc-key">await</span> <span class="sc-key">self</span>._idempotency_store.get(idempotency_key):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">return</span> cached<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">async with</span> <span class="sc-key">self</span>._repo.transaction() <span class="sc-key">as</span> tx:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lock = <span class="sc-key">await</span> tx.<span class="sc-accent">advisory_lock</span>(f<span class="sc-str">"payment:{request.user_id}"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-comment"># ... 이하 80줄</span>
+</div>
+
+<p class="novel"><code>advisory_lock</code>. 진우는 그 단어를 보며 눈을 깜박였다. 이 함수가 무슨 일을 하는지 안다. "동시 결제를 막는 잠금 장치." 6개월 전에 Claude가 설명해줬다. 하지만 <strong>어떻게</strong> 막는지는 모른다. 세션 레벨인지 트랜잭션 레벨인지, 커넥션 풀에서 어떻게 동작하는지, TTL이 왜 3600인지.</p>
+
+<p class="novel">진우는 습관적으로 터미널에 커서를 옮겼다. "이 코드 설명해줘"라고 타이핑하려다 멈췄다. 손가락이 키보드 위에서 허공을 더듬었다.</p>
+
+<p class="internal">보통은 여기서 AI한테 물어본다. "이 함수 뭐 하는 거야?" AI가 3초 안에 설명해주고, 나는 "아 그렇구나" 하고 넘어간다. 근데 그 "아 그렇구나"는 이해가 아니라 수긍이었다.</p>
+
+<p class="novel">Stack Overflow를 열었다. 검색창에 커서를 놓았다. 뭘 검색하지? "advisory lock"? "payment duplicate"? "python async transaction"? 예전에는 검색어를 고르는 것도 AI에게 시켰다. "이 에러 관련 문서 찾아줘." AI가 검색어를 추천하고, 문서를 요약하고, 핵심만 뽑아줬다.</p>
+
+<p class="novel">진우는 "postgresql advisory lock"이라고 쳤다. 결과가 쏟아졌다. 어떤 게 맞는 글인지 모르겠다. 첫 번째 결과를 클릭했다. 영어 문서. 길다. AI가 요약해주지 않는다.</p>
+
+<p class="novel">옆자리에서 키보드 소리가 멈췄다.</p>
+
+<div class="char-intro">
+  <span class="c-name">이서연</span>
+  <span class="c-info">28 · frontend developer · startup · seoul</span>
+</div>
+
+<p class="dialogue">"30분째 같은 파일 스크롤하고 있어."</p>
+
+<p class="novel">서연이 모니터를 보지 않고 말했다. 프론트엔드 개발자. 같은 회사 두 번째 개발자. AI를 의도적으로 덜 쓰는 사람. 주말에 알고리즘 문제를 손으로 푸는 사람.</p>
+
+<p class="dialogue">"Claude 사용량 제한 걸렸어."</p>
+
+<p class="novel">서연이 고개를 돌렸다. 2초 동안 진우를 바라보았다. 그리고 웃었다.</p>
+
+<p class="dialogue">"드디어."</p>
+
+<p class="dialogue">"뭐가 드디어야."</p>
+
+<p class="dialogue">"네가 코드를 직접 읽는 날이 올 줄 알았어. PostgreSQL 문서 읽을 줄 알아?"</p>
+
+<p class="dialogue">"읽을 줄은 알지. 영어잖아."</p>
+
+<p class="dialogue">"영어 말고. 공식 문서를 읽는 법 말하는 거야. 제일 먼저 Description 섹션 읽고, 그다음 Parameters, 그다음 Notes. Examples는 맨 마지막에 봐. 예제부터 보면 맥락 없이 복붙하게 돼."</p>
+
+<p class="novel">진우는 서연의 말대로 PostgreSQL 공식 문서를 열었다. <code>pg_advisory_lock</code>. Description 섹션.</p>
+
+<div class="doc-excerpt">
+  <div class="doc-title">postgresql documentation — advisory locks</div>
+  PostgreSQL provides a means for creating locks that have application-defined meanings. These are called <strong>advisory locks</strong>, because the system does not enforce their use — it is up to the application to use them correctly. There are two ways to acquire an advisory lock: at <strong>session level</strong> or at <strong>transaction level</strong>. A session-level advisory lock is held until explicitly released, or until the session ends. A transaction-level advisory lock is released at the end of the current transaction.
+</div>
+
+<p class="novel">세션 레벨. 트랜잭션 레벨. 두 가지 종류가 있다. 진우는 자신의 코드를 다시 보았다. <code>tx.advisory_lock()</code>. 이것이 세션 레벨인지 트랜잭션 레벨인지 확인해야 했다. ORM 래퍼 코드를 열었다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># db/repository.py — ORM 래퍼 (Claude가 6개월 전에 생성)</span><br>
+<span class="sc-key">async def</span> <span class="sc-fn">advisory_lock</span>(<span class="sc-key">self</span>, key: <span class="sc-key">str</span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lock_id = <span class="sc-fn">hash</span>(key) % (<span class="sc-str">2</span>**<span class="sc-str">31</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">await</span> <span class="sc-key">self</span>._conn.execute(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-str">"SELECT pg_advisory_lock($1)"</span>, lock_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">return</span> lock_id
+</div>
+
+<p class="novel"><code>pg_advisory_lock</code>. <strong>세션 레벨</strong>이다. 트랜잭션이 끝나도 잠금이 풀리지 않는다. 세션이 끝나야 풀린다. 그리고 커넥션 풀은 세션을 재사용한다.</p>
+
+<p class="novel">진우의 등이 차가워졌다.</p>
+
+<p class="internal">커넥션 풀이 세션을 재사용하면 — 이전 트랜잭션의 잠금이 남아 있는 상태에서 새 트랜잭션이 시작된다. 그런데 <code>pg_advisory_lock</code>은 같은 세션에서 같은 키로 재호출하면 — 재진입을 허용한다. 잠금이 있어도 통과시킨다.</p>
+
+<p class="internal">그러면 동시에 두 결제가 들어왔을 때, 같은 커넥션 풀 세션을 공유하면 — 둘 다 통과한다. 중복 결제.</p>
+
+<p class="novel">진우는 이마에 손을 짚었다. 로그를 확인해야 했다. 하지만 로그 분석도 항상 AI에게 시켰다. "최근 1주일 결제 로그에서 중복 건 찾아줘." AI가 정규표현식을 짜고, 필터링하고, 요약해줬다.</p>
+
+<p class="novel">진우는 터미널을 열었다. <code>grep</code>. 정규표현식이 기억 안 났다.</p>
+
+<div class="terminal">
+<span class="t-comment"># 첫 시도 — 틀림</span><br>
+<span class="t-prompt">$</span> grep "duplicate" logs/payment.log<br>
+<span class="t-comment"># 결과: 0건. 중복 결제는 "duplicate"라는 문자열을 남기지 않는다.</span><br>
+<br>
+<span class="t-comment"># 두 번째 시도 — Stack Overflow에서 찾은 명령어</span><br>
+<span class="t-prompt">$</span> awk -F'|' '{print $4}' logs/payment.log | sort | uniq -d<br>
+<span class="t-comment"># transaction_id 컬럼을 추출 → 정렬 → 중복만 출력</span><br>
+<br>
+<span class="t-warn">tx_20260209_a8f3c1</span><br>
+<span class="t-warn">tx_20260209_b2e7d4</span><br>
+<span class="t-warn">tx_20260210_0c91f8</span><br>
+<br>
+<span class="t-comment"># 3건의 중복 transaction_id 발견</span>
+</div>
+
+<p class="novel">3건. 3건의 중복 결제가 실제로 일어났다. QA 리포트가 맞았다.</p>
+
+<p class="novel">진우는 <code>awk</code> 명령어를 20분 만에 찾았다. 예전에는 3초면 됐다. "이 로그에서 중복 transaction_id 찾아줘." AI가 명령어를 짜고, 실행하고, 결과를 해석해줬다. 20분과 3초의 차이. 하지만 20분 동안 진우는 <code>awk</code>의 <code>-F</code> 옵션이 필드 구분자를 지정한다는 것을 배웠다. <code>uniq -d</code>가 중복된 줄만 출력한다는 것을 배웠다. 3초 안에는 배우지 못했을 것들이다.</p>
+
+<div class="pull-quote">
+  <p>AI가 짜준 코드는 완벽하게 구조화되어 있었다<br><strong>이해할 수 없다는 점만 빼면</strong></p>
+</div>
+
+</section>
+
+<!-- ───────── PART III ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part III</p>
+  <p class="part-title">날코딩, 또는 벌거벗은 임금님</p>
+</div>
+
+<p class="novel novel-first">오후 2시 34분. 4시간이 지났다.</p>
+
+<p class="novel">진우의 모니터에는 PostgreSQL 공식 문서, Stack Overflow 탭 7개, 자신의 코드 에디터가 열려 있었다. 메모장에 적은 것들:</p>
+
+<div class="terminal">
+<span class="t-comment"># 진우의 메모</span><br>
+<br>
+<span class="t-prompt">버그 원인:</span><br>
+pg_advisory_lock() = 세션 레벨 잠금<br>
+커넥션 풀이 세션을 재사용<br>
+→ 이전 트랜잭션의 잠금이 새 트랜잭션에 상속<br>
+→ 같은 세션이면 advisory lock 재진입 허용<br>
+→ <span class="t-error">중복 결제 통과</span><br>
+<br>
+<span class="t-prompt">해결:</span><br>
+pg_advisory_lock → <span class="t-warn">pg_advisory_xact_lock</span> (트랜잭션 레벨)<br>
+트랜잭션 끝나면 자동 해제<br>
+커넥션 풀 재사용과 무관하게 안전<br>
+<br>
+<span class="t-prompt">dev에서 안 터진 이유:</span><br>
+dev pool_size=5 (세션 재사용 빈도 낮음)<br>
+prod pool_size=20 (재사용 빈도 높음)<br>
+<span class="t-comment"># Claude도 dev 환경 기준으로 테스트했을 것</span>
+</div>
+
+<p class="novel">원인을 찾는 데 4시간이 걸렸다. AI였으면 5분이었을 것이다. 하지만 AI가 6개월 전에 이 버그를 만들었다. 정확히는 — AI가 <code>pg_advisory_lock</code>과 <code>pg_advisory_xact_lock</code>의 차이를 인지하지 못한 채 코드를 생성했고, dev 환경에서는 통과했고, 진우는 그 차이를 몰랐으므로 리뷰에서 잡지 못했다.</p>
+
+<p class="novel">수정은 간단해야 했다. <code>pg_advisory_lock</code>을 <code>pg_advisory_xact_lock</code>으로 바꾸면 된다. 진우는 코드를 고치기 시작했다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># 수정 — pg_advisory_lock → pg_advisory_xact_lock</span><br>
+<span class="sc-key">async def</span> <span class="sc-fn">advisory_lock</span>(<span class="sc-key">self</span>, key: <span class="sc-key">str</span>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lock_id = <span class="sc-key">int</span>(hashlib.md5(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key.encode()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;).hexdigest()[:<span class="sc-str">8</span>], <span class="sc-str">16</span>) % (<span class="sc-str">2</span>**<span class="sc-str">31</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">await</span> <span class="sc-key">self</span>._conn.execute(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-str">"SELECT <span class="sc-accent">pg_advisory_xact_lock</span>($1)"</span>, lock_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">return</span> lock_id
+</div>
+
+<p class="novel">두 가지를 바꿨다. 첫째, <code>pg_advisory_lock</code>을 <code>pg_advisory_xact_lock</code>으로. 둘째, 파이썬 내장 <code>hash()</code>를 <code>hashlib.md5</code>로. 내장 <code>hash()</code>는 <code>PYTHONHASHSEED</code>에 따라 프로세스마다 결과가 달라진다. 이것도 AI가 놓친 것이다.</p>
+
+<p class="novel">진우는 저장하고 테스트를 돌렸다. 테스트도 AI가 짜줬다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> pytest tests/test_payment.py -v<br>
+<br>
+<span class="t-error">FAILED</span> tests/test_payment.py::test_payment_idempotency<br>
+<span class="t-error">FAILED</span> tests/test_payment.py::test_concurrent_payment<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_payment_success<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_payment_insufficient_funds<br>
+<br>
+<span class="t-error">2 failed</span>, 2 passed in 3.42s
+</div>
+
+<p class="novel">2개가 깨졌다. 진우의 수정이 기존 테스트를 깨뜨렸다. 테스트 코드를 열어보았다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># tests/test_payment.py — AI가 생성한 테스트</span><br>
+<span class="sc-key">@pytest.mark.asyncio</span><br>
+<span class="sc-key">async def</span> <span class="sc-fn">test_concurrent_payment</span>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-str">"""동시 결제 요청이 중복 처리되지 않음을 검증"""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;service = PaymentService(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gateway=MockGateway(delay=<span class="sc-str">0.1</span>),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repo=MockRepository()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tasks = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service.process_payment(PaymentRequest(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user_id=<span class="sc-str">"user-001"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount=<span class="sc-str">50000</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idempotency_key=<span class="sc-str">"key-001"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">for</span> _ <span class="sc-key">in</span> range(<span class="sc-str">10</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;results = <span class="sc-key">await</span> asyncio.gather(*tasks,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return_exceptions=<span class="sc-key">True</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;success = [r <span class="sc-key">for</span> r <span class="sc-key">in</span> results<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">if</span> isinstance(r, PaymentResult)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">assert</span> len(success) == <span class="sc-str">1</span>
+</div>
+
+<p class="novel">테스트 자체는 이해했다. 같은 결제 요청을 동시에 10개 보내서 1개만 성공하는지 확인하는 것이다. 문제는 <code>MockRepository</code>가 실제 PostgreSQL이 아니라 인메모리 구현이라는 것이었다. <code>pg_advisory_xact_lock</code>은 PostgreSQL 전용 함수인데, 모킹된 레포지토리에서는 동작하지 않는다. AI가 만든 모킹은 <code>pg_advisory_lock</code> 기준이었다.</p>
+
+<p class="novel">진우는 <code>MockRepository</code>를 열었다. 120줄. <code>asyncio.Lock</code>으로 세션 레벨 잠금을 흉내 내고 있었다. 이것을 트랜잭션 레벨로 바꿔야 한다. 그러려면 <code>asyncio.Lock</code>의 라이프사이클을 <code>async with</code> 스코프에 맞춰야 하고, 그러려면 <code>contextlib.asynccontextmanager</code>를...</p>
+
+<p class="novel">진우는 의자에 깊이 기대앉았다.</p>
+
+<p class="internal">이것이 AI 코드의 문제다. 코드 자체는 잘 짜여 있다. 테스트도 있다. 하지만 코드를 이해하지 못한 채 테스트가 통과하는 것을 보고 안심했다. 테스트가 깨지는 순간, 나는 테스트를 고치지 못한다. 테스트를 이해하지 못하니까.</p>
+
+<p class="novel">오후 4시. 서연이 자리에서 일어났다.</p>
+
+<p class="dialogue">"진우야. 밥 먹으러 가자."</p>
+
+<p class="dialogue">"나 좀 바빠."</p>
+
+<p class="novel">서연이 진우의 모니터를 힐끗 보았다. PostgreSQL 문서 탭 3개, pytest 문서, asyncio 문서, Stack Overflow 탭 4개.</p>
+
+<p class="dialogue">"점심 굶으면 코드가 더 안 보여. 가자."</p>
+
+<p class="novel">국밥집에서 서연이 물었다.</p>
+
+<p class="dialogue">"어디까지 했어?"</p>
+
+<p class="dialogue">"원인은 찾았어. 수정도 했어. 테스트가 깨져."</p>
+
+<p class="dialogue">"무슨 테스트?"</p>
+
+<p class="dialogue">"동시 결제 테스트. Mock이 세션 레벨 잠금으로 짜여 있는데, 트랜잭션 레벨로 바꿔야 해."</p>
+
+<p class="dialogue">"Mock을 다시 짜."</p>
+
+<p class="dialogue">"120줄이야. asyncio.Lock이랑 contextmanager 조합인데 — "</p>
+
+<p class="dialogue">"진우야." 서연이 젓가락을 내려놓았다. "Mock을 다시 짜는 게 아니야. 테스트를 다시 짜는 거야. 그 Mock이 정확히 뭘 테스트하는 건지부터 다시 생각해봐."</p>
+
+<p class="novel">진우는 국밥을 비우며 생각했다. 서연의 말이 맞았다. AI가 만든 Mock은 AI의 구현을 따라간 것이다. 구현이 바뀌면 Mock도 당연히 깨진다. 하지만 테스트의 <strong>의도</strong>는 변하지 않았다. "동시 결제가 중복 처리되지 않는다." 이 의도를 검증하는 더 간단한 방법이 있을 수 있다.</p>
+
+<p class="novel">오후 5시. 사무실로 돌아온 진우는 Mock을 고치는 대신, 테스트를 다시 썼다.</p>
+
+<div class="source-code">
+<span class="sc-comment"># 진우가 직접 작성한 테스트</span><br>
+<span class="sc-key">@pytest.mark.asyncio</span><br>
+<span class="sc-key">async def</span> <span class="sc-fn">test_no_duplicate_payment</span>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-str">"""같은 idempotency_key로 두 번 결제하면 한 번만 처리"""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;service = create_test_service()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-comment"># 첫 번째 결제</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;r1 = <span class="sc-key">await</span> service.process_payment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_request(key=<span class="sc-str">"same-key"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">assert</span> r1.status == <span class="sc-str">"success"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-comment"># 같은 키로 두 번째 결제</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;r2 = <span class="sc-key">await</span> service.process_payment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_request(key=<span class="sc-str">"same-key"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">assert</span> r2.status == <span class="sc-str">"success"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">assert</span> r2.transaction_id == r1.transaction_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-comment"># 실제 결제 호출은 1회만</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sc-key">assert</span> service._gateway.charge_count == <span class="sc-str">1</span>
+</div>
+
+<p class="novel">12줄. AI가 짜준 테스트의 10분의 1 분량. 동시 요청 10개를 발사하는 대신, 순차적으로 같은 키를 두 번 보내서 멱등성을 확인한다. 동시성 테스트는 나중에 통합 테스트에서 실제 DB로 하면 된다. 단위 테스트에서 Mock으로 동시성을 검증하는 것은 — 서연의 말대로 — 테스트가 아니라 Mock의 정확성을 테스트하는 것이었다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> pytest tests/test_payment.py -v<br>
+<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_payment_success<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_payment_insufficient_funds<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_no_duplicate_payment<br>
+<span class="t-prompt">passed</span> tests/test_payment.py::test_idempotency_different_keys<br>
+<br>
+<span class="t-str">4 passed</span> in 1.87s
+</div>
+
+<p class="novel">오후 7시 12분. 서연이 퇴근 준비를 하며 말했다.</p>
+
+<p class="dialogue">"끝났어?"</p>
+
+<p class="dialogue">"테스트는 통과했어. 통합 테스트 환경에서 한 번 더 돌려봐야 하는데."</p>
+
+<p class="dialogue">"화이팅." 서연이 가방을 들었다. 문 앞에서 돌아보며 한마디 더했다. "진우야. 코드 깔끔한데?"</p>
+
+<p class="novel">진우는 웃지 않았다. 깔끔한 것이 아니라 이해할 수 있는 것이다. 진우가 직접 쓴 12줄은 깔끔하지 않을 수 있다. 하지만 각 줄이 왜 거기 있는지 안다.</p>
+
+<p class="novel">밤 10시. 통합 테스트 환경에서 실제 PostgreSQL로 동시 요청 테스트를 돌렸다. 100개의 동시 요청. <code>pg_advisory_xact_lock</code>이 정확히 1건만 통과시켰다. 나머지 99건은 잠금 대기 후 멱등성 캐시에서 처리됐다.</p>
+
+<p class="novel">자정. 진우 혼자 사무실에 남아 있었다. 모니터의 불빛이 얼굴을 비추고 있었다. AI 없이 14시간째 코딩 중. 고친 줄 수: 23줄. 보통 AI와 함께라면 하루에 200줄은 찍었다. 하지만 이 23줄은 각각의 의미를 안다. <code>pg_advisory_xact_lock</code>이 뭔지, TTL 3600이 왜 3600인지, <code>PYTHONHASHSEED</code>가 뭔지.</p>
+
+<p class="internal">Stack Overflow 2025 Developer Survey. 84%가 AI를 쓴다. 46%가 AI를 신뢰하지 않는다. 나는 84%에 속했고, 46%에는 속하지 않았다. 오늘까지는.</p>
+
+</section>
+
+<!-- ───────── PART IV ───────── -->
+
+<div class="scene-break">* * *</div>
+
+<section>
+<div class="section-divider">
+  <p class="part-label">Part IV</p>
+  <p class="part-title">29시간 후</p>
+</div>
+
+<p class="novel novel-first">2026년 2월 11일 수요일 새벽 3시 17분.</p>
+
+<p class="novel">진우는 <code>git commit</code>을 쳤다. 커밋 메시지를 쓰는 것도 원래는 AI가 했다. <code>/commit</code> 한 번이면 AI가 변경 사항을 분석하고, 컨벤셔널 커밋 형식에 맞는 메시지를 생성해줬다. 오늘은 직접 써야 한다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> git diff --stat<br>
+&nbsp;payment/service.py &nbsp;&nbsp;&nbsp;| &nbsp;4 <span class="t-prompt">++</span><span class="t-error">--</span><br>
+&nbsp;db/repository.py &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;6 <span class="t-prompt">+++</span><span class="t-error">---</span><br>
+&nbsp;tests/test_payment.py | 13 <span class="t-prompt">++++++</span><span class="t-error">-------</span><br>
+&nbsp;3 files changed, 11 insertions(+), 12 deletions(-)<br>
+<br>
+<span class="t-prompt">$</span> git commit -m "fix: replace session-level advisory lock<br>
+&nbsp;&nbsp;with transaction-level lock<br>
+<br>
+&nbsp;&nbsp;Problem:<br>
+&nbsp;&nbsp;- pg_advisory_lock() holds locks at session level<br>
+&nbsp;&nbsp;- connection pool reuses sessions<br>
+&nbsp;&nbsp;- under high concurrency, duplicate payments occur<br>
+<br>
+&nbsp;&nbsp;Solution:<br>
+&nbsp;&nbsp;- switch to pg_advisory_xact_lock()<br>
+&nbsp;&nbsp;- use hashlib.md5 instead of built-in hash()<br>
+&nbsp;&nbsp;- rewrite concurrent payment test<br>
+<br>
+&nbsp;&nbsp;Root cause took 14 hours to find. Manually."<br>
+<br>
+<span class="t-str">[main a3f7c2e] fix: replace session-level advisory lock with transaction-level lock</span>
+</div>
+
+<p class="novel">마지막 줄. "Root cause took 14 hours to find. Manually." 커밋 메시지에 넣을 내용은 아니다. 하지만 진우는 그 줄을 지우지 않았다.</p>
+
+<p class="novel">새벽 3시 22분. PR을 올리고 사무실을 나왔다. 성수동 새벽 골목. 닫힌 카페들 사이로 편의점 불빛이 새어 나왔다. 2월의 공기가 차갑고 건조했다.</p>
+
+<p class="novel">아침 8시. 서연이 출근하자마자 PR을 리뷰했다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#dev-review</div>
+  <div class="s-header">
+    <span class="s-name">이서연</span>
+    <span class="s-time">08:34</span>
+  </div>
+  <div class="s-body">PR#247 approved. 코드 깔끔하고 원인 분석 정확함. 커밋 메시지가... 소설이네. "Root cause took 14 hours to find. Manually." 진우 답다.</div>
+</div>
+
+<p class="novel">오전 10시. 투자 PT가 끝났다. 김대표가 슬랙에 올렸다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">김대표</span>
+    <span class="s-time">10:22</span>
+  </div>
+  <div class="s-body">PT 잘 끝났습니다. 진우 님 빠른 대응 감사합니다.</div>
+</div>
+
+<p class="novel">"빠른 대응." 14시간이 빠른 대응인지는 모르겠다. AI였으면 30분이었을 것이다. 하지만 AI는 어제 이 버그를 만들었고, 오늘 이 버그를 고친 것은 진우다.</p>
+
+<p class="novel">오후 3시. 진우의 터미널에 새로운 메시지가 떴다.</p>
+
+<div class="terminal">
+<span class="t-prompt">$</span> claude<br>
+<br>
+<span class="t-str">Welcome back! Your weekly usage has been reset.</span><br>
+<br>
+<span class="t-comment">Current usage: 0% of weekly limit</span><br>
+<br>
+<span class="t-prompt">></span> <span class="t-comment">_</span>
+</div>
+
+<p class="novel">커서가 깜박였다. 29시간 만에 돌아온 AI. 진우는 잠시 멈췄다. 뭘 시키지?</p>
+
+<p class="novel">진우는 어제 고친 코드를 붙여넣었다.</p>
+
+<div class="terminal">
+<span class="t-prompt">></span> 이 코드 리뷰해줘. 어제 결제 시스템의 advisory lock을<br>
+&nbsp;&nbsp;세션 레벨에서 트랜잭션 레벨로 변경했어.
+</div>
+
+<div class="ai-voice">
+  <div class="ai-tag">claude</div>
+  좋은 수정입니다. <code>pg_advisory_xact_lock</code>으로 전환한 것은 커넥션 풀 환경에서 올바른 접근입니다. 두 가지 제안이 있습니다. 첫째, <code>hashlib.md5</code> 대신 <code>hashlib.sha256</code>을 사용하면 충돌 확률이 낮아집니다. 둘째, lock 키에 <code>user_id</code>만 사용하고 있는데, <code>user_id + currency</code>로 확장하면 다른 통화의 동시 결제도 독립적으로 처리할 수 있습니다.
+</div>
+
+<p class="novel"><code>sha256</code>. 맞다. <code>md5</code>는 약하다. 그리고 통화별 분리. 진우가 생각하지 못한 부분이다. AI가 맞다.</p>
+
+<p class="novel">하지만 이번에는 달랐다. 6개월 전에 진우는 AI의 제안을 복사해서 붙여넣었다. "좋아 보인다." 오늘 진우는 AI의 제안을 <strong>이해하고</strong> 수정한다. <code>sha256</code>으로 바꾸는 것이 왜 나은지 안다. <code>user_id + currency</code>가 왜 필요한지 안다. advisory lock이 뭔지 아니까.</p>
+
+<p class="internal">6개월 전에 나는 AI에게 코드를 맡겼다. AI가 작성자이고 나는 승인자였다. "좋아 보인다"는 이해가 아니라 신뢰였다. 근거 없는 신뢰.</p>
+
+<p class="internal">오늘부터 나는 작성자이고 AI는 리뷰어다. AI가 더 나은 방법을 알려주면 감사하게 받아들인다. 하지만 왜 나은지 이해하지 못한 채 적용하지 않는다.</p>
+
+<p class="novel">진우는 수정 사항을 적용하고, 테스트를 돌리고, 커밋했다. 이번에는 5분이 걸렸다. AI가 리뷰하고, 진우가 이해하고, 적용했다. 14시간도, 3초도 아닌 5분. 인간과 AI의 적절한 속도.</p>
+
+<p class="novel">오후 4시. 진우는 슬랙에 글을 올렸다.</p>
+
+<div class="slack-msg">
+  <div class="s-channel">#general</div>
+  <div class="s-header">
+    <span class="s-name">박진우</span>
+    <span class="s-time">16:07</span>
+  </div>
+  <div class="s-body">다음 주 월요일부터 주 1회 "No AI Day"를 해보려고 합니다. AI 코딩 도구 없이 하루 개발하는 날. 관심 있으신 분?</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">이서연</span>
+    <span class="s-time">16:08</span>
+  </div>
+  <div class="s-body">+1</div>
+</div>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">김대표</span>
+    <span class="s-time">16:15</span>
+  </div>
+  <div class="s-body">?</div>
+</div>
+
+<p class="novel">진우는 김대표의 물음표를 보며 답장을 쳤다.</p>
+
+<div class="slack-msg">
+  <div class="s-header">
+    <span class="s-name">박진우</span>
+    <span class="s-time">16:17</span>
+  </div>
+  <div class="s-body">AI가 짜준 23줄을 이해하는 데 14시간이 걸렸습니다. 직접 짠 23줄을 이해하는 데는 0초가 걸립니다.</div>
+</div>
+
+<p class="novel">진우는 그 메시지를 보내고 터미널로 돌아갔다. Claude의 커서가 깜박이고 있었다. 29시간 전에는 그 커서가 사라져서 공포였다. 지금은 그 커서가 돌아와서 편안하다. 하지만 같은 편안함은 아니다.</p>
+
+<p class="novel">29시간 전의 편안함은 의존이었다. 지금의 편안함은 선택이다.</p>
+
+<p class="novel">진우는 타이핑을 시작했다.</p>
+
+<div class="terminal">
+<span class="t-prompt">></span> 결제 서비스 전체 코드를 리뷰해줘. 내가 이해하지 못하는<br>
+&nbsp;&nbsp;부분이 있으면 알려줘. 설명은 간단하게, 내가 직접<br>
+&nbsp;&nbsp;찾아볼 수 있을 정도로만.
+</div>
+
+<p class="novel">진우는 이전에 "이 코드 짜줘"라고 말했다. 오늘은 "이 코드 설명해줘"라고 말한다. 다음에는 "내가 짠 이 코드 리뷰해줘"라고 말할 것이다. 같은 도구, 다른 사용법.</p>
+
+<p class="novel">84%가 AI를 쓴다. 46%가 AI를 신뢰하지 않는다. 진우는 이제 둘 다에 속한다. AI를 쓰되 맹신하지 않는다. 오류를 발견하되 도구를 버리지 않는다. 이것이 아마도 센타우르 모델이라는 것이다. 인간의 이해와 AI의 속도. 둘 중 하나만으로는 부족하다.</p>
+
+<p class="novel">성수동의 저녁. 사무실 창밖으로 카페 불빛이 하나둘 켜지고 있었다. 진우는 AI의 리뷰 결과를 읽으며, 모르는 키워드를 하나씩 PostgreSQL 문서에서 찾아보았다. 느리다. 하지만 괜찮다.</p>
+
+<p class="novel">23줄을 이해하는 데 14시간이 걸렸다. 다음번에는 7시간이 걸릴 것이다. 그다음에는 3시간. 근육은 쓸수록 강해진다. 코딩 근육도 마찬가지다.</p>
+
+<p class="novel">진우는 29시간 동안 AI 없이 살아남았다. 대단한 일은 아니다. 하지만 그 29시간 동안 진우는 개발자가 되었다. AI가 만들어준 개발자가 아니라, 코드를 이해하는 개발자.</p>
+
+</section>
+
+</main>
+
+<div class="closing">
+  <h2>AI가 짜준 코드 23줄, 14시간<br><strong>직접 짠 코드 23줄, 0초</strong></h2>
+  <p class="sub">84%가 AI를 쓴다. 46%가 신뢰하지 않는다. 남은 질문은 하나다 — 당신은 당신의 코드를 이해하는가.</p>
+</div>
+
+<footer class="footer">
+  <p>This is a work of fiction &middot; Characters and events are imaginary</p>
+  <p>Stack Overflow 2025 Developer Survey &middot; PostgreSQL Advisory Locks Documentation &middot; METR AI Tool Productivity Study (2025) &middot; Research assisted by Claude &middot; 2026</p>
+</footer>
+
+</div>
+</article>
+</body>
+</html>
